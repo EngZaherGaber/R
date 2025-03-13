@@ -1,0 +1,26 @@
+@use "../public/color.scss" as *;
+@mixin transition-animatite() {
+  transition: transform 2s ease, box-shadow 2s ease, width 2s ease,
+    height 2s ease, opacity 4s ease, background-color 4s ease;
+}
+@keyframes fadeIn-right {
+  from {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes fadeIn-left {
+  from {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}

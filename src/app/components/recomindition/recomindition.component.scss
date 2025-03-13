@@ -1,0 +1,47 @@
+@use "../../../../public/color" as *;
+@use "../../../../public/animation" as *;
+@use "../../../../public/mixin" as *;
+.recomindtion {
+  p-carousel {
+    width: 100%;
+    ::ng-deep .p-carousel {
+      .p-carousel-item-list {
+        gap: 2 * $pad;
+        .container {
+          position: relative;
+          padding-top: 4 * $pad;
+          .card {
+            position: relative;
+            padding: 2 * $pad 3 * $pad;
+            background-color: $c4-tr;
+            gap: 0;
+            p {
+              margin: 0;
+            }
+            small {
+              text-align: justify;
+            }
+            img {
+              position: absolute;
+              width: 80px;
+              height: 80px;
+              border-radius: 50%;
+              right: 2 * $pad + 40px;
+              top: -40px;
+              z-index: 999;
+            }
+            .msg-con {
+              position: relative;
+              // top: 2 * $pad;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.light {
+    ::ng-deep .card {
+      background-color: $l-c4-tr !important;
+    }
+  }
+}

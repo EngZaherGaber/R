@@ -1,0 +1,146 @@
+@use "../public/_font.scss" as *;
+@use "../public/mixin" as *;
+@use "@angular/material" as mat;
+@use "../public/color" as *;
+@use "../public/animation" as *;
+@use "primeicons/primeicons.css" as *;
+:root {
+  @include mat.sidenav-overrides(
+    (
+      container-background-color: $c1,
+    )
+  );
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: $c-gold,
+    )
+  );
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: $c-gold,
+      track-height: 4px,
+      active-indicator-height: 4px,
+      track-color: $c1-tr2,
+    )
+  );
+  @include mat.button-overrides(
+    (
+      filled-label-text-color: $c2,
+      filled-container-color: $c2,
+    )
+  );
+  @include mat.divider-overrides(
+    (
+      color: $c1-tr2,
+      width: 100%,
+    )
+  );
+  @include mat.sidenav-overrides(
+    (
+      container-width: 300px,
+    )
+  );
+}
+
+* {
+  @include transition-animatite();
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  letter-spacing: 1px;
+}
+
+body {
+  @include responsive-headings();
+  height: 100%;
+  overflow-x: hidden;
+  padding: calc(2 * $pad);
+  background-color: $c1;
+  .title {
+    color: $c2;
+  }
+  .sub-title {
+    color: $c4;
+    opacity: 0.7;
+  }
+  .gold {
+    color: $c-gold;
+  }
+  .flx-col-bet {
+    width: 100%;
+    @include flx(column, center, center);
+  }
+  .flx-col-start {
+    width: 100%;
+    @include flx(column, flex-start, flex-start, 2 * $pad);
+  }
+  .flx-row-ev {
+    width: 100%;
+    @include flx(row, space-evenly, center);
+  }
+  .flx-row-bet {
+    width: 100%;
+    @include flx(row, space-between, center);
+  }
+  .flx-row-start {
+    width: 100%;
+    @include flx(row, flex-start, center);
+  }
+}
+body.light {
+  @include mat.progress-spinner-overrides(
+    (
+      active-indicator-color: $l-c-gold,
+    )
+  );
+  @include mat.progress-bar-overrides(
+    (
+      active-indicator-color: $l-c-gold,
+      track-height: 4px,
+      active-indicator-height: 4px,
+      track-color: $c1-tr2,
+    )
+  );
+  @include mat.sidenav-overrides(
+    (
+      container-background-color: $l-c1,
+    )
+  );
+  @include mat.progress-bar-overrides(
+    (
+      track-color: $l-c1-tr2,
+    )
+  );
+  @include mat.button-overrides(
+    (
+      filled-label-text-color: $l-c2,
+      filled-container-color: $l-c2,
+    )
+  );
+  @include mat.divider-overrides(
+    (
+      color: $l-c1-tr2,
+    )
+  );
+  background-color: $l-c1-tr;
+  .title {
+    color: $l-c2;
+  }
+  .sub-title {
+    color: $l-c4;
+    opacity: 0.7;
+  }
+  .gold {
+    color: $l-c-gold;
+  }
+}
+@include forTablet() {
+  body {
+    padding: 0;
+  }
+}
+/* Scrollbar Track */
+::-webkit-scrollbar {
+  display: none;
+}

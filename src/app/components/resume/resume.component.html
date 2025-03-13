@@ -1,0 +1,51 @@
+<div [class]="'flx-row-bet resume ' + ((scrnSrv.isDark) ? ' ': ' light')">
+  <div class="education">
+    <div class="flx-col-bet">
+      <h6 class="sub-title text-left w-100">History Work</h6>
+      <p-timeline [value]="works" align="right">
+        <ng-template #marker let-event>
+          <span class="marker-icon"> </span>
+        </ng-template>
+        <ng-template #content let-event>
+          <div class="card right flx-col-start" pAnimateOnScroll [once]="false"
+            [enterClass]="'fadeIn-' + event.oddOrEven">
+            <h6 class="title m-0">
+              {{ event.company }}
+            </h6>
+            <div class="flx-col-start">
+              <p class="sub-title m-0">{{ event.position }}</p>
+              <small class="date-opp title">{{ event.date }}</small>
+            </div>
+            <small class="sub-title">
+              {{ event.description }}
+            </small>
+          </div>
+        </ng-template>
+      </p-timeline>
+    </div>
+  </div>
+  <div class="education">
+    <div class="flx-col-bet">
+      <h6 class="sub-title text-left w-100">Education</h6>
+      <p-timeline [value]="educations" align="right">
+        <ng-template #marker let-event>
+          <span class="marker-icon"></span>
+        </ng-template>
+        <ng-template #content let-event>
+          <div class="card" pAnimateOnScroll [once]="false" [enterClass]="'fadeIn-' + event.oddOrEven">
+            <h6 class="title m-0">
+              {{ event.title }}
+            </h6>
+            <div class="flx-col-start">
+              <p class="sub-title m-0">{{ event.certifaction }}</p>
+              <small class="date-opp title">{{ event.date }}</small>
+            </div>
+            <small class="sub-title">
+              {{ event.description }}
+            </small>
+          </div>
+        </ng-template>
+      </p-timeline>
+    </div>
+  </div>
+</div>

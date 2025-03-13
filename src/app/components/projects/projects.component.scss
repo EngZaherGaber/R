@@ -1,0 +1,79 @@
+@use "../../../../public/color" as *;
+@use "../../../../public/animation" as *;
+@use "../../../../public/mixin" as *;
+@use "sass:math" as math;
+.projects {
+  width: 100%;
+  .card {
+    height: 100%;
+    background-color: $c4-tr;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &:hover {
+      .info {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
+    img {
+      width: 100%;
+      padding: 4 * $pad;
+      position: relative;
+      z-index: 1;
+    }
+    .info {
+      position: absolute;
+      width: calc(100%);
+      opacity: 0;
+      bottom: 0;
+      background-color: $c1-tr4;
+      padding: 2 * $pad;
+      z-index: 2;
+      transform: translateY(100%);
+      * {
+        margin: 0;
+      }
+    }
+    &.freelance::before,
+    &.erp::before {
+      position: absolute;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+      z-index: 99;
+      top: 3 * $pad;
+      font-weight: bold;
+      color: $c1;
+      right: -6 * $pad;
+      padding: math.div($pad, 2);
+      width: 200px;
+      text-align: center;
+      background: $c-gold;
+    }
+    &.freelance::before {
+      content: "Freelance";
+    }
+    &.erp::before {
+      content: "ERP";
+    }
+  }
+  mat-grid-list {
+    margin: 2 * $pad;
+  }
+  &.light {
+    .card {
+      background-color: $l-c4-tr;
+      &.freelance::before,
+      &.erp::before {
+        background: $l-c-gold;
+      }
+      .info {
+        background-color: $l-c1-tr4;
+      }
+      &.freelance::before,
+      &.erp::before {
+        color: $l-c1;
+      }
+    }
+  }
+}

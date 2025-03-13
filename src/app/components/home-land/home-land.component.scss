@@ -1,0 +1,341 @@
+@use "../../../../public/color" as *;
+@use "../../../../public/animation" as *;
+@use "../../../../public/mixin" as *;
+.container {
+  width: 100%;
+  height: 100%;
+  background-color: $c1-tr;
+  box-shadow: 0 0 5px $c1-tr2;
+  z-index: 0;
+  overflow-y: hidden;
+  padding-bottom: 3 * $pad;
+  padding-inline: 0;
+  position: relative;
+  max-width: 100% !important;
+  .header {
+    position: sticky;
+    background-color: $c1-tr2;
+    width: 100%;
+    padding: 2 * $pad;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    box-shadow: 0 5px 5px $c1;
+    .pos1 {
+      position: absolute;
+      right: 2 * $pad;
+      top: 0;
+      width: 40px;
+      height: 40px;
+      ::ng-deep .p-button {
+        left: 0;
+      }
+    }
+    ::ng-deep .p-button {
+      position: absolute;
+      left: 2 * $pad;
+      top: 0;
+    }
+  }
+  .super-img-con {
+    position: sticky;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    box-shadow: inset 0px 20px 20px 20px $c1-tr4;
+    .super-img {
+      position: sticky;
+      background: url("../../../../public/land.webp");
+      background-size: cover;
+      background-position: center;
+      width: calc(100%);
+      height: 350px;
+      -webkit-box-reflect: below -150px linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1));
+      z-index: 0;
+    }
+    .overlay {
+      background-color: $c1-tr4;
+      position: absolute;
+      top: 0;
+      height: calc(100%);
+      width: 100%;
+      z-index: 1;
+    }
+  }
+  .art-certain {
+    @include flx(column, flex-start, center);
+    background: rgba(30, 30, 40, 0.5);
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: $pad 4 * $pad;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-transition: 0.55s ease-in-out;
+    transition: 0.55s ease-in-out;
+    .art-top {
+      width: calc(100%);
+      height: 400px;
+      min-height: 400px;
+      padding: 3 * $pad 0;
+      position: relative;
+      .art-top-bg,
+      .art-top-overlay,
+      .art-top-con {
+        position: absolute;
+        width: calc(100%);
+        height: 400px;
+      }
+      #personal-img {
+        position: absolute;
+        right: 0;
+        height: 100%;
+        z-index: 4;
+      }
+      
+      .art-top-bg {
+        background: url("../../../../public/land.webp");
+        background-size: cover;
+        background-position: center;
+        z-index: 3;
+        opacity: 1;
+      }
+      .art-top-overlay {
+        position: absolute;
+        z-index: 4;
+        background: $c1-tr2;
+        background-size: cover;
+        background-position: center;
+        box-shadow: inset 0px 0px 20px 5px $c1-tr;
+        opacity: 0.6;
+      }
+      .art-top-con {
+        z-index: 5;
+        padding: 0 3 * $pad;
+        @include flx(column, center, flex-start);
+        p {
+          display: inline;
+          font-family: Roboto, system-ui, -apple-system, BlinkMacSystemFont,
+            "Segoe UI", Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+            sans-serif;
+          color: $c-gold;
+        }
+      }
+    }
+    .art-info-bar {
+      width: 100%;
+      position: relative;
+      z-index: 4;
+      padding: 4 * $pad 0;
+      & > .flx-row-bet {
+        .gold::before {
+          content: "";
+          border-right: 2px solid $c-gold;
+          margin-right: $pad;
+        }
+      }
+    }
+    .art-services-con {
+      .art-services {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2 * $pad;
+        .art-service-card {
+          background: $c4-tr;
+          padding: 2 * $pad;
+          position: relative;
+          &::after {
+            content: "";
+            border-left: 5px solid $c-gold;
+            height: calc(100% - 4 * $pad);
+            position: absolute;
+            left: 0;
+          }
+        }
+      }
+    }
+    recomindition,
+    resume,
+    projects {
+      margin-block: 4 * $pad;
+      margin-inline: 2 * $pad;
+      width: 100%;
+    }
+    .art-contact-con {
+      > .flx-row-bet {
+        .contact-card {
+          width: 100%;
+          background-color: $c1-tr2;
+          padding: 2 * $pad;
+          .contact-info {
+            width: auto;
+            align-items: center;
+            .flx-row-start {
+              align-items: center;
+              width: auto;
+            }
+          }
+        }
+      }
+    }
+    .art-footer-con {
+      background-color: $c1-tr2;
+      padding: 2 * $pad;
+    }
+  }
+  .style-button {
+    background-color: $c-gold;
+    color: $c1;
+    font-weight: bold;
+    ::ng-deep .p-button {
+      color: inherit;
+    }
+  }
+  .pos {
+    position: fixed;
+    top: 10vh;
+    right: 2 * $pad;
+    z-index: 999;
+  }
+  &.light {
+    background-color: $l-c1-tr;
+    box-shadow: 0 0 5px $l-c1-tr2;
+    .header {
+      background-color: $l-c1-tr2;
+      box-shadow: 0 5px 5px $l-c1;
+    }
+    .super-img-con {
+      box-shadow: inset 0px 20px 20px 20px $l-c1-tr4;
+      .super-img {
+        background: url("../../../../public/land.webp");
+      }
+      .overlay {
+        background-color: $l-c1-tr4;
+      }
+    }
+    .art-certain {
+      background: $l-c4-tr;
+      .art-top {
+        .art-top-bg {
+          background: url("../../../../public/land.webp");
+        }
+        .art-top-overlay {
+          background: $l-c1-tr2;
+          box-shadow: inset 0px 0px 20px 5px $l-c1-tr;
+        }
+        .art-top-con p {
+          color: $l-c-gold;
+        }
+      }
+      .art-services-con .art-services .art-service-card {
+        background: $l-c4-tr;
+        &::after {
+          content: "";
+          border-left: 5px solid $l-c-gold;
+        }
+      }
+      .art-contact-con > .flx-row-bet .contact-card {
+        background-color: $l-c1-tr2;
+      }
+      .art-footer-con {
+        background-color: $l-c1-tr2;
+      }
+      .art-info-bar {
+        & > .flx-row-bet {
+          .gold::before {
+            content: "";
+            border-right: 2px solid $l-c-gold;
+          }
+        }
+      }
+    }
+    .style-button {
+      color: $l-c1 !important;
+      background-color: $l-c-gold;
+    }
+  }
+}
+@include forTablet() {
+  .container {
+    .super-img-con {
+      .super-img {
+        width: 100% !important;
+        right: 0 !important;
+      }
+    }
+    .art-certain {
+      padding-inline: 2 * $pad;
+      .art-top {
+        padding-inline: 0;
+        #personal-img{
+          display: none;
+        }
+        .art-top-bg,
+        .art-top-overlay,
+        .art-top-con {
+          position: absolute;
+          width: calc(100%);
+          left: 0;
+          height: 400px;
+        }
+        .art-top-con {
+          padding-block: 2 * $pad;
+          * {
+            text-align: center;
+            width: 100%;
+          }
+        }
+      }
+      .art-info-bar {
+        flex-wrap: wrap;
+        .flx-row-bet {
+          width: calc(50% - $pad);
+          .gold,
+          .title {
+            text-align: start;
+          }
+          .gold {
+            width: 20%;
+            &::after {
+              border-right: 0;
+            }
+          }
+          .title {
+            width: 80%;
+          }
+        }
+      }
+      .art-services-con {
+        .art-services {
+          grid-template-columns: 1fr;
+          .art-service-card {
+            position: relative;
+            &:nth-child(odd)::after {
+              content: "";
+              border-left: 5px solid $c-gold;
+              height: calc(100% - 4 * $pad);
+              position: absolute;
+              left: 0;
+            }
+            &:nth-child(even)::after {
+              content: "";
+              border-right: 5px solid $c-gold;
+              border-left: 0;
+              height: calc(100% - 4 * $pad);
+              position: absolute;
+              right: 0;
+            }
+          }
+        }
+      }
+      .art-contact-con > .flx-row-bet {
+        flex-wrap: wrap;
+      }
+    }
+  }
+}

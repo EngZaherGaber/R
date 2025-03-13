@@ -1,0 +1,33 @@
+$c1: #111317;
+$c1-tr: rgb(25, 28, 34);
+$c1-tr2: #21252d;
+$c1-tr3: #252532fa;
+$c1-tr4: rgba(25, 28, 34, 0.8);
+$c2: #fff6e5;
+$c2-tr: rgba(33, 33, 59, 0.75);
+$c3: #6c6a61;
+$c4: #c1c7c6;
+$c4-tr: #21252d66;
+$c-gold: #ffc107;
+
+$l-c1: #e5e1da; // Very light (almost white)
+$l-c1-tr: #d8d4cd; // Slightly darker than $l-c1
+$l-c1-tr2: #e5e1d8; // Darker than $l-c1-tr
+$l-c1-tr3: #d8d4cdee; // Slightly transparent, similar to $l-c1-tr
+$l-c1-tr4: rgba(216, 212, 205, 0.8); // Transparent version of $l-c1-tr
+$l-c2: #111317; // Very dark (almost black)
+$l-c2-tr: #21252d; // Slightly lighter than $l-c2
+$l-c3: #6c6a61; // Mid-tone gray (same as dark theme)
+$l-c4: #21252d; // Dark gray
+$l-c4-tr: rgba(216, 212, 205, 0.4); // Transparent version of $l-c1-tr
+$l-c-gold: #a88007;
+
+$primary: $c-gold;
+$dark: $c1;
+$light: $c2;
+$body-bg: $c1-tr;
+$body-color: $c2;
+$card-bg: $c1-tr2;
+$card-color: $c2;
+$border-color: $c1-tr3;
+$bs-dark-rgb: $c1-tr2;

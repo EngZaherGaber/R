@@ -1,0 +1,64 @@
+@use "../../../../public/color" as *;
+@use "../../../../public/animation" as *;
+@use "../../../../public/mixin" as *;
+::ng-deep .skills .p-timeline {
+  gap: 2 * $pad;
+  .marker-icon {
+    padding-bottom: 2 * $pad;
+
+    .img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  p:not(.title) {
+    text-align: justify !important;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  .card {
+    background-color: transparent;
+    border: 0;
+    padding: $pad;
+    &.fadeIn-odd {
+      animation: fadeIn-right 2s forwards;
+    }
+    &.fadeIn-even {
+      animation: fadeIn-left 2s forwards;
+    }
+    h6 {
+      text-align: right;
+      // padding-inline: 2 * $pad;
+    }
+    small {
+      text-align: justify;
+      padding-inline: 2 * $pad;
+    }
+  }
+  .p-timeline-event:nth-child(odd) .card {
+    h6 {
+      text-align: left;
+    }
+  }
+  &.light {
+    
+  }
+  @include forTablet() {
+    .p-timeline-event-opposite {
+      display: none;
+    }
+    .marker-icon .img {
+      width: 50px;
+      height: 50px;
+    }
+    .card {
+      &.fadeIn-even {
+        animation: fadeIn-right 2s forwards;
+      }
+      h6 {
+        text-align: left !important;
+        padding-inline: 0 !important;
+      }
+    }
+  }
+}

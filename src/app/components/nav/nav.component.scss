@@ -1,0 +1,64 @@
+@use "../../../../public/color" as *;
+@use "../../../../public/animation" as *;
+@use "../../../../public/mixin" as *;
+.container {
+  @include flx(column, stretch, stretch, 0);
+  height: calc(98vh - 2 * $pad);
+  padding: 0;
+  margin-bottom: 0;
+  .img-div {
+    @include flx(column, center, center, 0);
+    width: 100%;
+    height: 200px;
+    background: $c1-tr2;
+    padding: $pad;
+    position: relative;
+    img {
+      opacity: 0.85;
+      width: 50%;
+      max-width: 100px;
+      border-radius: 50%;
+      background-color: $c-gold;
+    }
+    ::ng-deep .p-button {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+  .info-con {
+    @include flx(column, space-between, stretch, calc(2 * $pad));
+    padding: calc(2 * $pad) calc(3 * $pad);
+    background-color: $c1-tr;
+    max-height: calc(98vh - 2 * $pad - 200px - 50px);
+    overflow-y: auto;
+  }
+  .footer {
+    background: $c1-tr2;
+    height: 50px;
+    padding: $pad;
+  }
+  &.light {
+    .img-div {
+      background: $l-c1-tr2;
+      img {
+        background-color: $l-c-gold;
+      }
+    }
+    .info-con {
+      background-color: $l-c1-tr;
+    }
+    .footer {
+      background: $l-c1-tr2;
+    }
+  }
+}
+@include forTablet() {
+  .container {
+    height: 100vh;
+    .info-con {
+      max-height: calc(100vh - 200px - 50px);
+      height: calc(100vh - 200px - 50px);
+    }
+  }
+}

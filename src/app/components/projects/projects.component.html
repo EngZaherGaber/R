@@ -1,0 +1,17 @@
+<div [class]="'projects ' + ((scrnSrv.isDark) ? ' ': 'light')">
+  <h6 class="sub-title text-left">Projects</h6>
+  <mat-grid-list [cols]="(scrnSrv.isHandset$ | async) ? '1' : '2'"
+    [rowHeight]="(scrnSrv.isHandset$ | async) ? '3:2' : '300px'" gutterSize="20px">
+    @for (tile of tiles; track tile) {
+    <mat-grid-tile>
+      <div [class]="'card flx-col-start ' + (tile.category !== 'ERP' ? 'freelance' : 'erp')">
+        <img loading="lazy" [src]="tile.img" [alt]="tile.description" />
+        <div class="info flx-col-start">
+          <p class="title">{{ tile.title }}</p>
+          <small class="sub-title">{{ tile.description }}</small>
+        </div>
+      </div>
+    </mat-grid-tile>
+    }
+  </mat-grid-list>
+</div>

@@ -1,0 +1,30 @@
+<div [class]="'flx-col-bet skills ' + ((scrnSrv.isDark) ? ' ': ' light')">
+  <h6 class="sub-title text-left w-100">Skills</h6>
+  <p-timeline [value]="events" [align]="(scrnSrv.isHandset$ | async) ? 'left' : 'alternate'"
+    styleClass="customized-timeline">
+    <ng-template #marker let-event>
+      <span class="marker-icon" [style]="{ 'background-color': event.color }">
+        @defer (on viewport) {
+
+        <img loading="lazy" [src]="'../../../../' + event.icon" [alt]="event.name" width="200" class="shadow"
+          class="img" />
+        }@loading (after 100ms; minimum 1s) {
+        <div></div>
+        }
+        @placeholder(minimum 1000) {
+        <div></div>
+        }
+      </span>
+    </ng-template>
+    <ng-template #content let-event>
+      <div class="card" pAnimateOnScroll [once]="false" [enterClass]="'fadeIn-' + event.oddOrEven">
+        <h6 class="title">
+          {{ event.title }}
+        </h6>
+        <small class="sub-title">
+          {{ event.description }}
+        </small>
+      </div>
+    </ng-template>
+  </p-timeline>
+</div>
