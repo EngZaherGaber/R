@@ -1,8 +1,17 @@
 @defer (on viewport) {
 <div class="con">
-  <mat-sidenav-container [hasBackdrop]="scrnSrv.isHandset$ | async" [class]="'drawer ' + (loading ? 'block' : 'none')">
-    <mat-sidenav #sidenav class="sidenav-drawer" [style.width]="(scrnSrv.isHandset$ | async) ? '80%' : ''" #drawer
-      [mode]="(scrnSrv.isHandset$ | async) ? 'over' : 'side'" [opened]="true">
+  <mat-sidenav-container
+    [hasBackdrop]="scrnSrv.isHandset$ | async"
+    [class]="'drawer ' + (loading ? 'block' : 'none')"
+  >
+    <mat-sidenav
+      #sidenav
+      class="sidenav-drawer"
+      [style.width]="(scrnSrv.isHandset$ | async) ? '80%' : ''"
+      #drawer
+      [mode]="(scrnSrv.isHandset$ | async) ? 'over' : 'side'"
+      [opened]="scrnSrv.isDark$ | async"
+    >
       <nav></nav>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -10,12 +19,12 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
   <div class="toggle-div" *ngIf="isDarkIn">
-    <img [id]="'cloud1'" class="cloud" src="cloud2.webp" alt="">
-    <img [id]="'cloud2'" class="cloud" src="cloud2.webp" alt="">
-    <img [id]="'cloud3'" class="cloud" src="cloud2.webp" alt="">
-    <img [id]="'cloud4'" class="cloud" src="cloud2.webp" alt="">
-    <img [id]="'cloud5'" class="cloud" src="cloud2.webp" alt="">
-    <img [id]="'cloud6'" class="cloud" src="cloud2.webp" alt="">
+    <img [id]="'cloud1'" class="cloud" src="cloud2.webp" alt="" />
+    <img [id]="'cloud2'" class="cloud" src="cloud2.webp" alt="" />
+    <img [id]="'cloud3'" class="cloud" src="cloud2.webp" alt="" />
+    <img [id]="'cloud4'" class="cloud" src="cloud2.webp" alt="" />
+    <img [id]="'cloud5'" class="cloud" src="cloud2.webp" alt="" />
+    <img [id]="'cloud6'" class="cloud" src="cloud2.webp" alt="" />
   </div>
 </div>
 }@placeholder(minimum 1000) {
