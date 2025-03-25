@@ -10,7 +10,6 @@
       [style.width]="(scrnSrv.isHandset$ | async) ? '80%' : ''"
       #drawer
       [mode]="(scrnSrv.isHandset$ | async) ? 'over' : 'side'"
-      [opened]="scrnSrv.isDark$ | async"
     >
       <nav></nav>
     </mat-sidenav>
