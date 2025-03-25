@@ -1,26 +1,39 @@
-<div [class]="'container flx-col-bet ' + ((scrnSrv.isDark) ? ' ': 'light')">
-  <div class=" header" *ngIf="scrnSrv.isHandset$ | async">
+<div [class]="'container flx-col-bet ' + (scrnSrv.isDark ? ' ' : 'light')">
+  <div class="header" *ngIf="scrnSrv.isHandset$ | async">
     <div class="style-button pos1">
-      <p-button *ngIf="scrnSrv.isHandset$ | async" [text]="true" (onClick)="scrnSrv.changeStyle()"
-        [icon]="(scrnSrv.isDark) ? 'pi pi-sun': 'pi pi-moon'" pTooltip="Change Style" />
+      <p-button
+        *ngIf="scrnSrv.isHandset$ | async"
+        [text]="true"
+        (onClick)="scrnSrv.changeStyle()"
+        [icon]="scrnSrv.isDark ? 'pi pi-sun' : 'pi pi-moon'"
+        pTooltip="Change Style"
+      />
     </div>
-    <p-button (click)="scrnSrv.toggleSidenav()" icon="pi pi-bars" [text]="true" styleClass="sub-title" />
+    <p-button
+      (click)="scrnSrv.toggleSidenav()"
+      icon="pi pi-bars"
+      [text]="true"
+      styleClass="sub-title"
+    />
   </div>
   <div class="art-certain">
     <div class="art-top">
       @defer (on viewport) {
       <div class="art-top-bg"></div>
-      <img src="personal.webp" alt="Personal Image" id="personal-img">
+      <!-- <img src="personal.webp" alt="Personal Image" id="personal-img"> -->
       <div class="art-top-overlay"></div>
-      }
-      @placeholder(minimum 8000) {
+      } @placeholder(minimum 8000) {
       <div></div>
       }
       <div class="art-top-con title">
         <h1 class="fw-bold">Welcome to my Protofolio!</h1>
         <h3 class="fw-bold">My World is Amazing!</h3>
         <div>
-          <<p>code</p>> I Build {{displayedText}}<<p>code</p>/>
+          <
+          <p>code</p>
+          > I Build {{ displayedText }}<
+          <p>code</p>
+          />
         </div>
       </div>
     </div>
@@ -45,7 +58,10 @@
     <div class="art-services-con flx-col-bet">
       <h6 class="sub-title text-left w-100">Services</h6>
       <div class="art-services">
-        <div class="art-service-card flx-col-start" *ngFor="let item of services">
+        <div
+          class="art-service-card flx-col-start"
+          *ngFor="let item of services"
+        >
           <small class="title">
             {{ item.title }}
           </small>
@@ -66,33 +82,34 @@
           <div class="contact-info flx-row-bet" *ngFor="let contact of card">
             <div class="flx-row-start">
               <i [class]="'gold ' + contact.icon"></i>
-              <p class="sub-title m-0">{{contact.key}}</p>
+              <p class="sub-title m-0">{{ contact.key }}</p>
             </div>
-            <small class="title">{{contact.value}}</small>
+            <small class="title">{{ contact.value }}</small>
           </div>
         </div>
       </div>
     </div>
-
 
     <div class="art-footer-con flx-row-bet">
       <div>
         <small class="sub-title">©2025 Eng.Zaher. All rights reserved</small>
       </div>
     </div>
-
   </div>
   <div class="style-button pos">
-    <p-button *ngIf="!(scrnSrv.isHandset$ | async)" [text]="true" (onClick)="scrnSrv.changeStyle()"
-      [icon]="(scrnSrv.isDark) ? 'pi pi-sun': 'pi pi-moon'" />
+    <p-button
+      *ngIf="!(scrnSrv.isHandset$ | async)"
+      [text]="true"
+      (onClick)="scrnSrv.changeStyle()"
+      [icon]="scrnSrv.isDark ? 'pi pi-sun' : 'pi pi-moon'"
+    />
   </div>
   @defer (on viewport) {
   <div class="super-img-con">
     <div class="super-img"></div>
     <div class="overlay"></div>
   </div>
-  }
-  @placeholder(minimum 8000) {
+  } @placeholder(minimum 8000) {
   <div></div>
   }
 </div>
