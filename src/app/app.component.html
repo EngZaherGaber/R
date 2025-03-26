@@ -6,6 +6,7 @@
   >
     <mat-sidenav
       #sidenav
+      [opened]="true"
       class="sidenav-drawer"
       [style.width]="(scrnSrv.isHandset$ | async) ? '80%' : ''"
       #drawer
