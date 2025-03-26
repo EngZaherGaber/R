@@ -72,6 +72,6 @@ $small-mobile: 576px;
   input,
   a,
   small {
-    @include responsive-font-sizes(10px, 12px, 13px, 13px);
+    @include responsive-font-sizes(12px, 13px, 13px, 13px);
   }
 }
