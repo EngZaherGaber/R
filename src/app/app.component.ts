@@ -60,11 +60,10 @@ export class AppComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // window.addEventListener('load', () => {
-    this.start = true;
-    console.log(this.sidenav)
-    this.scrnSrv.sidenav = this.sidenav;
-    // });
+    window.addEventListener('load', () => {
+      this.start = true;
+      this.scrnSrv.sidenav = this.sidenav;
+    });
   }
 
 }

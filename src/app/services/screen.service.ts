@@ -33,7 +33,6 @@ export class ScreenService {
       );
   }
   toggleSidenav() {
-    console.log(this.sidenav)
     this.sidenav?.toggle();
   }
   registerSidenav(sidenav: MatSidenav): void {
