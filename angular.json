@@ -76,10 +76,7 @@
               "buildTarget": "Resume:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-            "hmr": false
-          }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
