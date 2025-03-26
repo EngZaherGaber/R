@@ -55,16 +55,15 @@ export class AppComponent implements AfterViewInit {
     })
   }
   ngOnInit(): void {
-    this.scrnSrv.changeIsDark().subscribe(res=>this.isDarkIn = res);
+    this.scrnSrv.changeIsDark().subscribe(res => this.isDarkIn = res);
 
   }
 
   ngAfterViewInit() {
-    window.addEventListener('load', () => {
-      console.log('hi')
-      this.start = true;
-      this.scrnSrv.sidenav = this.sidenav;
-    });
+    // window.addEventListener('load', () => {
+    this.start = true;
+    this.scrnSrv.sidenav = this.sidenav;
+    // });
   }
 
 }
