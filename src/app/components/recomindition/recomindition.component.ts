@@ -35,18 +35,42 @@ export class RecominditionComponent {
   ];
   recominditionList = [
     {
-      name: 'Mohanad Al-Halabi',
-      postition: 'Manger Of IC&I',
-      msg: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo obcaecati delectus dolores ratione ea reiciendis libero animi laudantium quaerat autem sapiente impedit molestiae deleniti est, expedita magni. Fugit, consequuntur iste?',
+      name: 'Motaz Al-Halabi',
+      postition: '',
+      msg: '',
       img: '',
+      
+    },
+    {
+      name: 'Omar Fallouh',
+      postition: 'CEO (IC&I)',
+      msg: `Eng. Zaher was instrumental in our UN project, delivering a secure Angular solution with micro-frontend architecture. His expertise in RxJS optimization and NgRx state management enabled high-performance multilingual interfaces. A strategic thinker who excels in cross-cultural environments and enterprise-scale challenges.`,
+      img: '',
+    },
+    {
+      name: 'Mohanad Al-Halabi',
+      postition: 'Executive Manager (IC&I)',
+      msg: `Eng. Zaher combines technical excellence with outstanding leadership skills. His ability to communicate clearly, mentor team members, and maintain professionalism under pressure makes him invaluable. Zaher fosters collaboration and consistently delivers results while keeping team morale high.`,
+      img: 'Mohanad.webp',
       rating: 5
     },
     {
-      name: 'Zaher',
-      postition: 'Manger Of IC&I',
-      msg: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo obcaecati delectus dolores ratione ea reiciendis libero animi laudantium quaerat autem sapiente impedit molestiae deleniti est, expedita magni. Fugit, consequuntur iste?',
+      name: 'Waseem Al-Madi',
+      postition: '',
+      msg: '',
       img: '',
-      rating: 3
+    },
+    {
+      name: 'Jamal Al-Halabi',
+      postition: '',
+      msg: '',
+      img: '',
+    },
+    {
+      name: 'Mustafa Al-Homsi',
+      postition: '',
+      msg: '',
+      img: '',
     },
   ];
   constructor(public scrnSrv: ScreenService) { }

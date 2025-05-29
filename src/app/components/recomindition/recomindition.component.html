@@ -1,25 +1,34 @@
-<div [class]="'recomindtion flx-col-bet ' + ((scrnSrv.isDark) ? ' ': 'light')">
+<div [class]="'recomindtion flx-col-bet ' + (scrnSrv.isDark ? ' ' : 'light')">
   <h6 class="sub-title text-left w-100">Recominditions</h6>
-  <p-carousel [circular]="false" [autoplayInterval]="3000" [style]="{ width: '100%' }" [showNavigators]="false"
-    [value]="recominditionList" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+  <p-carousel
+    [circular]="false"
+    [autoplayInterval]="3000"
+    [style]="{ width: '100%' }"
+    [showNavigators]="false"
+    [value]="recominditionList"
+    [numVisible]="3"
+    [numScroll]="1"
+    [responsiveOptions]="responsiveOptions"
+  >
     <ng-template let-recomindition #item>
       <div class="container">
         <div class="card flx-col-start">
           <div class="info">
             <p class="title">{{ recomindition.name }}</p>
-            <small class="sub-title"><i>{{ recomindition.postition }}</i></small>
+            <small class="sub-title"
+              ><i>{{ recomindition.postition }}</i></small
+            >
           </div>
           @defer (on viewport) {
-          <img loading="lazy" src="personal.jpg" />
+          <img loading="lazy" [src]="recomindition.img" />
           }@loading (after 100ms; minimum 1s) {
           <div></div>
-          }
-          @placeholder(minimum 1000) {
+          } @placeholder(minimum 1000) {
           <div></div>
           }
           <div class="msg-con flx-col-start">
             <small class="msg sub-title">{{ recomindition.msg }}</small>
-            <p-rating [disabled]="true" [readonly]="true" [(ngModel)]="recomindition.rating" [stars]="5" />
+            
           </div>
         </div>
       </div>
