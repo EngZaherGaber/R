@@ -96,7 +96,7 @@
         height: 100%;
         z-index: 4;
       }
-      
+
       .art-top-bg {
         background: url("../../../../public/land.webp");
         background-size: cover;
@@ -125,6 +125,14 @@
           color: $c-gold;
         }
       }
+      #logo-zaher{
+        position: absolute;
+        z-index: 4;
+        right: 0;
+        bottom: 3 * $pad;
+        height: 200px;
+        animation: rotate-1 4s linear infinite;
+      }
     }
     .art-info-bar {
       width: 100%;
@@ -137,6 +145,32 @@
           border-right: 2px solid $c-gold;
           margin-right: $pad;
         }
+      }
+    }
+    .art-logo {
+      display: flex;
+      justify-content: center;
+      background: $c4-tr;
+      width: 100%;
+      min-height: 400px;
+      overflow: hidden;
+      position: relative;
+      img {
+        // width: 50%;
+        // max-width: 700px;
+        height: 400px;
+        animation: rotate-1 2s linear infinite;
+      }
+      .line1 {
+        // position: absolute;
+        // top: 0;
+        // right: 5%;
+        // transform: rotate(-135deg);
+        background-color: $c-gold;
+        width: 12px;
+        height: 400px;
+        opacity: 0.4;
+        animation: grow-height-1 5s infinite;
       }
     }
     .art-services-con {
@@ -272,7 +306,13 @@
       padding-inline: 2 * $pad;
       .art-top {
         padding-inline: 0;
-        #personal-img{
+        #logo-zaher{
+          height: 125px;
+          bottom: auto;
+          top: calc((125px / 2) - 30px);
+          right: calc(50% - (125px / 2));
+        }
+        #personal-img {
           display: none;
         }
         .art-top-bg,

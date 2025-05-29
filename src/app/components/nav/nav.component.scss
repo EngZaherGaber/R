@@ -13,12 +13,30 @@
     background: $c1-tr2;
     padding: $pad;
     position: relative;
-    img {
+    #photo-zaher,
+    #logo-zaher {
+      // position: absolute;
       opacity: 0.85;
       width: 50%;
       max-width: 100px;
       border-radius: 50%;
       background-color: $c-gold;
+      opacity: 1;
+      transition: display 2s ease;
+    }
+    #logo-zaher {
+      opacity: 0;
+      display: none;
+    }
+    &:hover {
+      #photo-zaher {
+        opacity: 0;
+        display: none;
+      }
+      #logo-zaher {
+        display: block;
+        opacity: 1;
+      }
     }
     ::ng-deep .p-button {
       position: absolute;
