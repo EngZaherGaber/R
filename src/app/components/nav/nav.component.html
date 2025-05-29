@@ -40,7 +40,7 @@
           <mat-progress-bar mode="determinate" [value]="subItem.percentage"></mat-progress-bar>
         </div>
       </div>
-      <p-button styleClass="sub-title flx-row-ev" label="Download my CV" size="small" variant="text" iconPos="right"
+      <p-button (onClick)="downloadCv()" styleClass="sub-title flx-row-ev" label="Download my CV" size="small" variant="text" iconPos="right"
         icon="pi pi-download" *ngIf="item.key === 'cv'"></p-button>
     </ng-container>
   </div>

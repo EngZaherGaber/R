@@ -98,4 +98,10 @@ export class NavComponent {
     }
   ];
   constructor(public scrnSrv: ScreenService) { }
+  downloadCv() {
+    const link = document.createElement('a');
+    link.href = '\\newCv.pdf';
+    link.download = 'newCV.pdf'; // Optional: file name for saving
+    link.click();
+  }
 }
