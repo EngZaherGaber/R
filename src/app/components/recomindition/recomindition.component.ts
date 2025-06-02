@@ -35,17 +35,17 @@ export class RecominditionComponent {
   ];
   recominditionList = [
     {
-      name: 'Motaz Al-Halabi',
-      postition: '',
-      msg: '',
-      img: '',
-
-    },
-    {
       name: 'Omar Fallouh',
       postition: 'CEO (IC&I)',
       msg: `Eng. Zaher was instrumental in our UN project, delivering a secure Angular solution with micro-frontend architecture. His expertise in RxJS optimization and NgRx state management enabled high-performance multilingual interfaces. A strategic thinker who excels in cross-cultural environments and enterprise-scale challenges.`,
       img: '',
+    },
+    {
+      name: 'Motaz Al-Halabi',
+      postition: 'Project Manager (IDS)',
+      msg: `As Zaher's direct manager at IDS, I had the pleasure of seeing his growth as a Front-End Angular Team Leader. He played a key role in delivering critical projects such as the TLIS system for Syriatel and our Workflow Automation System. Zaher consistently demonstrates technical mastery in Angular, strong leadership, and the ability to translate complex requirements into clean, maintainable code. He leads with integrity and inspires his team to exceed expectations.`,
+      img: '',
+
     },
     {
       name: 'Mohanad Al-Halabi',
@@ -60,18 +60,6 @@ export class RecominditionComponent {
       msg: 'Eng. Zaher has been the backbone of our e-commerce ecosystem across all 2GO brands, including Phone Parts 2GO, Hulle 2GO, and ReiseKoffer 2GO. His deep knowledge of Shopify development, attention to detail, and ability to deliver scalable, customized solutions have significantly boosted our online performance. Zaher understands both technology and business needs, making him an essential part of our growth journey.',
       img: 'jamal.webp',
     },
-    // {
-    //   name: 'Waseem Al-Madi',
-    //   postition: '',
-    //   msg: '',
-    //   img: '',
-    // },
-    // {
-    //   name: 'Mustafa Al-Homsi',
-    //   postition: '',
-    //   msg: '',
-    //   img: '',
-    // },
   ];
   constructor(public scrnSrv: ScreenService) { }
 }
