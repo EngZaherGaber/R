@@ -5,6 +5,9 @@
 ::ng-deep .resume {
   margin-top: 2 * $pad;
   align-items: flex-start !important;
+  .education{
+    width: 50%;
+  }
   .p-timeline {
     .p-timeline-event-separator {
       background-color: $c1-tr3;
@@ -69,6 +72,9 @@
   }
 }
 @include forTablet() {
+  .education{
+    width: 100%;
+  }
   .resume {
     flex-wrap: wrap;
     .card {

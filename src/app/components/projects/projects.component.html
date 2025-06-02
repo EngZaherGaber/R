@@ -9,9 +9,25 @@
         <div class="info flx-col-start">
           <p class="title">{{ tile.title }}</p>
           <small class="sub-title">{{ tile.description }}</small>
+          <p-button *ngIf="tile.images" icon="pi pi-window-maximize" label="Show Gallery"
+            (onClick)="selecteItem(tile)" />
+          <a *ngIf="!tile.images" [href]="tile.url">
+            <p-button *ngIf="!tile.images" icon="pi pi-pi-link
+            " label="Show Website" />
+          </a>
         </div>
       </div>
     </mat-grid-tile>
     }
   </mat-grid-list>
 </div>
+<p-galleria *ngIf="display" [value]="selectedItem.images" [(visible)]="display" [responsiveOptions]="responsiveOptions"
+  [containerStyle]="{ 'max-width': '50%' }" [numVisible]="9" [circular]="true" [fullScreen]="true"
+  [showItemNavigators]="true">
+  <ng-template #item let-item>
+    <img [src]="item" style="width: 100%; display: block;" />
+  </ng-template>
+  <ng-template #thumbnail let-item>
+    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+  </ng-template>
+</p-galleria>

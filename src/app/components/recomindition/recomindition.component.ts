@@ -39,7 +39,7 @@ export class RecominditionComponent {
       postition: '',
       msg: '',
       img: '',
-      
+
     },
     {
       name: 'Omar Fallouh',
@@ -55,23 +55,23 @@ export class RecominditionComponent {
       rating: 5
     },
     {
-      name: 'Waseem Al-Madi',
-      postition: '',
-      msg: '',
-      img: '',
-    },
-    {
       name: 'Jamal Al-Halabi',
-      postition: '',
-      msg: '',
-      img: '',
+      postition: 'Founder & Owner (2GO Group)',
+      msg: 'Eng. Zaher has been the backbone of our e-commerce ecosystem across all 2GO brands, including Phone Parts 2GO, Hulle 2GO, and ReiseKoffer 2GO. His deep knowledge of Shopify development, attention to detail, and ability to deliver scalable, customized solutions have significantly boosted our online performance. Zaher understands both technology and business needs, making him an essential part of our growth journey.',
+      img: 'jamal.webp',
     },
-    {
-      name: 'Mustafa Al-Homsi',
-      postition: '',
-      msg: '',
-      img: '',
-    },
+    // {
+    //   name: 'Waseem Al-Madi',
+    //   postition: '',
+    //   msg: '',
+    //   img: '',
+    // },
+    // {
+    //   name: 'Mustafa Al-Homsi',
+    //   postition: '',
+    //   msg: '',
+    //   img: '',
+    // },
   ];
   constructor(public scrnSrv: ScreenService) { }
 }

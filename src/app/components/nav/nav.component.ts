@@ -56,7 +56,7 @@ export class NavComponent {
         },
         {
           title: 'English',
-          percentage: 75
+          percentage: 80
         }
       ]
     },
@@ -69,6 +69,10 @@ export class NavComponent {
         },
         {
           title: 'CSS',
+          percentage: 90
+        },
+        {
+          title: 'SCSS',
           percentage: 85
         },
         {
@@ -90,6 +94,14 @@ export class NavComponent {
         {
           title: 'ORACLE',
           percentage: 70
+        },
+        {
+          title: 'SQL Developer',
+          percentage: 80
+        },
+        {
+          title: 'Nest.Js',
+          percentage: 50
         },
       ]
     },

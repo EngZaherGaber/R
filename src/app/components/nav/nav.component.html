@@ -40,17 +40,26 @@
           <mat-progress-bar mode="determinate" [value]="subItem.percentage"></mat-progress-bar>
         </div>
       </div>
-      <p-button (onClick)="downloadCv()" styleClass="sub-title flx-row-ev" label="Download my CV" size="small" variant="text" iconPos="right"
-        icon="pi pi-download" *ngIf="item.key === 'cv'"></p-button>
+      <p-button (onClick)="downloadCv()" styleClass="sub-title flx-row-ev" label="Download my CV" size="small"
+        variant="text" iconPos="right" icon="pi pi-download" *ngIf="item.key === 'cv'"></p-button>
     </ng-container>
   </div>
   <!-- </p-scroll-panel> -->
   <div class="footer flx-col-bet">
     <div class="flx-row-ev">
-      <p-button [text]="true" icon="pi pi-linkedin" styleClass="sub-title" />
-      <p-button [text]="true" icon="pi pi-github" styleClass="sub-title" />
-      <p-button [text]="true" icon="pi pi-facebook" styleClass="sub-title" />
-      <p-button [text]="true" icon="pi pi-telegram" styleClass="sub-title" />
+      <a
+        href="https://www.linkedin.com/in/zaher-japr-4a3549365?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
+        <p-button [text]="true" icon="pi pi-linkedin" styleClass="sub-title" />
+      </a>
+      <a href="https://github.com/EngZaherGaber">
+        <p-button [text]="true" icon="pi pi-github" styleClass="sub-title" />
+      </a>
+      <a href="https://www.facebook.com/share/1CeBrWoTsd/">
+        <p-button [text]="true" icon="pi pi-facebook" styleClass="sub-title" />
+      </a>
+      <a href="https://t.me/ZaGa97">
+        <p-button [text]="true" icon="pi pi-telegram" styleClass="sub-title" />
+      </a>
     </div>
   </div>
 </div>

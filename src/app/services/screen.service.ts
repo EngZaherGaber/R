@@ -20,13 +20,12 @@ export class ScreenService {
           document.body.classList.replace('dark', 'light');
         }
         this.isDark = res;
-      }, 5000)
+      }, 4000)
     });
     this.isHandset$ = this.breakpointObserver
       .observe('(max-width: 991.98px)')
       .pipe(
         map(result => {
-          console.log(result.breakpoints);
           return result.matches
         }),
         shareReplay()
@@ -48,7 +47,7 @@ export class ScreenService {
         // Emit true immediately, then false after 10 seconds
         concat(
           of(true), // Emit true right away
-          timer(12000).pipe(map(() => false)) // Emit false after 10 seconds
+          timer(8000).pipe(map(() => false)) // Emit false after 10 seconds
         )
       )
     );

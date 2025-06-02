@@ -40,7 +40,7 @@ export class AppComponent implements AfterViewInit {
     scrnSrv.isDark$.pipe(
       mergeMap(value => {
         if (this.firstSubscription) {
-          return timer(6500).pipe(mergeMap(() => [value]));
+          return timer(4000).pipe(mergeMap(() => [value]));
         } else {
           return [value];
         }
@@ -48,7 +48,7 @@ export class AppComponent implements AfterViewInit {
       mergeMap((value) => {
         if (!this.firstSubscription) {
           this.loading = !this.loading;
-          return timer(6500).pipe(mergeMap(() => [value]));
+          return timer(4000).pipe(mergeMap(() => [value]));
         } else {
           this.firstSubscription = false;
           return of(value);
