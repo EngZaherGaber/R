@@ -39,7 +39,7 @@ export class ProjectsComponent {
       ]
     },
     {
-      title: 'UN Employee Management (Finshed)',
+      title: 'UNDP Employee Management (Finshed)',
       description: 'A system developed for the United Nations to manage employee contracts, calculate salaries, and streamline HR processes.',
       img: 'un-logo.webp',
       category: 'ERP',

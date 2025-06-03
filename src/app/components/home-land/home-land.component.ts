@@ -70,7 +70,7 @@ export class HomeLandComponent implements OnInit {
     [
       {
         key: 'Email',
-        value: 'eng.zaher.gaber@gmail.com',
+        value: 'eng.zaher.japr@gmail.com',
         icon: 'pi pi-envelope' // Icon for email
       },
       {

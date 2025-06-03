@@ -19,17 +19,17 @@ export class ResumeComponent {
       oddOrEven: 'odd',
     },
     {
-      company: 'Free Lancer',
-      position: 'Shopify Development',
-      date: 'May 2023 - current',
-      description: 'Developed custom Shopify themes and apps tailored to client needs. Integrated third-party APIs, optimized storefront performance, and enhanced user experiences. Collaborated with clients to implement scalable e-commerce solutions.',
-      oddOrEven: 'odd',
-    },
-    {
       company: 'IC&I',
       position: 'Front-end Team Leader',
       date: 'jun 2023 - current',
       description: 'Led a front-end team, overseeing Angular-based projects from design to deployment. Mentored junior developers and ensured high-quality, maintainable code.',
+      oddOrEven: 'odd',
+    },
+    {
+      company: 'Free Lancer',
+      position: 'Shopify Development',
+      date: 'May 2024 - current',
+      description: 'Developed custom Shopify themes and apps tailored to client needs. Integrated third-party APIs, optimized storefront performance, and enhanced user experiences. Collaborated with clients to implement scalable e-commerce solutions.',
       oddOrEven: 'odd',
     },
   ];
