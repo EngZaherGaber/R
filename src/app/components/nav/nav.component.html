@@ -3,7 +3,7 @@
     <p-button *ngIf="scrnSrv.isHandset$ | async" (click)="scrnSrv.toggleSidenav()" icon="pi pi-bars" [text]="true"
       styleClass="sub-title" />
     @defer (on viewport) {
-    <img loading="lazy" id="photo-zaher" loading="lazy" src="personal3.webp" />
+    <img loading="lazy" id="photo-zaher" height="100" width="100" loading="lazy" src="personal3.webp" />
     <img loading="lazy" id="logo-zaher" src="Zaher.webp" alt="">
     }
     @placeholder(minimum 10000) {
