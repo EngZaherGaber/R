@@ -6,7 +6,7 @@
       <span class="marker-icon" [style]="{ 'background-color': event.color }">
         @defer (on viewport) {
 
-        <img loading="lazy" [src]="'../../../../' + event.icon" [alt]="event.name" width="200" class="shadow"
+        <img loading="lazy" loading="lazy" [src]="'../../../../' + event.icon" [alt]="event.name" width="200" class="shadow"
           class="img" />
         }@loading (after 100ms; minimum 1s) {
         <div></div>

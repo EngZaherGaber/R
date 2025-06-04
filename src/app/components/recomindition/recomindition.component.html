@@ -10,7 +10,7 @@
             <small class="sub-title"><i>{{ recomindition.postition }}</i></small>
           </div>
           @defer (on viewport) {
-          <img loading="lazy" [src]="recomindition.img" />
+          <img loading="lazy" loading="lazy" [src]="recomindition.img" />
           }@loading (after 100ms; minimum 1s) {
           <div></div>
           } @placeholder(minimum 1000) {
