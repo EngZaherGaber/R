@@ -1,10 +1,10 @@
 <div [class]="'container ' + ((scrnSrv.isDark) ? ' ': ' light')">
   <div class="img-div">
-    <p-button *ngIf="scrnSrv.isHandset$ | async" (click)="scrnSrv.toggleSidenav()" icon="pi pi-bars" [text]="true"
+    <p-button *ngIf="scrnSrv.isHandset$ | async" (click)="scrnSrv.toggleSidenav()" aria-label="Nav Menu" icon="pi pi-bars" [text]="true"
       styleClass="sub-title" />
     @defer (on viewport) {
-    <img loading="lazy" id="photo-zaher" height="100" width="100" loading="lazy" src="personal3.webp" />
-    <img loading="lazy" id="logo-zaher" src="Zaher.webp" alt="">
+    <img loading="lazy" id="photo-zaher" height="100" width="100" loading="lazy" src="personal3.webp" alt="Zaher Image"/>
+    <img loading="lazy" id="logo-zaher" src="Zaher.webp" alt="Logo">
     }
     @placeholder(minimum 10000) {
     <div></div>
@@ -41,7 +41,7 @@
         </div>
       </div>
       <p-button (onClick)="downloadCv()" styleClass="sub-title flx-row-ev" label="Download my CV" size="small"
-        variant="text" iconPos="right" icon="pi pi-download" *ngIf="item.key === 'cv'"></p-button>
+        variant="text" aria-label="Download CV" iconPos="right" icon="pi pi-download" *ngIf="item.key === 'cv'"></p-button>
     </ng-container>
   </div>
   <!-- </p-scroll-panel> -->
@@ -49,16 +49,16 @@
     <div class="flx-row-ev">
       <a
         href="https://www.linkedin.com/in/zaher-japr-4a3549365?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
-        <p-button [text]="true" icon="pi pi-linkedin" styleClass="sub-title" />
+        <p-button [text]="true" icon="pi pi-linkedin" aria-label="linkedin Account" styleClass="sub-title" />
       </a>
       <a href="https://github.com/EngZaherGaber">
-        <p-button [text]="true" icon="pi pi-github" styleClass="sub-title" />
+        <p-button [text]="true" icon="pi pi-github" aria-label="github Account" styleClass="sub-title" />
       </a>
       <a href="https://www.facebook.com/share/1CeBrWoTsd/">
-        <p-button [text]="true" icon="pi pi-facebook" styleClass="sub-title" />
+        <p-button [text]="true" icon="pi pi-facebook" aria-label="facebook Account" styleClass="sub-title" />
       </a>
       <a href="https://t.me/ZaGa97">
-        <p-button [text]="true" icon="pi pi-telegram" styleClass="sub-title" />
+        <p-button [text]="true" icon="pi pi-telegram" aria-label="telegram Account" styleClass="sub-title" />
       </a>
     </div>
   </div>

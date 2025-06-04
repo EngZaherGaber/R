@@ -1,19 +1,42 @@
-<div [class]="'projects ' + ((scrnSrv.isDark) ? ' ': 'light')">
+<div [class]="'projects ' + (scrnSrv.isDark ? ' ' : 'light')">
   <h6 class="sub-title text-left">Projects</h6>
-  <mat-grid-list [cols]="(scrnSrv.isHandset$ | async) ? '1' : '2'"
-    [rowHeight]="(scrnSrv.isHandset$ | async) ? '3:2' : '300px'" gutterSize="20px">
+  <mat-grid-list
+    [cols]="(scrnSrv.isHandset$ | async) ? '1' : '2'"
+    [rowHeight]="(scrnSrv.isHandset$ | async) ? '3:2' : '300px'"
+    gutterSize="20px"
+  >
     @for (tile of tiles; track tile) {
     <mat-grid-tile>
-      <div [class]="'card flx-col-start ' + (tile.category !== 'ERP' ? 'freelance' : 'erp')">
-        <img loading="lazy" loading="lazy" [src]="tile.img" [alt]="tile.description" />
+      <div
+        [class]="
+          'card flx-col-start ' +
+          (tile.category !== 'ERP' ? 'freelance' : 'erp')
+        "
+      >
+        <img
+          loading="lazy"
+          loading="lazy"
+          [src]="tile.img"
+          [alt]="tile.description"
+        />
         <div class="info flx-col-start">
           <p class="title">{{ tile.title }}</p>
           <small class="sub-title">{{ tile.description }}</small>
-          <p-button *ngIf="tile.images" icon="pi pi-window-maximize" label="Show Gallery"
-            (onClick)="selecteItem(tile)" />
+          <p-button
+            aria-label="Show Gallery"
+            *ngIf="tile.images"
+            icon="pi pi-window-maximize"
+            label="Show Gallery"
+            (onClick)="selecteItem(tile)"
+          />
           <a *ngIf="!tile.images" [href]="tile.url">
-            <p-button *ngIf="!tile.images" icon="pi pi-pi-link
-            " label="Show Website" />
+            <p-button
+              *ngIf="!tile.images"
+              icon="pi pi-pi-link
+            "
+              label="Show Website"
+              aria-label="Show Website"
+            />
           </a>
         </div>
       </div>
@@ -21,13 +44,31 @@
     }
   </mat-grid-list>
 </div>
-<p-galleria *ngIf="display" [value]="selectedItem.images" [(visible)]="display" [responsiveOptions]="responsiveOptions"
-  [containerStyle]="{ 'max-width': '50%' }" [numVisible]="9" [circular]="true" [fullScreen]="true"
-  [showItemNavigators]="true">
+<p-galleria
+  *ngIf="display"
+  [value]="selectedItem.images"
+  [(visible)]="display"
+  [responsiveOptions]="responsiveOptions"
+  [containerStyle]="{ 'max-width': '50%' }"
+  [numVisible]="9"
+  [circular]="true"
+  [fullScreen]="true"
+  [showItemNavigators]="true"
+>
   <ng-template #item let-item>
-    <img loading="lazy" [src]="item" style="width: 100%; display: block;" />
+    <img
+      loading="lazy"
+      [src]="item"
+      style="width: 100%; display: block"
+      [alt]="'Image of ' + item"
+    />
   </ng-template>
   <ng-template #thumbnail let-item>
-    <img loading="lazy" [src]="item.thumbnailImageSrc" style="display: block;" />
+    <img
+      loading="lazy"
+      [src]="item.thumbnailImageSrc"
+      style="display: block"
+      [alt]="'thumbnail of ' + item"
+    />
   </ng-template>
 </p-galleria>

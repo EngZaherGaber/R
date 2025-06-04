@@ -1,10 +1,22 @@
 <div [class]="'container flx-col-bet ' + (scrnSrv.isDark ? ' ' : 'light')">
   <div class="header" *ngIf="scrnSrv.isHandset$ | async">
     <div class="style-button pos1">
-      <p-button *ngIf="scrnSrv.isHandset$ | async" [text]="true" (onClick)="scrnSrv.changeStyle()"
-        [icon]="scrnSrv.isDark ? 'pi pi-sun' : 'pi pi-moon'" pTooltip="Change Style" />
+      <p-button
+        aria-label="Change Style Button"
+        *ngIf="scrnSrv.isHandset$ | async"
+        [text]="true"
+        (onClick)="scrnSrv.changeStyle()"
+        [icon]="scrnSrv.isDark ? 'pi pi-sun' : 'pi pi-moon'"
+        pTooltip="Change Style"
+      />
     </div>
-    <p-button (click)="scrnSrv.toggleSidenav()" icon="pi pi-bars" [text]="true" styleClass="sub-title" />
+    <p-button
+      aria-label="Nav Menu"
+      (click)="scrnSrv.toggleSidenav()"
+      icon="pi pi-bars"
+      [text]="true"
+      styleClass="sub-title"
+    />
   </div>
   <div class="art-certain">
     <div class="art-top">
@@ -19,12 +31,14 @@
         <h1 class="fw-bold">Welcome to my Portfolio!</h1>
         <h3 class="fw-bold">My World is Amazing!</h3>
         <div>
-          < <p>code</p>
-            > I Build {{ displayedText }}< <p>code</p> 
-              />
+          <
+          <p>code</p>
+          > I Build {{ displayedText }}<
+          <p>code</p>
+          />
         </div>
       </div>
-      <img loading="lazy" id="logo-zaher" src="Zaher.webp" alt="">
+      <img loading="lazy" id="logo-zaher" src="Zaher.webp" alt="Logo" />
     </div>
     <div class="art-info-bar flx-row-bet">
       <div class="flx-row-bet">
@@ -47,7 +61,10 @@
     <div class="art-services-con flx-col-bet">
       <h6 class="sub-title text-left w-100">Services</h6>
       <div class="art-services">
-        <div class="art-service-card flx-col-start" *ngFor="let item of services">
+        <div
+          class="art-service-card flx-col-start"
+          *ngFor="let item of services"
+        >
           <small class="title">
             {{ item.title }}
           </small>
@@ -83,8 +100,13 @@
     </div>
   </div>
   <div class="style-button pos">
-    <p-button *ngIf="!(scrnSrv.isHandset$ | async)" [text]="true" (onClick)="scrnSrv.changeStyle()"
-      [icon]="scrnSrv.isDark ? 'pi pi-sun' : 'pi pi-moon'" />
+    <p-button
+      aria-label="Change Style"
+      *ngIf="!(scrnSrv.isHandset$ | async)"
+      [text]="true"
+      (onClick)="scrnSrv.changeStyle()"
+      [icon]="scrnSrv.isDark ? 'pi pi-sun' : 'pi pi-moon'"
+    />
   </div>
   @defer (on viewport) {
   <div class="super-img-con">
