@@ -1,7 +1,7 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Injectable } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { BehaviorSubject, Observable, ReplaySubject, concat, debounceTime, map, mergeMap, of, shareReplay, startWith, switchMap, timeout, timer } from 'rxjs';
+import { BehaviorSubject, Observable, concat, map, of, shareReplay, switchMap, timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

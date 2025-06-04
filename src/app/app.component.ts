@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatSidenav, MatSidenavModule } from "@angular/material/sidenav";
 import { CommonModule } from '@angular/common';
 import { NavComponent } from './components/nav/nav.component';
@@ -7,7 +7,7 @@ import { ScreenService } from './services/screen.service';
 import { HomeLandComponent } from './components/home-land/home-land.component';
 import { mergeMap, of, timer } from 'rxjs';
 import { AnimationOptions, LottieComponent } from 'ngx-lottie';
-import { AnimationItem } from 'lottie-web';
+// import { AnimationItem } from 'lottie-web';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ import { AnimationItem } from 'lottie-web';
     CommonModule,
     ButtonModule,
     HomeLandComponent,
-    LottieComponent
+    // LottieComponent
   ],
   standalone: true,
   templateUrl: './app.component.html',
