@@ -1,12 +1,25 @@
-<div [class]="'container ' + ((scrnSrv.isDark) ? ' ': ' light')">
+<div [class]="'container ' + (scrnSrv.isDark ? ' ' : ' light')">
   <div class="img-div">
-    <p-button *ngIf="scrnSrv.isHandset$ | async" (click)="scrnSrv.toggleSidenav()" aria-label="Nav Menu" icon="pi pi-bars" [text]="true"
-      styleClass="sub-title" />
+    <p-button
+      *ngIf="scrnSrv.isHandset$ | async"
+      (click)="scrnSrv.toggleSidenav()"
+      aria-label="Nav Menu"
+      icon="pi pi-bars"
+      [text]="true"
+      styleClass="sub-title"
+    />
     @defer (on viewport) {
-    <img loading="lazy" id="photo-zaher" height="100" width="100" loading="lazy" src="personal3.webp" alt="Zaher Image"/>
-    <img loading="lazy" id="logo-zaher" src="Zaher.webp" alt="Logo">
-    }
-    @placeholder(minimum 10000) {
+    <img
+      loading="lazy"
+      id="photo-zaher"
+      height="100"
+      width="100"
+      loading="lazy"
+      src="personal3.webp"
+      alt="Zaher Image"
+    />
+    <img loading="lazy" id="logo-zaher" src="Zaher.webp" alt="Logo" />
+    } @placeholder(minimum 10000) {
     <div></div>
     }
     <p class="title m-0">Zaher Gabr</p>
@@ -25,9 +38,15 @@
       <div class="flx-row-ev" *ngIf="item.key === 'language'">
         <div class="flx-col-bet" *ngFor="let subItem of item.items">
           <small class="title">{{ subItem.title }}</small>
-          <p-knob [size]="60" [strokeWidth]="'5'" [style]="{ width: '100%' }" [readonly]="true"
-            [textColor]="((scrnSrv.isDark) ? '#FFC107': '#a88007')"
-            [valueColor]="((scrnSrv.isDark) ? '#FFC107': '#a88007')" [(ngModel)]="subItem.percentage"></p-knob>
+          <p-knob
+            [size]="60"
+            [strokeWidth]="'5'"
+            [style]="{ width: '100%' }"
+            [readonly]="true"
+            [textColor]="scrnSrv.isDark ? '#FFC107' : '#a88007'"
+            [valueColor]="scrnSrv.isDark ? '#FFC107' : '#a88007'"
+            [(ngModel)]="subItem.percentage"
+          ></p-knob>
         </div>
       </div>
       <mat-divider *ngIf="item.key !== 'language'"></mat-divider>
@@ -37,28 +56,65 @@
             <small class="title">{{ subItem.title }}</small>
             <small class="sub-title">{{ subItem.percentage }}%</small>
           </div>
-          <mat-progress-bar mode="determinate" [value]="subItem.percentage"></mat-progress-bar>
+          <mat-progress-bar
+            mode="determinate"
+            [value]="subItem.percentage"
+          ></mat-progress-bar>
         </div>
       </div>
-      <p-button (onClick)="downloadCv()" styleClass="sub-title flx-row-ev" label="Download my CV" size="small"
-        variant="text" aria-label="Download CV" iconPos="right" icon="pi pi-download" *ngIf="item.key === 'cv'"></p-button>
+      <p-button
+        (onClick)="downloadCv()"
+        styleClass="sub-title flx-row-ev"
+        label="Download my CV"
+        size="small"
+        variant="text"
+        aria-label="Download CV"
+        iconPos="right"
+        icon="pi pi-download"
+        *ngIf="item.key === 'cv'"
+      ></p-button>
     </ng-container>
   </div>
   <!-- </p-scroll-panel> -->
   <div class="footer flx-col-bet">
     <div class="flx-row-ev">
       <a
-        href="https://www.linkedin.com/in/zaher-japr-4a3549365?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
-        <p-button [text]="true" icon="pi pi-linkedin" aria-label="linkedin Account" styleClass="sub-title" />
+        aria-label="linkedin Account"
+        href="https://www.linkedin.com/in/zaher-japr-4a3549365?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+      >
+        <p-button
+          [text]="true"
+          icon="pi pi-linkedin"
+          aria-label="linkedin Account"
+          styleClass="sub-title"
+        />
       </a>
-      <a href="https://github.com/EngZaherGaber">
-        <p-button [text]="true" icon="pi pi-github" aria-label="github Account" styleClass="sub-title" />
+      <a href="https://github.com/EngZaherGaber" aria-label="github Account">
+        <p-button
+          [text]="true"
+          icon="pi pi-github"
+          aria-label="github Account"
+          styleClass="sub-title"
+        />
       </a>
-      <a href="https://www.facebook.com/share/1CeBrWoTsd/">
-        <p-button [text]="true" icon="pi pi-facebook" aria-label="facebook Account" styleClass="sub-title" />
+      <a
+        href="https://www.facebook.com/share/1CeBrWoTsd/"
+        aria-label="facebook Account"
+      >
+        <p-button
+          [text]="true"
+          icon="pi pi-facebook"
+          aria-label="facebook Account"
+          styleClass="sub-title"
+        />
       </a>
-      <a href="https://t.me/ZaGa97">
-        <p-button [text]="true" icon="pi pi-telegram" aria-label="telegram Account" styleClass="sub-title" />
+      <a href="https://t.me/ZaGa97" aria-label="telegram Account">
+        <p-button
+          [text]="true"
+          icon="pi pi-telegram"
+          aria-label="telegram Account"
+          styleClass="sub-title"
+        />
       </a>
     </div>
   </div>
