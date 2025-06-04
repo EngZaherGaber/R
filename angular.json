@@ -38,9 +38,6 @@
             "scripts": []
           },
           "configurations": {
-            "hmr": {
-              "hmr": false
-            },
             "production": {
               "optimization": true,
               "sourceMap": false,
