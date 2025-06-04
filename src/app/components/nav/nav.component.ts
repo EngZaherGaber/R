@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { KnobModule } from 'primeng/knob';
 import { ScreenService } from '../../services/screen.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'nav',
@@ -21,6 +22,7 @@ import { ScreenService } from '../../services/screen.service';
     KnobModule,
     MatButtonModule,
     MatIconModule,
+    FormsModule,
     RippleModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
