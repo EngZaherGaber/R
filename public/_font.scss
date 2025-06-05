@@ -35,7 +35,8 @@ $small-mobile: 576px;
     @include responsive-font-sizes(24px, 32px, 36px, 42px);
   }
 
-  h3 {
+  h3,
+  .subHead {
     @include responsive-font-sizes(20px, 28px, 32px, 38px);
   }
 
@@ -47,7 +48,8 @@ $small-mobile: 576px;
     @include responsive-font-sizes(16px, 22px, 26px, 28px);
   }
 
-  h6 {
+  h6,
+  .Head {
     @include responsive-font-sizes(14px, 20px, 22px, 24px);
   }
 

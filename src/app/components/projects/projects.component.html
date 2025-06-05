@@ -1,5 +1,5 @@
 <div [class]="'projects ' + (scrnSrv.isDark ? ' ' : 'light')">
-  <h6 class="sub-title text-left">Projects</h6>
+  <p class="Head sub-title text-left">Projects</p>
   <mat-grid-list
     [cols]="(scrnSrv.isHandset$ | async) ? '1' : '2'"
     [rowHeight]="(scrnSrv.isHandset$ | async) ? '3:2' : '300px'"

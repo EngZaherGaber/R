@@ -1,5 +1,5 @@
 <div [class]="'flx-col-bet skills ' + (scrnSrv.isDark ? ' ' : ' light')">
-  <h6 class="sub-title text-left w-100">Skills</h6>
+  <p class="Head sub-title text-left w-100">Skills</p>
   <p-timeline
     [value]="events"
     [align]="(scrnSrv.isHandset$ | async) ? 'left' : 'alternate'"
@@ -32,9 +32,9 @@
         [once]="false"
         [enterClass]="'fadeIn-' + event.oddOrEven"
       >
-        <h6 class="title">
+        <p class="Head title">
           {{ event.title }}
-        </h6>
+        </p>
         <small class="sub-title">
           {{ event.description }}
         </small>
