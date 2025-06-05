@@ -2,7 +2,7 @@
   <div class="header" *ngIf="scrnSrv.isHandset$ | async">
     <div class="style-button pos1">
       <p-button
-        aria-label="Change Style Button"
+        ariaLabel="Change Style Button"
         *ngIf="scrnSrv.isHandset$ | async"
         [text]="true"
         (onClick)="scrnSrv.changeStyle()"
@@ -11,7 +11,7 @@
       />
     </div>
     <p-button
-      aria-label="Nav Menu"
+      ariaLabel="Nav Menu"
       (click)="scrnSrv.toggleSidenav()"
       icon="pi pi-bars"
       [text]="true"
@@ -101,7 +101,7 @@
   </div>
   <div class="style-button pos">
     <p-button
-      aria-label="Change Style"
+      ariaLabel="Change Style"
       *ngIf="!(scrnSrv.isHandset$ | async)"
       [text]="true"
       (onClick)="scrnSrv.changeStyle()"
