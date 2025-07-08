@@ -233,7 +233,7 @@
   .pos {
     position: fixed;
     top: 10vh;
-    right: 2 * $pad;
+    right: 0;
     z-index: 999;
   }
   &.light {

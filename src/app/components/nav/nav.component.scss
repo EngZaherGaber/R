@@ -48,7 +48,7 @@
     @include flx(column, space-between, stretch, calc(2 * $pad));
     padding: calc(2 * $pad) calc(3 * $pad);
     background-color: $c1-tr;
-    max-height: calc(100vh - 40px - 200px - 50px);
+    max-height: calc(100vh - 0px - 200px - 50px);
     overflow-y: auto;
   }
   .footer {

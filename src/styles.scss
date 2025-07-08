@@ -57,7 +57,7 @@ body {
   @include responsive-headings();
   height: 100%;
   overflow-x: hidden;
-  padding: calc(2 * $pad);
+  // padding: calc(2 * $pad);
   background-color: $c1;
   .title {
     color: $c2;
