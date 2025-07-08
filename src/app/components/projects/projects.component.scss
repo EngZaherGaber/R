@@ -60,7 +60,7 @@
     }
   }
   mat-grid-list {
-    margin: 2 * $pad;
+    margin-block: 2 * $pad;
   }
   &.light {
     .card {

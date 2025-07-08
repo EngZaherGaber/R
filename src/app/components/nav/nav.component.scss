@@ -3,7 +3,7 @@
 @use "../../../../public/mixin" as *;
 .container {
   @include flx(column, stretch, stretch, 0);
-  height: calc(98vh - 2 * $pad);
+  height: 100%;
   padding: 0;
   margin-bottom: 0;
   .img-div {
@@ -48,7 +48,7 @@
     @include flx(column, space-between, stretch, calc(2 * $pad));
     padding: calc(2 * $pad) calc(3 * $pad);
     background-color: $c1-tr;
-    max-height: calc(98vh - 2 * $pad - 200px - 50px);
+    max-height: calc(100vh - 40px - 200px - 50px);
     overflow-y: auto;
   }
   .footer {

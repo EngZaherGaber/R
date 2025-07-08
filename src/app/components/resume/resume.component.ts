@@ -13,7 +13,7 @@ export class ResumeComponent {
   works = [
     {
       company: 'Free Lancer',
-      position: 'Front-end Developer & Shopify Development',
+      position: 'Front-end Developer',
       date: 'Apr 2021 - current',
       description: 'Delivered freelance projects as an Angular developer, creating responsive and user-friendly web applications. Collaborated with clients to translate requirements into scalable solutions.',
       oddOrEven: 'odd',

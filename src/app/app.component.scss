@@ -4,8 +4,9 @@
   position: relative;
   overflow-x: visible;
   overflow-y: hidden;
+  height: 100%;
   .drawer {
-    height: 96vh;
+    height: 100%;
     opacity: 0;
     &.none {
       opacity: 0;
