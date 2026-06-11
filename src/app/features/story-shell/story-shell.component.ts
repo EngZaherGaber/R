@@ -21,6 +21,7 @@ import { LanguageToggleComponent } from '../../shared/components/language-toggle
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { HeroSceneComponent } from '../hero-scene/hero-scene.component';
 import { ProjectStoriesComponent } from '../project-stories/project-stories.component';
+import { CoPilotEngineComponent } from '../co-pilot-engine/co-pilot-engine.component';
 import { SkillEvidenceComponent } from '../skill-evidence/skill-evidence.component';
 import { ServiceOffersComponent } from '../service-offers/service-offers.component';
 import { TrustWallComponent } from '../trust-wall/trust-wall.component';
@@ -37,6 +38,7 @@ import { ContactCommandComponent } from '../contact-command/contact-command.comp
     ThemeToggleComponent,
     HeroSceneComponent,
     ProjectStoriesComponent,
+    CoPilotEngineComponent,
     SkillEvidenceComponent,
     ServiceOffersComponent,
     TrustWallComponent,
@@ -50,15 +52,28 @@ export class StoryShellComponent implements AfterViewInit, OnDestroy {
   readonly workspace = inject(WorkspacePreferencesService);
   readonly scrollScene = inject(ScrollSceneService);
   readonly activeScene = signal(this.workspace.readUrlParam('scene') ?? 'hero');
-  readonly sections = computed<StorySectionLink[]>(() => [
-    { id: 'hero', label: this.workspace.content().nav[0].label, icon: 'bi bi-stars' },
-    { id: 'projects', label: this.workspace.content().nav[1].label, icon: 'bi bi-folder2-open' },
-    { id: 'skills', label: this.workspace.content().nav[2].label, icon: 'bi bi-diagram-3' },
-    { id: 'services', label: this.workspace.content().nav[3].label, icon: 'bi bi-box-seam' },
-    { id: 'trust', label: this.workspace.content().nav[5].label, icon: 'bi bi-envelope-paper' },
-    { id: 'history', label: this.workspace.content().nav[4].label, icon: 'bi bi-git' },
-    { id: 'contact', label: this.workspace.content().nav[6].label, icon: 'bi bi-terminal' },
-  ]);
+  readonly sections = computed<StorySectionLink[]>(() => {
+    const nav = this.workspace.content().nav;
+    const item = (navId: string, sceneId: string, fallback: string, icon: string): StorySectionLink => {
+      const match = nav.find((entry) => entry.id === navId);
+      return {
+        id: sceneId,
+        label: match?.label ?? fallback,
+        icon: match?.icon ?? icon,
+      };
+    };
+
+    return [
+      item('overview', 'hero', 'Overview', 'bi bi-stars'),
+      item('projects', 'projects', 'Projects', 'bi bi-folder2-open'),
+      item('copilot', 'copilot', 'Co-Pilot', 'bi bi-cpu'),
+      item('skills', 'skills', 'Skills', 'bi bi-diagram-3'),
+      item('services', 'services', 'Services', 'bi bi-box-seam'),
+      item('recommendations', 'trust', 'Trust', 'bi bi-envelope-paper'),
+      item('timeline', 'history', 'Timeline', 'bi bi-git'),
+      item('contact', 'contact', 'Contact', 'bi bi-terminal'),
+    ];
+  });
 
   private observer?: IntersectionObserver;
   private sceneElements: HTMLElement[] = [];
@@ -87,7 +102,7 @@ export class StoryShellComponent implements AfterViewInit, OnDestroy {
 
         if (scene && scene !== this.activeScene()) {
           this.activeScene.set(scene);
-          this.workspace.setUrlParams({ scene });
+          this.workspace.setUrlParams(this.sceneUrlParams(scene), false);
         }
       },
       { rootMargin: '-18% 0px -62% 0px', threshold: [0.05, 0.18, 0.4] },
@@ -96,6 +111,7 @@ export class StoryShellComponent implements AfterViewInit, OnDestroy {
     this.sceneElements.forEach((section) => {
       this.observer?.observe(section);
     });
+    this.scrollScene.setupKineticSceneVars();
     window.addEventListener('scroll', this.onScroll, { passive: true });
     window.addEventListener('resize', this.onScroll, { passive: true });
     this.updateActiveSceneFromViewport();
@@ -111,7 +127,7 @@ export class StoryShellComponent implements AfterViewInit, OnDestroy {
 
   goTo(scene: string): void {
     this.activeScene.set(scene);
-    this.workspace.setUrlParams({ scene });
+    this.workspace.setUrlParams(this.sceneUrlParams(scene));
     this.scrollScene.scrollTo(`scene-${scene}`);
   }
 
@@ -143,7 +159,14 @@ export class StoryShellComponent implements AfterViewInit, OnDestroy {
 
     if (active && active.scene !== this.activeScene()) {
       this.activeScene.set(active.scene);
-      this.workspace.setUrlParams({ scene: active.scene });
+      this.workspace.setUrlParams(this.sceneUrlParams(active.scene), false);
     }
+  }
+
+  private sceneUrlParams(scene: string): Record<string, string | null> {
+    return {
+      scene,
+      tool: scene === 'copilot' ? 'co-pilot-engine' : null,
+    };
   }
 }

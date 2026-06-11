@@ -6,7 +6,7 @@
   </div>
 
   <div class="trust-layout">
-    <div class="letter-index">
+    <div class="letter-index" aria-label="Recommendation index">
       @for (rec of workspace.content().recommendations; track rec.id) {
         <button
           type="button"
@@ -14,13 +14,18 @@
           [class.active]="selectedRecommendation().id === rec.id"
           (click)="selectRecommendation(rec.id)"
         >
+          @if (rec.image) {
+            <img [src]="rec.image" width="44" height="44" [alt]="rec.name" loading="lazy" />
+          } @else {
+            <b>{{ rec.name.slice(0, 1) }}</b>
+          }
           <span>{{ rec.name }}</span>
           <small>{{ rec.signal }}</small>
         </button>
       }
     </div>
 
-    <article class="sealed-letter">
+    <article class="sealed-letter" id="trust-carousel-card">
       <div class="seal">{{ selectedRecommendation().name.slice(0, 1) }}</div>
       @if (selectedRecommendation().image) {
         <img [src]="selectedRecommendation().image" width="72" height="72" [alt]="selectedRecommendation().name" loading="lazy" />
@@ -35,5 +40,30 @@
         }
       </div>
     </article>
+  </div>
+
+  <div class="mobile-recommendations" aria-label="All recommendations">
+    @for (rec of workspace.content().recommendations; track rec.id) {
+      <article class="mobile-rec-card">
+        <div class="mobile-rec-head">
+          @if (rec.image) {
+            <img [src]="rec.image" width="56" height="56" [alt]="rec.name" loading="lazy" />
+          } @else {
+            <b>{{ rec.name.slice(0, 1) }}</b>
+          }
+          <div>
+            <p class="signal">{{ workspace.content().recommendationLabels.signal }} / {{ rec.signal }}</p>
+            <h3>{{ rec.name }}</h3>
+            <strong>{{ rec.position }}</strong>
+          </div>
+        </div>
+        <blockquote>{{ rec.message }}</blockquote>
+        <div class="related">
+          @for (project of relatedProjectsFor(rec); track project.id) {
+            <span>{{ project.name }}</span>
+          }
+        </div>
+      </article>
+    }
   </div>
 </section>

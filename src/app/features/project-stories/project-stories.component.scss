@@ -183,6 +183,7 @@
   background:
     linear-gradient(145deg, color-mix(in srgb, var(--accent), transparent 82%), transparent),
     var(--project-soft);
+  transform: translate3d(0, 0, 42px);
 }
 
 .showcase-card strong {
@@ -190,6 +191,7 @@
   font-size: clamp(1.45rem, 2.4vw, 2.35rem);
   line-height: 0.98;
   letter-spacing: -0.03em;
+  transform: translate3d(0, 0, 28px);
 }
 
 .case-copy {
@@ -239,9 +241,7 @@ h3 {
 }
 
 .summary {
-  overflow: auto;
   padding-inline-end: 0.3rem;
-  scrollbar-width: thin;
 }
 
 .feature-grid {
@@ -375,7 +375,7 @@ h3 {
 @keyframes selected-project-breathe {
   50% {
     transform: translateY(-2px);
-    box-shadow: 0 12px 34px color-mix(in srgb, var(--accent), transparent 86%);
+    opacity: 0.9;
   }
 }
 
@@ -389,7 +389,7 @@ h3 {
   }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1024px) {
   .project-stories {
     padding: 4rem 1rem;
   }
@@ -412,6 +412,7 @@ h3 {
   .mobile-project > button {
     width: 100%;
     display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 0.25rem;
     padding: 1rem;
     color: var(--text);
@@ -421,6 +422,17 @@ h3 {
 
   .mobile-project.active {
     border-color: color-mix(in srgb, var(--accent), transparent 35%);
+  }
+
+  .mobile-project > button i {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    align-self: center;
+    color: var(--accent);
+  }
+
+  .mobile-project.active > button i {
+    transform: rotate(180deg);
   }
 
   .mobile-project > button span {
@@ -450,6 +462,36 @@ h3 {
   }
 
   .feature-grid {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-stories {
+    padding-inline: 0.75rem;
+  }
+
+  .mobile-project-list {
+    display: grid;
+    overflow: visible;
+    gap: 0.65rem;
+    padding-block-end: 0;
+    scroll-snap-type: none;
+    mask-image: none;
+  }
+
+  .mobile-project {
+    transform: none;
+    opacity: 1;
+  }
+
+  .mobile-project.active {
+    transform: none;
+    opacity: 1;
+  }
+
+  .mobile-project-detail {
     max-height: none;
     overflow: visible;
   }

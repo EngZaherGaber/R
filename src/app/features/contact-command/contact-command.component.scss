@@ -35,10 +35,23 @@
   position: relative;
   overflow: hidden;
   max-width: 86rem;
+  transform-style: preserve-3d;
+  transform: rotateX(4deg) rotateY(-3deg) translateZ(80px);
   border: 1px solid var(--line);
   border-radius: 1.2rem;
-  background: color-mix(in srgb, var(--surface), transparent 6%);
-  box-shadow: var(--shadow);
+  background:
+    radial-gradient(circle at 15% 0%, color-mix(in srgb, var(--accent), transparent 78%), transparent 20rem),
+    color-mix(in srgb, var(--surface), transparent 6%);
+}
+
+.terminal::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent), transparent 72%), transparent 28%);
+  opacity: 0;
+  transform: scale(0.2);
 }
 
 .terminal::after {
@@ -72,6 +85,14 @@
   color: var(--muted);
 }
 
+.terminal-bar em {
+  margin-inline-start: auto;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
 .commands {
   display: grid;
   padding: 0.8rem;
@@ -90,6 +111,7 @@
   color: var(--text);
   background: var(--surface-strong);
   text-align: start;
+  transform: translate3d(0, 0, 0);
 }
 
 .command-row.primary {
@@ -98,11 +120,25 @@
 
 .command-row:hover {
   border-color: color-mix(in srgb, var(--accent), transparent 48%);
-  transform: translateX(4px);
+  transform: translate3d(6px, 0, 40px);
+}
+
+.command-row.executing {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent), transparent 88%);
+  animation: command-flash 400ms steps(2, jump-none);
+}
+
+.terminal:has(.command-row.executing)::before {
+  animation: transmission-pulse 400ms ease-out;
 }
 
 code {
   color: var(--accent);
+}
+
+code span {
+  display: none;
 }
 
 .command-row span {
@@ -114,9 +150,119 @@ code {
   overflow-wrap: anywhere;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 640px) {
+  .contact-section {
+    min-height: auto;
+    align-content: start;
+    padding-inline: 0.75rem;
+  }
+
+  .terminal {
+    border-radius: 1rem;
+    transform: translateZ(0);
+  }
+
+  .terminal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      180deg,
+      transparent 0 10px,
+      color-mix(in srgb, var(--accent), transparent 94%) 11px
+    );
+    opacity: 0.3;
+  }
+
+  .terminal-bar {
+    position: relative;
+    z-index: 1;
+  }
+
+  .commands {
+    position: relative;
+    z-index: 1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 0.65rem;
+    padding-block-end: 5.2rem;
+  }
+
   .command-row {
     grid-template-columns: 1fr;
+    align-content: start;
+    min-height: 44px;
+    gap: 0.28rem;
+    padding: 0.72rem;
+    border-radius: 0.78rem;
+  }
+
+  .command-row:hover {
+    transform: translate3d(0, -2px, 0);
+  }
+
+  .command-row code {
+    font-size: 0.8rem;
+  }
+
+  code span {
+    display: inline;
+  }
+
+  .command-row span,
+  .command-row strong {
+    min-width: 0;
+    overflow: hidden;
+    font-size: 0.78rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .command-row.primary {
+    position: absolute;
+    inset-inline-end: 1rem;
+    inset-block-end: calc(1rem + env(safe-area-inset-bottom));
+    z-index: 2;
+    width: min(10.5rem, calc(100% - 2rem));
+    min-height: 3.65rem;
+    border-radius: 999px;
+    place-content: center;
+    border-color: color-mix(in srgb, var(--accent), transparent 22%);
+    color: var(--accent-contrast);
+    background: var(--accent);
+  }
+
+  .command-row.primary code,
+  .command-row.primary span {
+    color: currentColor;
+    display: none;
+  }
+
+  .command-row.primary strong {
+    color: currentColor;
+    font-size: 0.84rem;
+    font-weight: 900;
+    text-align: center;
+    white-space: normal;
+  }
+}
+
+@keyframes command-flash {
+  50% {
+    opacity: 0.62;
+    transform: translate3d(3px, 0, 0);
+  }
+}
+
+@keyframes transmission-pulse {
+  0% {
+    opacity: 0.72;
+    transform: scale(0.2);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.4);
   }
 }
 
@@ -138,6 +284,10 @@ code {
 
 @media (prefers-reduced-motion: reduce) {
   .terminal::after {
+    animation: none;
+  }
+
+  .command-row.executing {
     animation: none;
   }
 }

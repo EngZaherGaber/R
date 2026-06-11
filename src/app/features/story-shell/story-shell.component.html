@@ -1,4 +1,11 @@
 <main class="story-shell" [attr.dir]="workspace.direction()">
+  <div class="cosmic-field" aria-hidden="true">
+    <span class="star-layer far"></span>
+    <span class="star-layer mid"></span>
+    <span class="star-layer near"></span>
+    <span class="nebula-wash"></span>
+  </div>
+
   <header class="story-header" aria-label="Portfolio controls">
     <a class="brand-mark" href="#scene-hero" (click)="goTo('hero')" aria-label="Back to hero">
       <img src="Zaher.webp" width="42" height="42" alt="Zaher Jabr" />
@@ -10,6 +17,17 @@
       [activeSection]="activeScene()"
       (sectionSelected)="goTo($event)"
     />
+
+    <nav class="star-map" aria-label="Journey star map">
+      @for (section of sections(); track section.id) {
+        <button
+          type="button"
+          [class.active]="activeScene() === section.id"
+          [attr.aria-label]="section.label"
+          (click)="goTo(section.id)"
+        ></button>
+      }
+    </nav>
 
     <div class="rail-controls">
       <language-toggle />
@@ -35,6 +53,7 @@
 
   <hero-scene id="scene-hero" data-scene="hero" (navigateTo)="goTo($event)" />
   <project-stories id="scene-projects" data-scene="projects" />
+  <co-pilot-engine id="scene-copilot" data-scene="copilot" />
   <skill-evidence id="scene-skills" data-scene="skills" />
   <service-offers id="scene-services" data-scene="services" />
   <trust-wall id="scene-trust" data-scene="trust" />

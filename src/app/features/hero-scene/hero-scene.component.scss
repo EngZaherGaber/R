@@ -5,7 +5,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.82fr);
   align-items: center;
   gap: clamp(1.4rem, 4vw, 4.5rem);
-  padding: clamp(3.5rem, 6vw, 5.5rem) clamp(1rem, 3vw, 3rem);
+  padding: clamp(5rem, 7vw, 6.2rem) clamp(1rem, 3vw, 3rem) clamp(3.2rem, 5vw, 5rem);
   overflow: hidden;
 }
 
@@ -103,8 +103,9 @@ h1 small {
   background: var(--surface-strong);
   font-size: 0.82rem;
   font-weight: 800;
-  animation: tag-breathe 3.6s ease-in-out infinite;
-  animation-delay: calc(var(--tag-index, 0) * 120ms);
+  animation: tag-breathe 3.6s ease-in-out infinite, tag-signal-flare 7.2s ease-in-out infinite;
+  animation-delay: calc(var(--tag-index, 0) * 120ms), calc(1s + var(--tag-index, 0) * 1.25s);
+  will-change: transform, opacity;
 }
 
 .actions button {
@@ -128,6 +129,8 @@ h1 small {
 .hero-visual {
   position: relative;
   z-index: 2;
+  --hero-halo-scale: 1;
+  --hero-halo-opacity: 1;
   min-height: clamp(30rem, 72dvh, 46rem);
   display: grid;
   align-items: end;
@@ -145,7 +148,18 @@ h1 small {
     radial-gradient(circle at 50% 32%, color-mix(in srgb, var(--accent), transparent 54%), transparent 42%),
     linear-gradient(160deg, color-mix(in srgb, var(--surface), transparent 28%), transparent 62%);
   filter: blur(1px);
+  opacity: var(--hero-halo-opacity);
+  transform: scale(var(--hero-halo-scale));
   animation: aura-morph 7s ease-in-out infinite;
+}
+
+:host-context(body.light) .hero-visual::before {
+  background:
+    radial-gradient(circle at 50% 34%, color-mix(in srgb, var(--accent), white 34%), transparent 46%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.78), rgba(232, 239, 250, 0.28) 62%);
+  box-shadow:
+    inset 0 46px 70px rgba(255, 255, 255, 0.78),
+    inset 0 -36px 64px rgba(226, 234, 247, 0.72);
 }
 
 .hero-visual .hero-person {
@@ -178,6 +192,10 @@ h1 small {
   object-position: center bottom;
   filter: drop-shadow(0 34px 90px rgba(0, 0, 0, 0.42));
   animation: hero-card-float 6s ease-in-out infinite;
+}
+
+:host-context(body.light) .hero-person {
+  filter: drop-shadow(0 28px 72px rgba(88, 103, 132, 0.2));
 }
 
 .hero-visual .hero-person {
@@ -276,11 +294,11 @@ h1 small {
   line-height: 1;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1024px) {
   .hero-scene {
     min-height: auto;
     grid-template-columns: 1fr;
-    padding: 3.2rem 1rem 4rem;
+    padding: 4.8rem 1rem 4rem;
     overflow-x: clip;
   }
 
@@ -304,9 +322,44 @@ h1 small {
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
+  .hero-scene {
+    min-height: calc(100svh - 4rem);
+    align-content: center;
+    padding: 4.5rem 0.85rem 3rem;
+  }
+
+  .hero-copy {
+    z-index: 3;
+  }
+
+  .hero-visual {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 1;
+    min-height: 54svh;
+    opacity: 0.42;
+    justify-items: center;
+  }
+
+  .hero-person {
+    width: min(96vw, 26rem);
+  }
+
+  .tag-row span {
+    animation-name: tag-breathe;
+  }
+
+  .story-signals {
+    display: none;
+  }
+
   .actions {
     display: grid;
+  }
+
+  .actions button {
+    min-height: 44px;
   }
 }
 
@@ -359,6 +412,20 @@ h1 small {
   50% {
     border-color: color-mix(in srgb, var(--accent), transparent 58%);
     color: var(--text);
+  }
+}
+
+@keyframes tag-signal-flare {
+  0%,
+  88%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  92% {
+    opacity: 1;
+    transform: scale(1.05);
   }
 }
 

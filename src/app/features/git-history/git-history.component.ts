@@ -17,5 +17,6 @@ export class GitHistoryComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.scrollScene.stagger(this.elementRef.nativeElement, '.commit-card');
+    this.scrollScene.growTimeline(this.elementRef.nativeElement);
   }
 }

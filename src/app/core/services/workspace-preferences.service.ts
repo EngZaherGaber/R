@@ -54,7 +54,7 @@ export class WorkspacePreferencesService {
     return new URLSearchParams(window.location.search).get(key);
   }
 
-  setUrlParams(params: Record<string, string | null | undefined>): void {
+  setUrlParams(params: Record<string, string | null | undefined>, _anchorMobile = false): void {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }

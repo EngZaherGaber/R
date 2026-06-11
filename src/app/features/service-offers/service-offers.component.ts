@@ -1,5 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, computed, effect, inject, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostBinding,
+  OnDestroy,
+  ViewChild,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { WorkspacePreferencesService } from '../../core/services/workspace-preferences.service';
 import { ScrollSceneService } from '../../core/services/scroll-scene.service';
 
@@ -10,9 +21,15 @@ import { ScrollSceneService } from '../../core/services/scroll-scene.service';
   templateUrl: './service-offers.component.html',
   styleUrl: './service-offers.component.scss',
 })
-export class ServiceOffersComponent implements AfterViewInit {
+export class ServiceOffersComponent implements AfterViewInit, OnDestroy {
   readonly workspace = inject(WorkspacePreferencesService);
+  @ViewChild('serviceSheet') private serviceSheet?: ElementRef<HTMLElement>;
+  @HostBinding('class.sheet-active') get sheetActive(): boolean {
+    return this.sheetOpen();
+  }
+
   readonly selectedServiceId = signal(this.workspace.readUrlParam('service') ?? 'angular-apps');
+  readonly sheetOpen = signal(false);
   readonly selectedService = computed(
     () => this.workspace.content().services.find((service) => service.id === this.selectedServiceId()) ?? this.workspace.content().services[0],
   );
@@ -26,7 +43,8 @@ export class ServiceOffersComponent implements AfterViewInit {
   });
 
   private readonly elementRef = inject(ElementRef<HTMLElement>);
-  private readonly scrollScene = inject(ScrollSceneService);
+  readonly scrollScene = inject(ScrollSceneService);
+  private sheetDraggables: Array<{ kill: () => void }> = [];
   private viewReady = false;
 
   constructor() {
@@ -41,10 +59,38 @@ export class ServiceOffersComponent implements AfterViewInit {
   selectService(serviceId: string): void {
     this.selectedServiceId.set(serviceId);
     this.workspace.setUrlParams({ scene: 'services', service: serviceId });
+
+    if (this.scrollScene.isMobile()) {
+      this.openSheet();
+    }
   }
 
   ngAfterViewInit(): void {
     this.viewReady = true;
     this.scrollScene.stagger(this.elementRef.nativeElement, '.offer-card');
+  }
+
+  closeSheet(): void {
+    this.sheetOpen.set(false);
+    this.sheetDraggables.forEach((draggable) => draggable.kill());
+    this.sheetDraggables = [];
+  }
+
+  private openSheet(): void {
+    this.sheetOpen.set(true);
+    setTimeout(() => {
+      const sheet = this.serviceSheet?.nativeElement;
+      if (!sheet) {
+        return;
+      }
+
+      this.sheetDraggables.forEach((draggable) => draggable.kill());
+      this.scrollScene.animateSheetIn(sheet);
+      this.sheetDraggables = this.scrollScene.createDismissSheet(sheet, () => this.closeSheet());
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.closeSheet();
   }
 }

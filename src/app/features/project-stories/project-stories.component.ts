@@ -63,9 +63,6 @@ export class ProjectStoriesComponent implements AfterViewInit {
   selectProject(project: PortfolioProject, mobileArticle?: HTMLElement): void {
     this.selectedProjectId.set(project.id);
     this.workspace.setUrlParams({ scene: 'projects', project: project.id });
-    if (mobileArticle && window.matchMedia('(max-width: 980px)').matches) {
-      setTimeout(() => mobileArticle.scrollIntoView({ block: 'start', behavior: 'smooth' }));
-    }
   }
 
   tiltCard(event: PointerEvent): void {
@@ -87,11 +84,7 @@ export class ProjectStoriesComponent implements AfterViewInit {
 
   resetTilt(event: PointerEvent): void {
     const card = event.currentTarget as HTMLElement;
-    card.style.setProperty('--tilt-x', '3deg');
-    card.style.setProperty('--tilt-y', '-8deg');
-    card.style.setProperty('--tilt-z', '0px');
-    card.style.setProperty('--glow-x', '50%');
-    card.style.setProperty('--glow-y', '30%');
+    this.scrollScene.elasticTiltReset(card);
   }
 
   private animateProjectSwap(direction: number): void {

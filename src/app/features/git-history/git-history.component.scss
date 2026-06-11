@@ -31,6 +31,7 @@
 
 .commit-line {
   position: relative;
+  --commit-progress: 0%;
   display: grid;
   gap: 1rem;
   max-width: 86rem;
@@ -42,7 +43,10 @@
   inset-block: 0;
   inset-inline-start: 8.2rem;
   width: 2px;
-  background: linear-gradient(var(--accent), transparent);
+  background:
+    linear-gradient(var(--accent), var(--accent)) 0 0 / 100% var(--commit-progress) no-repeat,
+    linear-gradient(color-mix(in srgb, var(--line), transparent 10%), transparent);
+  transform: translate3d(0, 0, 0);
 }
 
 .commit-card {
@@ -62,6 +66,14 @@
   border-radius: 999px;
   background: var(--accent);
   box-shadow: 0 0 0 0.35rem color-mix(in srgb, var(--accent), transparent 78%);
+  transform: scale(0.84);
+  transition: transform 260ms ease, opacity 260ms ease;
+  opacity: 0.6;
+}
+
+.commit-card.commit-active::before {
+  opacity: 1;
+  transform: scale(1.18);
 }
 
 time {
@@ -77,6 +89,13 @@ time {
   border: 1px solid var(--line);
   border-radius: 1rem;
   background: color-mix(in srgb, var(--surface), transparent 8%);
+  transform: translate3d(0, 0, 0);
+  transition: border-color 260ms ease, background 260ms ease;
+}
+
+.commit-card.commit-active > div {
+  border-color: color-mix(in srgb, var(--accent), transparent 35%);
+  background: color-mix(in srgb, var(--accent), transparent 92%);
 }
 
 code {
@@ -106,14 +125,29 @@ h3 {
   background: var(--surface-strong);
 }
 
-@media (max-width: 700px) {
-  .commit-line::before,
+@media (max-width: 640px) {
+  .history-section {
+    padding-inline: 0.75rem;
+  }
+
+  .commit-line {
+    gap: 0.75rem;
+    padding-inline-start: 1.15rem;
+  }
+
+  .commit-line::before {
+    inset-inline-start: 0.35rem;
+  }
+
   .commit-card::before {
-    display: none;
+    inset-inline-start: -1.12rem;
+    width: 0.55rem;
+    height: 0.55rem;
   }
 
   .commit-card {
     grid-template-columns: 1fr;
     gap: 0.5rem;
+    transform: translate3d(0, 0, 0) scale(0.98);
   }
 }

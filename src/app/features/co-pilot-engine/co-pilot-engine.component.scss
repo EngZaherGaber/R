@@ -1,0 +1,669 @@
+:host {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  scroll-margin-top: 6rem;
+}
+
+.co-pilot-engine {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  padding: clamp(3.2rem, 5vw, 5.6rem) clamp(1rem, 3vw, 3.4rem);
+  overflow: clip;
+  color: var(--text);
+}
+
+.co-pilot-engine::before {
+  content: "";
+  position: absolute;
+  inset: clamp(1.2rem, 3vw, 2.8rem);
+  z-index: -1;
+  border: 1px solid color-mix(in srgb, var(--line), transparent 22%);
+  border-radius: clamp(1.2rem, 2.4vw, 2rem);
+  opacity: 0.58;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--line), transparent 72%) 1px, transparent 1px),
+    linear-gradient(180deg, color-mix(in srgb, var(--line), transparent 78%) 1px, transparent 1px);
+  background-size: 5.2rem 5.2rem;
+  mask-image: radial-gradient(circle at 50% 42%, black, transparent 76%);
+}
+
+.engine-header {
+  width: min(100%, 86rem);
+  margin: 0 auto clamp(1.2rem, 3vw, 2.4rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 1rem;
+}
+
+.engine-header p,
+.phase-number,
+.phase-strip,
+.phase-track,
+.development-meter,
+.build-badges,
+.output-stack small {
+  color: var(--muted);
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.engine-header p {
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+}
+
+.engine-header h2 {
+  margin: 0;
+  max-width: 50rem;
+  font-size: clamp(2.35rem, 6vw, 5.2rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+}
+
+.engine-header span {
+  display: block;
+  max-width: 55rem;
+  margin-top: 0.8rem;
+  color: var(--muted);
+  line-height: 1.72;
+}
+
+.build-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.build-badges strong,
+.build-badges span {
+  margin: 0;
+  padding: 0.36rem 0.58rem;
+  border: 1px solid color-mix(in srgb, var(--accent), transparent 46%);
+  border-radius: 0.55rem;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent), transparent 90%);
+  line-height: 1;
+}
+
+.build-badges strong {
+  color: var(--text);
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--surface), transparent 14%);
+}
+
+.initialize-button {
+  display: none;
+}
+
+.engine-pipeline {
+  position: relative;
+  width: min(100%, 86rem);
+  min-height: clamp(30rem, 47vw, 41rem);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.7fr) minmax(28rem, 1.8fr) minmax(13rem, 0.78fr);
+  align-items: center;
+  gap: clamp(0.8rem, 2vw, 1.8rem);
+}
+
+.engine-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.draw-line {
+  fill: none;
+  stroke: color-mix(in srgb, var(--accent), white 14%);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.draw-line.alt,
+.relation-line {
+  stroke: rgba(244, 114, 182, 0.78);
+}
+
+.phase-card,
+.lab-panel,
+.output-stack {
+  position: relative;
+  z-index: 1;
+}
+
+.idea-phase {
+  display: grid;
+  justify-items: center;
+  gap: 0.45rem;
+  text-align: center;
+}
+
+.idea-core {
+  width: clamp(4.2rem, 8vw, 6.4rem);
+  height: clamp(4.2rem, 8vw, 6.4rem);
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--accent), white 16%);
+  border-radius: 1rem;
+  color: #06141d;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.9), transparent 38%),
+    linear-gradient(135deg, color-mix(in srgb, var(--accent), white 35%), #eaffff);
+  box-shadow:
+    0 0 1.6rem color-mix(in srgb, var(--accent), transparent 42%),
+    inset 0 0 1rem rgba(255, 255, 255, 0.45);
+  animation: idea-float 4.8s ease-in-out infinite;
+}
+
+.idea-core i {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+
+.idea-phase h3,
+.idea-phase p {
+  margin: 0;
+}
+
+.idea-phase h3 {
+  font-size: clamp(1.05rem, 1.4vw, 1.35rem);
+}
+
+.idea-phase p {
+  color: var(--muted);
+}
+
+.lab-panel {
+  min-width: 0;
+  perspective: 1300px;
+}
+
+.lab-tabs {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 4rem, 30rem);
+  min-height: 3.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.72rem;
+  margin-inline-start: 2rem;
+  padding: 0.6rem 1.15rem;
+  border: 1px solid color-mix(in srgb, var(--accent), transparent 30%);
+  border-bottom: 0;
+  border-radius: 0.85rem 1.8rem 0 0;
+  color: var(--text);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent), transparent 78%), transparent),
+    color-mix(in srgb, var(--surface), transparent 8%);
+  box-shadow: 0 0 1.4rem color-mix(in srgb, var(--accent), transparent 68%);
+}
+
+.lab-icon {
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--accent), transparent 35%);
+  border-radius: 0.55rem;
+  color: var(--accent);
+}
+
+.lab-window {
+  --magnet-x: 0;
+  --magnet-y: 0;
+  position: relative;
+  min-height: clamp(22rem, 35vw, 31rem);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent), transparent 32%);
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at calc(50% + var(--magnet-x) * 12%) calc(35% + var(--magnet-y) * 10%), color-mix(in srgb, var(--accent), transparent 72%), transparent 18rem),
+    linear-gradient(90deg, color-mix(in srgb, var(--line), transparent 82%) 1px, transparent 1px),
+    linear-gradient(180deg, color-mix(in srgb, var(--line), transparent 86%) 1px, transparent 1px),
+    color-mix(in srgb, var(--surface), transparent 9%);
+  background-size: auto, 4.5rem 4.5rem, 4.5rem 4.5rem, auto;
+  box-shadow:
+    0 1.5rem 5rem rgba(0, 0, 0, 0.28),
+    inset 0 0 2rem color-mix(in srgb, var(--accent), transparent 86%);
+  transform: rotateX(calc(var(--magnet-y) * -2deg)) rotateY(calc(var(--magnet-x) * 3deg));
+  transform-style: preserve-3d;
+  transition: transform 180ms ease-out;
+}
+
+.build-pulse {
+  position: absolute;
+  inset-block-start: 48%;
+  inset-inline-end: 17%;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(125, 211, 252, 0.68), transparent 68%);
+  pointer-events: none;
+}
+
+.entity-node {
+  position: absolute;
+  min-width: 7.4rem;
+  min-height: 4.9rem;
+  display: grid;
+  place-items: center;
+  gap: 0.32rem;
+  border: 0;
+  color: var(--text);
+  background: transparent;
+  transform:
+    translate3d(calc(var(--magnet-x) * var(--entity-depth, 0.8rem)), calc(var(--magnet-y) * var(--entity-depth, 0.8rem)), 0)
+    scale(1);
+  will-change: transform;
+}
+
+.entity-node.product {
+  --entity-depth: -0.6rem;
+  inset-block-start: 43%;
+  inset-inline-start: 18%;
+}
+
+.entity-node.user {
+  --entity-depth: 1rem;
+  inset-block-start: 21%;
+  inset-inline-start: 44%;
+}
+
+.entity-node.order {
+  --entity-depth: 1.4rem;
+  inset-block-start: 58%;
+  inset-inline-start: 55%;
+}
+
+.entity-cube {
+  width: 3.4rem;
+  height: 3.4rem;
+  border: 1px solid color-mix(in srgb, var(--accent), white 20%);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent), transparent 64%), transparent 52%),
+    linear-gradient(315deg, rgba(244, 114, 182, 0.26), transparent 48%),
+    color-mix(in srgb, var(--surface), transparent 2%);
+  box-shadow: inset 0 0 1rem color-mix(in srgb, var(--accent), transparent 76%);
+  transform: rotateX(55deg) rotateZ(45deg);
+}
+
+.entity-node strong {
+  font-size: 0.82rem;
+  text-shadow: 0 0 0.8rem color-mix(in srgb, var(--accent), transparent 35%);
+}
+
+.relationship-label {
+  position: absolute;
+  inset-block-start: 48%;
+  inset-inline-start: 47%;
+  color: color-mix(in srgb, var(--accent), white 28%);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.question-card {
+  position: absolute;
+  inset-block-start: 37%;
+  inset-inline-end: 6%;
+  width: min(15.5rem, 42%);
+  padding: 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--accent), transparent 38%);
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--surface-strong), transparent 7%);
+  box-shadow: 0 1rem 2.2rem rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(12px);
+}
+
+.question-card strong {
+  display: block;
+  margin-bottom: 0.7rem;
+  font-size: 0.9rem;
+}
+
+.question-card div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.question-option {
+  min-height: 2rem;
+  padding: 0 0.55rem;
+  border: 1px solid color-mix(in srgb, var(--accent), transparent 36%);
+  border-radius: 0.45rem;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent), transparent 92%);
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  font-size: 0.72rem;
+}
+
+.question-option.active {
+  color: #041316;
+  background: color-mix(in srgb, var(--accent), white 24%);
+}
+
+.phase-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.7rem;
+  color: var(--accent);
+}
+
+.phase-strip span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.output-stack {
+  display: grid;
+  gap: clamp(0.85rem, 1.4vw, 1rem);
+}
+
+.stack-node {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 5.4rem;
+  padding: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--accent), transparent 48%);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--surface), transparent 7%);
+  box-shadow: inset 0 0 1.6rem color-mix(in srgb, var(--accent), transparent 90%);
+  transform: translate3d(0, 0, 0);
+}
+
+.stack-node.active {
+  border-color: color-mix(in srgb, var(--accent), white 5%);
+}
+
+.stack-orb {
+  position: relative;
+  flex: 0 0 auto;
+  width: 4rem;
+  height: 4rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 1rem;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent), transparent 88%);
+}
+
+.stack-orb i {
+  position: absolute;
+  font-size: 1.45rem;
+  opacity: 0.22;
+}
+
+.stack-orb b {
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+}
+
+.stack-node strong,
+.stack-node small {
+  display: block;
+}
+
+.stack-node strong {
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.engine-footer {
+  width: min(100%, 86rem);
+  margin: clamp(1rem, 2vw, 1.5rem) auto 0;
+  display: grid;
+  grid-template-columns: 1fr minmax(12rem, 18rem) auto;
+  align-items: end;
+  gap: 1rem;
+}
+
+.phase-track {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.phase-track span {
+  min-width: 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid color-mix(in srgb, var(--accent), transparent 46%);
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.development-meter {
+  display: grid;
+  gap: 0.45rem;
+  text-align: center;
+}
+
+.development-meter b {
+  height: 0.5rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent), transparent 35%);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface), transparent 8%);
+}
+
+.development-meter i {
+  display: block;
+  width: 75%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(167, 139, 250, 0.8), var(--accent));
+}
+
+.engine-footer code {
+  min-height: 2.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--accent), transparent 38%);
+  border-radius: 0.6rem;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent), transparent 92%);
+  white-space: nowrap;
+}
+
+.engine-ready .draw-line {
+  stroke-dashoffset: 0;
+}
+
+.engine-ready .question-card,
+.engine-ready .stack-node {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+@keyframes idea-float {
+  0%,
+  100% {
+    transform: translate3d(0, -0.2rem, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(0, 0.35rem, 0) scale(1.025);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .idea-core {
+    animation: none;
+  }
+
+  .lab-window,
+  .entity-node {
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .co-pilot-engine {
+    padding: clamp(2.8rem, 9vw, 4rem) 1rem;
+  }
+
+  .co-pilot-engine::before {
+    inset: 0.7rem;
+    border-radius: 1.2rem;
+    background-size: 3.6rem 3.6rem;
+  }
+
+  .engine-header {
+    grid-template-columns: 1fr;
+  }
+
+  .engine-header h2 {
+    font-size: clamp(2rem, 12vw, 3.4rem);
+  }
+
+  .build-badges {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .initialize-button {
+    width: min(100%, 22rem);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 auto 1rem;
+    border: 1px solid color-mix(in srgb, var(--accent), transparent 30%);
+    border-radius: 999px;
+    color: #031315;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--accent), white 26%), var(--accent));
+    font-weight: 900;
+    box-shadow: 0 1rem 2.6rem color-mix(in srgb, var(--accent), transparent 72%);
+  }
+
+  .engine-pipeline {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .desktop-lines {
+    display: none;
+  }
+
+  .idea-phase,
+  .lab-panel,
+  .output-stack {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--line), transparent 12%);
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--surface), transparent 8%);
+  }
+
+  .idea-core {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .lab-tabs {
+    width: 100%;
+    margin: 0 0 -1px;
+    border-radius: 0.85rem 0.85rem 0 0;
+  }
+
+  .lab-window {
+    min-height: 27rem;
+    border-radius: 0 0 1rem 1rem;
+    transform: none;
+  }
+
+  .entity-node {
+    min-width: 6.4rem;
+    min-height: 4.4rem;
+  }
+
+  .entity-node.product {
+    inset-block-start: 25%;
+    inset-inline-start: 8%;
+  }
+
+  .entity-node.user {
+    inset-block-start: 22%;
+    inset-inline-start: 58%;
+  }
+
+  .entity-node.order {
+    inset-block-start: 49%;
+    inset-inline-start: 32%;
+  }
+
+  .relationship-label {
+    inset-block-start: 43%;
+    inset-inline-start: 34%;
+  }
+
+  .question-card {
+    inset-block-start: auto;
+    inset-inline: 1rem;
+    inset-block-end: 1rem;
+    width: auto;
+  }
+
+  .phase-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .output-stack {
+    padding: 0.75rem;
+  }
+
+  .stack-node {
+    min-height: 4.8rem;
+  }
+
+  .stack-orb {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+
+  .phase-track {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .engine-footer code {
+    width: 100%;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 420px) {
+  .phase-track {
+    grid-template-columns: 1fr;
+  }
+
+  .question-card div {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}

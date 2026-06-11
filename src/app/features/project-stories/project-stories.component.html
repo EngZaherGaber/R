@@ -87,10 +87,16 @@
 
   <div class="mobile-project-list" aria-label="Mobile project list">
     @for (project of projects(); track project.id) {
-      <article class="mobile-project" [class.active]="selectedProject().id === project.id" #mobileArticle>
+      <article
+        class="mobile-project"
+        [id]="'mobile-project-' + project.id"
+        [class.active]="selectedProject().id === project.id"
+        #mobileArticle
+      >
         <button type="button" (click)="selectProject(project, mobileArticle)">
           <span>{{ project.name }}</span>
           <small>{{ project.type }}</small>
+          <i class="bi bi-chevron-down" aria-hidden="true"></i>
         </button>
 
         @if (selectedProject().id === project.id) {

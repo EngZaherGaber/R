@@ -21,7 +21,7 @@
       <button type="button" class="ghost" (click)="downloadCv()">
         {{ workspace.content().hero.secondaryAction }}
       </button>
-      <button type="button" class="ghost" (click)="navigateTo.emit('contact')">Contact</button>
+      <button type="button" class="ghost" (click)="navigateTo.emit('contact')">{{ workspace.content().hero.contactAction }}</button>
     </div>
   </div>
 
@@ -33,12 +33,12 @@
     <div class="signal-dot dot-three" aria-hidden="true"></div>
 
     <div class="story-signals" aria-label="Portfolio signals">
-      <span class="signal-kicker">Product story signals</span>
+      <span class="signal-kicker">{{ workspace.content().hero.signalKicker }}</span>
       <div class="signal-grid">
-        <span><b>7</b> Proof projects</span>
-        <span><b>11</b> Skill links</span>
-        <span><b>2</b> Languages</span>
-        <span><b>UI</b> Product-minded</span>
+        <span><b>7</b> {{ workspace.content().hero.signalProofProjects }}</span>
+        <span><b>11</b> {{ workspace.content().hero.signalSkillLinks }}</span>
+        <span><b>2</b> {{ workspace.content().hero.signalLanguages }}</span>
+        <span><b>UI</b> {{ workspace.content().hero.signalProductMindset }}</span>
       </div>
     </div>
   </div>

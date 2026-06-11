@@ -21,8 +21,7 @@ export class HeroSceneComponent implements AfterViewInit {
   private readonly scrollScene = inject(ScrollSceneService);
 
   ngAfterViewInit(): void {
-    this.scrollScene.stagger(this.elementRef.nativeElement, '.hero-token');
-    this.scrollScene.reveal(this.elementRef.nativeElement, '.hero-card');
+    this.scrollScene.heroEntrance(this.elementRef.nativeElement);
   }
 
   downloadCv(): void {

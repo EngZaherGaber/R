@@ -22,7 +22,7 @@ export interface Metric {
 }
 
 export interface NavItem {
-  id: PanelId;
+  id: PanelId | 'copilot';
   label: string;
   icon: string;
 }
@@ -97,6 +97,37 @@ export interface PortfolioRecommendation {
   relatedProjectIds: string[];
 }
 
+export interface CoPilotOutput {
+  label: string;
+  title: string;
+  meta: string;
+  icon: string;
+}
+
+export interface CoPilotContent {
+  eyebrow: string;
+  title: string;
+  description: string;
+  prototypeBadge: string;
+  digitalBadge: string;
+  initialize: string;
+  progress: string;
+  command: string;
+  phases: {
+    idea: string;
+    relationships: string;
+    adaptive: string;
+    output: string;
+  };
+  ideaName: string;
+  labTitle: string;
+  entities: string[];
+  relationshipLabel: string;
+  question: string;
+  options: string[];
+  outputs: CoPilotOutput[];
+}
+
 export interface PortfolioContent {
   meta: {
     name: string;
@@ -110,6 +141,12 @@ export interface PortfolioContent {
     subtitle: string;
     primaryAction: string;
     secondaryAction: string;
+    contactAction?: string;
+    signalKicker?: string;
+    signalProofProjects?: string;
+    signalSkillLinks?: string;
+    signalLanguages?: string;
+    signalProductMindset?: string;
   };
   initialize: string[];
   metrics: Metric[];
@@ -121,11 +158,14 @@ export interface PortfolioContent {
   }>;
   projectTabs: Record<ProjectTab, string>;
   projects: PortfolioProject[];
+  coPilot: CoPilotContent;
   skillLabels: {
     core: string;
     dependencies: string;
     evidence: string;
     relatedProjects: string;
+    proofProjects?: string;
+    closeDetails?: string;
   };
   skills: PortfolioSkill[];
   timelineLabels: {
@@ -139,12 +179,20 @@ export interface PortfolioContent {
     directActions: string;
     copy: string;
     copied: string;
+    missionControl?: string;
+    transmitting?: string;
+    channelReady?: string;
+    openingChannel?: string;
+    preparingDossier?: string;
+    cv?: string;
   };
   contacts: PortfolioContact[];
   serviceLabels: {
     deliverables: string;
     proof: string;
     relatedSkills: string;
+    selectedService?: string;
+    closeDetails?: string;
   };
   services: PortfolioService[];
   recommendationLabels: {
@@ -642,6 +690,12 @@ export const portfolioContent: Record<LanguageCode, PortfolioContent> = {
         'A fast, bilingual workspace for exploring projects, skills, architecture, and the way I ship clean interfaces.',
       primaryAction: 'Explore projects',
       secondaryAction: 'Download CV',
+      contactAction: 'Contact',
+      signalKicker: 'Product story signals',
+      signalProofProjects: 'Proof projects',
+      signalSkillLinks: 'Skill links',
+      signalLanguages: 'Languages',
+      signalProductMindset: 'Product-minded',
     },
     initialize: ['profile indexed', 'projects mapped', 'skills linked', 'workspace ready'],
     metrics: [
@@ -653,6 +707,7 @@ export const portfolioContent: Record<LanguageCode, PortfolioContent> = {
     nav: [
       { id: 'overview', label: 'Overview', icon: 'bi bi-house' },
       { id: 'projects', label: 'Projects', icon: 'bi bi-folder2-open' },
+      { id: 'copilot', label: 'Co-Pilot', icon: 'bi bi-cpu' },
       { id: 'skills', label: 'Skills', icon: 'bi bi-diagram-3' },
       { id: 'services', label: 'Services', icon: 'bi bi-grid-1x2' },
       { id: 'timeline', label: 'Timeline', icon: 'bi bi-git' },
@@ -709,11 +764,41 @@ export const portfolioContent: Record<LanguageCode, PortfolioContent> = {
       metrics: 'Signals',
     },
     projects: englishProjects,
+    coPilot: {
+      eyebrow: 'Development Prototype: Active Build',
+      title: 'The Co-Pilot Engine',
+      description:
+        'An internal project builder that reads an idea seed, maps entity relationships, asks the missing architecture questions, then prepares API, web, and mobile outputs.',
+      prototypeBadge: 'Active Build',
+      digitalBadge: 'Digital',
+      initialize: 'Initialize Engine',
+      progress: 'Development: 75% complete',
+      command: '[EXE] co-pilot.preview --dev',
+      phases: {
+        idea: 'Idea Seed',
+        relationships: 'Entity Relationships',
+        adaptive: 'Adaptive Questions',
+        output: 'Autonomous Output',
+      },
+      ideaName: 'E-Commerce App',
+      labTitle: 'Interactive Product Story',
+      entities: ['PRODUCT', 'USER', 'ORDER'],
+      relationshipLabel: 'one-to-many',
+      question: 'Authentication needed?',
+      options: ['OAuth', 'JWT', 'Skip'],
+      outputs: [
+        { label: 'WEB', title: 'Nest.js + DB API', meta: 'API', icon: 'bi bi-hdd-network' },
+        { label: 'ANGULAR WEB', title: 'Angular Web UI', meta: 'A', icon: 'bi bi-shield-fill' },
+        { label: 'IONIC MOBILE', title: 'Ionic Mobile UI', meta: 'I', icon: 'bi bi-phone' },
+      ],
+    },
     skillLabels: {
       core: 'Core Node',
       dependencies: 'Dependencies',
       evidence: 'Evidence',
       relatedProjects: 'Related Projects',
+      proofProjects: 'Proof Projects',
+      closeDetails: 'Close skill details',
     },
     skills: englishSkills,
     timelineLabels: {
@@ -727,12 +812,20 @@ export const portfolioContent: Record<LanguageCode, PortfolioContent> = {
       directActions: 'Direct Actions',
       copy: 'Copy email',
       copied: 'Copied',
+      missionControl: 'mission.control',
+      transmitting: 'Transmitting...',
+      channelReady: 'channel ready',
+      openingChannel: 'Opening channel...',
+      preparingDossier: 'Preparing dossier...',
+      cv: 'CV',
     },
     contacts: englishContacts,
     serviceLabels: {
       deliverables: 'Deliverables',
       proof: 'Proof Projects',
       relatedSkills: 'Related Skills',
+      selectedService: 'Selected service',
+      closeDetails: 'Close service details',
     },
     services: englishServices,
     recommendationLabels: {
@@ -823,6 +916,34 @@ export const portfolioContent: Record<LanguageCode, PortfolioContent> = {
       metrics: 'المؤشرات',
     },
     projects: englishProjects,
+    coPilot: {
+      eyebrow: 'نموذج قيد التطوير: بناء نشط',
+      title: 'محرك Co-Pilot',
+      description:
+        'أداة داخلية قيد التطوير تقرأ فكرة المشروع، تربط الكيانات، تسأل أسئلة هندسية تكيفية، ثم تجهز مخرجات API وواجهة Web وتطبيق Mobile.',
+      prototypeBadge: 'بناء نشط',
+      digitalBadge: 'رقمي',
+      initialize: 'تشغيل المحرك',
+      progress: 'التطوير: 75% مكتمل',
+      command: '[EXE] co-pilot.preview --dev',
+      phases: {
+        idea: 'بذرة الفكرة',
+        relationships: 'علاقات الكيانات',
+        adaptive: 'أسئلة تكيفية',
+        output: 'مخرجات تلقائية',
+      },
+      ideaName: 'تطبيق متجر إلكتروني',
+      labTitle: 'قصة منتج تفاعلية',
+      entities: ['PRODUCT', 'USER', 'ORDER'],
+      relationshipLabel: 'واحد إلى متعدد',
+      question: 'هل نحتاج تسجيل دخول؟',
+      options: ['OAuth', 'JWT', 'تخطي'],
+      outputs: [
+        { label: 'WEB', title: 'Nest.js + DB API', meta: 'API', icon: 'bi bi-hdd-network' },
+        { label: 'ANGULAR WEB', title: 'Angular Web UI', meta: 'A', icon: 'bi bi-shield-fill' },
+        { label: 'IONIC MOBILE', title: 'Ionic Mobile UI', meta: 'I', icon: 'bi bi-phone' },
+      ],
+    },
     skillLabels: {
       core: 'عقدة رئيسية',
       dependencies: 'الاعتمادات',
@@ -879,6 +1000,12 @@ Object.assign(portfolioContent.ar.hero, {
     'مساحة واحدة لاستكشاف المشاريع والمهارات والخدمات والثقة، مبنية كسرد تفاعلي سريع يدعم العربية والإنجليزية.',
   primaryAction: 'استكشف الأعمال',
   secondaryAction: 'تحميل السيرة الذاتية',
+  contactAction: 'تواصل',
+  signalKicker: 'إشارات القصة',
+  signalProofProjects: 'مشاريع مثبتة',
+  signalSkillLinks: 'روابط مهارية',
+  signalLanguages: 'لغات',
+  signalProductMindset: 'تفكير منتجي',
 });
 
 portfolioContent.ar.initialize = [
@@ -903,6 +1030,13 @@ portfolioContent.ar.nav = [
   { id: 'timeline', label: 'الخبرة', icon: 'bi bi-git' },
   { id: 'recommendations', label: 'الثقة', icon: 'bi bi-chat-quote' },
   { id: 'contact', label: 'التواصل', icon: 'bi bi-send' },
+];
+
+portfolioContent.ar.nav = [
+  portfolioContent.ar.nav[0],
+  portfolioContent.ar.nav[1],
+  { id: 'copilot', label: 'Co-Pilot', icon: 'bi bi-cpu' },
+  ...portfolioContent.ar.nav.slice(2),
 ];
 
 Object.assign(portfolioContent.ar.panels, {
@@ -944,11 +1078,22 @@ Object.assign(portfolioContent.ar.panels, {
   },
 });
 
+Object.assign(portfolioContent.ar.panels, {
+  copilot: {
+    title: 'محرك Co-Pilot',
+    kicker: 'نموذج قيد التطوير',
+    description:
+      'مختبر الهندسة الذي يحول الفكرة والكيانات والأسئلة التكيفية إلى API وواجهة Web وتطبيق Mobile.',
+  },
+});
+
 Object.assign(portfolioContent.ar.skillLabels, {
   core: 'المهارة',
   dependencies: 'التقنيات المرتبطة',
   evidence: 'الدليل العملي',
   relatedProjects: 'المشاريع المرتبطة',
+  proofProjects: 'مشاريع مثبتة',
+  closeDetails: 'إغلاق تفاصيل المهارة',
 });
 
 Object.assign(portfolioContent.ar.timelineLabels, {
@@ -962,6 +1107,12 @@ Object.assign(portfolioContent.ar.contactLabels, {
   directActions: 'إجراءات مباشرة',
   copy: 'نسخ البريد',
   copied: 'تم النسخ',
+  missionControl: 'لوحة التحكم',
+  transmitting: 'جار الإرسال...',
+  channelReady: 'القناة جاهزة',
+  openingChannel: 'جار فتح القناة...',
+  preparingDossier: 'جار تجهيز الملف...',
+  cv: 'السيرة',
 });
 
 portfolioContent.ar.contacts = [
@@ -977,6 +1128,8 @@ Object.assign(portfolioContent.ar.serviceLabels, {
   deliverables: 'ما يستلمه العميل',
   proof: 'مشاريع تثبت الخدمة',
   relatedSkills: 'المهارات المرتبطة',
+  selectedService: 'الخدمة المختارة',
+  closeDetails: 'إغلاق تفاصيل الخدمة',
 });
 
 Object.assign(portfolioContent.ar.recommendationLabels, {

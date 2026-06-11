@@ -9,13 +9,22 @@
     <span class="section-light-ribbon" aria-hidden="true"></span>
 
     <div class="orbit-space" aria-label="Skill orbit selector">
+      <svg class="constellation-links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M 50 50 C 34 36, 26 28, 18 15" />
+        <path d="M 50 50 C 54 36, 66 26, 78 16" />
+        <path d="M 50 50 C 35 58, 25 66, 30 72" />
+        <path d="M 50 50 C 64 58, 76 64, 84 52" />
+      </svg>
+
       @for (skill of workspace.content().skills; track skill.id; let index = $index) {
         <button
           type="button"
+          #skillNode
+          [id]="'skill-node-' + skill.id"
           class="skill-node"
           [class.active]="selectedSkill().id === skill.id"
           [ngStyle]="skillNodeStyle(index)"
-          (click)="selectSkill(skill.id)"
+          (click)="selectSkill(skill.id, skillNode)"
           [attr.aria-label]="skill.name"
         >
           <img [src]="skill.icon" width="38" height="38" [alt]="skill.name" loading="lazy" />
@@ -24,7 +33,7 @@
       }
     </div>
 
-    <aside class="evidence-panel">
+    <aside class="evidence-panel" id="skill-detail-panel">
       <div class="detail-orb" aria-hidden="true">
         <img [src]="selectedSkill().icon" width="112" height="112" [alt]="selectedSkill().name" loading="lazy" />
       </div>
@@ -48,4 +57,49 @@
       </div>
     </aside>
   </div>
+
+  @if (sheetOpen()) {
+    <div class="skill-sheet-backdrop" (click)="closeSheet()" aria-hidden="true"></div>
+    <aside
+      #skillSheet
+      class="skill-sheet"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="skill-sheet-title"
+    >
+      <button type="button" class="sheet-handle" [attr.aria-label]="workspace.content().skillLabels.closeDetails" (click)="closeSheet()">
+        <span></span>
+      </button>
+
+      <div class="sheet-title">
+        <img [src]="selectedSkill().icon" width="46" height="46" [alt]="selectedSkill().name" loading="lazy" />
+        <div>
+          <p>{{ workspace.content().skillLabels.evidence }}</p>
+          <h3 id="skill-sheet-title">{{ selectedSkill().name }}</h3>
+          <span>{{ selectedSkill().summary }}</span>
+        </div>
+      </div>
+
+      <section>
+        <h4>{{ workspace.content().skillLabels.dependencies }}</h4>
+        <div class="chip-group">
+          @for (dependency of selectedSkill().dependencies; track dependency) {
+            <span>{{ dependency }}</span>
+          }
+        </div>
+      </section>
+
+      <section>
+        <h4>{{ workspace.content().skillLabels.proofProjects }}</h4>
+        <div class="proof-list">
+          @for (project of relatedProjects(); track project.id) {
+            <article>
+              <strong>{{ project.name }}</strong>
+              <span>{{ project.type }}</span>
+            </article>
+          }
+        </div>
+      </section>
+    </aside>
+  }
 </section>

@@ -5,25 +5,36 @@
     <span>{{ workspace.content().contactLabels.availability }}</span>
   </div>
 
-  <div class="terminal">
+  <div class="terminal mission-console">
     <div class="terminal-bar">
       <span></span><span></span><span></span>
-      <code>contact.command</code>
+      <code>{{ workspace.content().contactLabels.missionControl }}</code>
+      <em>{{ executingId() ? workspace.content().contactLabels.transmitting : workspace.content().contactLabels.channelReady }}</em>
     </div>
 
     <div class="commands">
       @for (contact of workspace.content().contacts; track contact.id) {
-        <button type="button" class="command-row" (click)="openContact(contact.href)">
-          <code>{{ contact.command }}</code>
+        <button
+          type="button"
+          class="command-row"
+          [class.executing]="executingId() === contact.id"
+          (click)="executeContact(contact.id, contact.href)"
+        >
+          <code><span>[EXE]</span> {{ contact.command }}</code>
           <span>{{ contact.label }}</span>
-          <strong>{{ contact.value }}</strong>
+          <strong>{{ executingId() === contact.id ? workspace.content().contactLabels.openingChannel : contact.value }}</strong>
         </button>
       }
 
-      <button type="button" class="command-row primary" (click)="downloadCv()">
-        <code>download.cv</code>
-        <span>CV</span>
-        <strong>{{ workspace.content().hero.secondaryAction }}</strong>
+      <button
+        type="button"
+        class="command-row primary"
+        [class.executing]="executingId() === 'cv'"
+        (click)="executeDownload()"
+      >
+        <code><span>[EXE]</span> download.cv</code>
+        <span>{{ workspace.content().contactLabels.cv }}</span>
+        <strong>{{ executingId() === 'cv' ? workspace.content().contactLabels.preparingDossier : workspace.content().hero.secondaryAction }}</strong>
       </button>
     </div>
   </div>
