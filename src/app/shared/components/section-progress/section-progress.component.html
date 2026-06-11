@@ -1,0 +1,13 @@
+<nav class="section-progress" aria-label="Story sections">
+  @for (section of sections; track section.id) {
+    <button
+      type="button"
+      [class.active]="activeSection === section.id"
+      [attr.aria-current]="activeSection === section.id ? 'step' : null"
+      (click)="sectionSelected.emit(section.id)"
+    >
+      <i [class]="section.icon" aria-hidden="true"></i>
+      <span>{{ section.label }}</span>
+    </button>
+  }
+</nav>

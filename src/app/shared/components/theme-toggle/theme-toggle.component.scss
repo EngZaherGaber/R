@@ -1,0 +1,10 @@
+.theme-toggle {
+  width: 2.28rem;
+  height: 2.28rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  background: var(--surface-strong);
+}

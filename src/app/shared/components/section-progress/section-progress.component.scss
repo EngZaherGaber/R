@@ -1,0 +1,66 @@
+.section-progress {
+  min-width: 0;
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+button {
+  flex: 0 1 auto;
+  min-width: 2.4rem;
+  min-height: 2.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.62rem;
+  padding: 0 0.7rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--muted);
+  background: transparent;
+  text-align: start;
+}
+
+button.active {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent), transparent 60%);
+  background: color-mix(in srgb, var(--accent), transparent 90%);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent), transparent 82%);
+  animation: active-scene-pulse 2.4s ease-in-out infinite;
+}
+
+span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+@media (max-width: 980px) {
+  button {
+    flex: 0 0 auto;
+    width: auto;
+  }
+
+  span {
+    display: none;
+  }
+}
+
+@keyframes active-scene-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent), transparent 82%);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent), transparent 92%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button.active {
+    animation: none;
+  }
+}

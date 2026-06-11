@@ -1,0 +1,43 @@
+<main class="story-shell" [attr.dir]="workspace.direction()">
+  <header class="story-header" aria-label="Portfolio controls">
+    <a class="brand-mark" href="#scene-hero" (click)="goTo('hero')" aria-label="Back to hero">
+      <img src="Zaher.webp" width="42" height="42" alt="Zaher Jabr" />
+      <span>{{ workspace.content().meta.name }}</span>
+    </a>
+
+    <section-progress
+      [sections]="sections()"
+      [activeSection]="activeScene()"
+      (sectionSelected)="goTo($event)"
+    />
+
+    <div class="rail-controls">
+      <language-toggle />
+      <theme-toggle />
+      <accent-picker />
+    </div>
+  </header>
+
+  <nav class="mobile-dock" aria-label="Mobile portfolio sections">
+    @for (section of sections(); track section.id) {
+      <button
+        type="button"
+        [class.active]="activeScene() === section.id"
+        [attr.aria-current]="activeScene() === section.id ? 'step' : null"
+        [attr.aria-label]="section.label"
+        (click)="goTo(section.id)"
+      >
+        <i [class]="section.icon" aria-hidden="true"></i>
+        <span>{{ section.label }}</span>
+      </button>
+    }
+  </nav>
+
+  <hero-scene id="scene-hero" data-scene="hero" (navigateTo)="goTo($event)" />
+  <project-stories id="scene-projects" data-scene="projects" />
+  <skill-evidence id="scene-skills" data-scene="skills" />
+  <service-offers id="scene-services" data-scene="services" />
+  <trust-wall id="scene-trust" data-scene="trust" />
+  <git-history id="scene-history" data-scene="history" />
+  <contact-command id="scene-contact" data-scene="contact" />
+</main>

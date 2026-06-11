@@ -1,0 +1,11 @@
+<div class="accent-picker" aria-label="Accent color">
+  @for (accent of workspace.accents; track accent.id) {
+    <button
+      type="button"
+      [class.active]="workspace.accent().id === accent.id"
+      [style.--swatch]="accent.value"
+      [attr.aria-label]="accent.label"
+      (click)="workspace.setAccent(accent)"
+    ></button>
+  }
+</div>

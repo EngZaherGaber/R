@@ -1,0 +1,80 @@
+<div class="trust-workbench">
+  <aside class="trust-index" aria-label="Recommendations">
+    <div class="trust-header">
+      <span>{{ workspace.content().recommendationLabels.trustedBy }}</span>
+      <strong>{{ workspace.content().recommendations.length }}</strong>
+    </div>
+
+    <div class="person-list">
+      @for (recommendation of workspace.content().recommendations; track recommendation.id) {
+        <button
+          type="button"
+          [class.active]="selectedRecommendation().id === recommendation.id"
+          (click)="selectRecommendation(recommendation.id)"
+        >
+          <span class="avatar">
+            @if (recommendation.image) {
+              <img [src]="recommendation.image" [alt]="recommendation.name" loading="lazy" />
+            } @else {
+              <span>{{ recommendation.name.slice(0, 1) }}</span>
+            }
+          </span>
+          <span class="person-copy">
+            <strong>{{ recommendation.name }}</strong>
+            <small>{{ recommendation.position }}</small>
+          </span>
+          <i class="bi bi-chevron-right" aria-hidden="true"></i>
+        </button>
+      }
+    </div>
+  </aside>
+
+  <section class="trust-detail" aria-label="Selected recommendation">
+    <div class="letter-panel">
+      <div class="letter-topline">
+        <span>{{ workspace.content().recommendationLabels.signal }}</span>
+        @if (selectedRecommendation().rating) {
+          <div class="rating" aria-label="Recommendation rating">
+            @for (_ of ratingStars(); track $index) {
+              <i class="bi bi-star-fill" aria-hidden="true"></i>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="letter-heading">
+        <div class="seal">
+          <i class="bi bi-patch-check-fill" aria-hidden="true"></i>
+        </div>
+        <div>
+          <p>{{ selectedRecommendation().signal }}</p>
+          <h3>{{ selectedRecommendation().name }}</h3>
+          <span>{{ selectedRecommendation().position }}</span>
+        </div>
+      </div>
+
+      <blockquote>
+        {{ selectedRecommendation().message }}
+      </blockquote>
+    </div>
+
+    <div class="proof-desk">
+      <div class="proof-title">
+        <span>{{ workspace.content().recommendationLabels.relatedWork }}</span>
+        <strong>{{ selectedRecommendation().relatedProjectIds.length }}</strong>
+      </div>
+
+      <div class="project-proof-grid">
+        @for (project of relatedProjects(); track project.id) {
+          <article>
+            <img [src]="project.image" [alt]="project.name" loading="lazy" />
+            <div>
+              <strong>{{ project.name }}</strong>
+              <span>{{ project.type }}</span>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+</div>

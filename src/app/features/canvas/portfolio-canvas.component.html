@@ -1,0 +1,195 @@
+<main class="workspace" [attr.dir]="workspace.direction()">
+  <section class="identity-panel" aria-labelledby="portfolio-title">
+    <div class="status-row">
+      <span class="status-dot"></span>
+      <span>{{ workspace.content().meta.availability }}</span>
+    </div>
+
+    <div class="profile-lockup">
+      <img src="Zaher.webp" width="96" height="96" alt="Zaher Jabr logo" />
+      <div>
+        <p class="eyebrow">{{ workspace.content().hero.eyebrow }}</p>
+        <h2 id="portfolio-title">{{ workspace.content().meta.name }}</h2>
+        <p>{{ workspace.content().meta.role }}</p>
+      </div>
+    </div>
+
+    <div class="hero-copy">
+      <h3>{{ workspace.content().hero.title }}</h3>
+      <p>{{ workspace.content().hero.subtitle }}</p>
+    </div>
+
+    <div class="actions">
+      <button
+        type="button"
+        class="primary-action"
+        (click)="workspace.setActivePanel('projects')"
+      >
+        <i class="bi bi-folder2-open" aria-hidden="true"></i>
+        <span>{{ workspace.content().hero.primaryAction }}</span>
+      </button>
+      <button type="button" class="ghost-action" (click)="downloadCv()">
+        <i class="bi bi-download" aria-hidden="true"></i>
+        <span>{{ workspace.content().hero.secondaryAction }}</span>
+      </button>
+    </div>
+
+    <div class="metrics-grid" aria-label="Portfolio metrics">
+      @for (metric of workspace.content().metrics; track metric.label) {
+        <article>
+          <strong>{{ metric.value }}</strong>
+          <span>{{ metric.label }}</span>
+        </article>
+      }
+    </div>
+  </section>
+
+  <section
+    class="module-panel"
+    [attr.aria-labelledby]="workspace.activePanel() + '-title'"
+  >
+    <div class="panel-toolbar">
+      <div>
+        <span class="panel-kicker">{{
+          workspace.content().panels[workspace.activePanel()].kicker
+        }}</span>
+        <h2 [id]="workspace.activePanel() + '-title'">
+          {{ workspace.content().panels[workspace.activePanel()].title }}
+        </h2>
+      </div>
+      <div class="panel-controls" aria-label="Workspace controls">
+        <button
+          type="button"
+          [class.active]="workspace.language() === 'en'"
+          (click)="workspace.setLanguage('en')"
+        >
+          EN
+        </button>
+        <button
+          type="button"
+          [class.active]="workspace.language() === 'ar'"
+          (click)="workspace.setLanguage('ar')"
+        >
+          AR
+        </button>
+        <button type="button" (click)="workspace.toggleTheme()">
+          <i
+            [class]="
+              workspace.theme() === 'dark' ? 'bi bi-moon-stars' : 'bi bi-sun'
+            "
+            aria-hidden="true"
+          ></i>
+          <span>{{ workspace.theme() }}</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="editor-surface" [attr.data-panel]="workspace.activePanel()">
+      <div class="editor-header">
+        <span></span>
+        <span></span>
+        <span></span>
+        <code>{{ workspace.activePanel() }}.workspace.ts</code>
+      </div>
+
+      @switch (workspace.activePanel()) {
+        @case ("overview") {
+          <div class="section-view overview-view">
+            <div class="initialize-list">
+              @for (
+                line of workspace.content().initialize;
+                track line;
+                let index = $index
+              ) {
+                <div class="terminal-line" [style.--delay]="index * 90 + 'ms'">
+                  <span>&gt;</span>
+                  <code>{{ line }}</code>
+                </div>
+              }
+            </div>
+
+            <p class="panel-description">
+              {{
+                workspace.content().panels[workspace.activePanel()].description
+              }}
+            </p>
+          </div>
+        }
+
+        @case ("projects") {
+          <div class="section-view repository-view">
+            <project-explorer />
+          </div>
+        }
+
+        @case ("skills") {
+          <div class="section-view skill-view">
+            <skill-graph />
+          </div>
+        }
+
+        @case ("services") {
+          <div class="section-view services-view">
+            <service-blueprints />
+          </div>
+        }
+
+        @case ("timeline") {
+          <div class="section-view timeline-view">
+            <git-timeline />
+          </div>
+        }
+
+        @case ("recommendations") {
+          <div class="section-view recommendations-view">
+            <recommendations />
+          </div>
+        }
+
+        @case ("contact") {
+          <div class="section-view contact-view">
+            <contact-terminal />
+          </div>
+        }
+
+        @default {
+          <div class="section-view placeholder-view">
+            <p class="panel-description">
+              {{
+                workspace.content().panels[workspace.activePanel()].description
+              }}
+            </p>
+          </div>
+        }
+      }
+
+      <div class="accent-lab" aria-label="Accent color picker">
+        @for (accent of workspace.accents; track accent.id) {
+          <button
+            type="button"
+            [class.selected]="workspace.accent().id === accent.id"
+            [style.--swatch]="accent.value"
+            [attr.aria-label]="accent.label"
+            (click)="workspace.setAccent(accent)"
+          ></button>
+        }
+      </div>
+    </div>
+  </section>
+
+  <nav class="workspace-dock" aria-label="Portfolio sections">
+    @for (item of workspace.content().nav; track item.id) {
+      <button
+        type="button"
+        [class.active]="workspace.activePanel() === item.id"
+        [attr.aria-current]="
+          workspace.activePanel() === item.id ? 'page' : null
+        "
+        (click)="workspace.setActivePanel(item.id)"
+      >
+        <i [class]="item.icon" aria-hidden="true"></i>
+        <span>{{ item.label }}</span>
+      </button>
+    }
+  </nav>
+</main>

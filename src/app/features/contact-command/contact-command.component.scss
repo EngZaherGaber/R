@@ -1,0 +1,143 @@
+.contact-section {
+  min-height: clamp(40rem, 82dvh, 54rem);
+  display: grid;
+  align-content: center;
+  padding: clamp(3.2rem, 5vw, 5rem) clamp(1rem, 2.6vw, 3rem);
+}
+
+.section-heading {
+  max-width: 72rem;
+  margin-bottom: 2rem;
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  margin: 0.5rem 0 0.7rem;
+  font-size: clamp(2rem, 5.5vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.section-heading span {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.terminal {
+  position: relative;
+  overflow: hidden;
+  max-width: 86rem;
+  border: 1px solid var(--line);
+  border-radius: 1.2rem;
+  background: color-mix(in srgb, var(--surface), transparent 6%);
+  box-shadow: var(--shadow);
+}
+
+.terminal::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  height: 42%;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--accent), transparent 92%), transparent);
+  animation: terminal-scan 4.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.terminal-bar span {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: var(--line);
+}
+
+.terminal-bar code {
+  margin-inline-start: 0.7rem;
+  color: var(--muted);
+}
+
+.commands {
+  display: grid;
+  padding: 0.8rem;
+  gap: 0.55rem;
+}
+
+.command-row {
+  display: grid;
+  grid-template-columns: minmax(11rem, 0.8fr) minmax(7rem, 0.45fr) minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: center;
+  min-height: 3.4rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  color: var(--text);
+  background: var(--surface-strong);
+  text-align: start;
+}
+
+.command-row.primary {
+  border-color: color-mix(in srgb, var(--accent), transparent 35%);
+}
+
+.command-row:hover {
+  border-color: color-mix(in srgb, var(--accent), transparent 48%);
+  transform: translateX(4px);
+}
+
+code {
+  color: var(--accent);
+}
+
+.command-row span {
+  color: var(--muted);
+}
+
+.command-row strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 720px) {
+  .command-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes terminal-scan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  45%,
+  55% {
+    opacity: 0.65;
+  }
+
+  100% {
+    transform: translateY(180%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal::after {
+    animation: none;
+  }
+}

@@ -1,0 +1,30 @@
+<section class="contact-section" aria-labelledby="contact-title">
+  <div class="section-heading">
+    <p>{{ workspace.content().panels.contact.kicker }}</p>
+    <h2 id="contact-title">{{ workspace.content().panels.contact.title }}</h2>
+    <span>{{ workspace.content().contactLabels.availability }}</span>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-bar">
+      <span></span><span></span><span></span>
+      <code>contact.command</code>
+    </div>
+
+    <div class="commands">
+      @for (contact of workspace.content().contacts; track contact.id) {
+        <button type="button" class="command-row" (click)="openContact(contact.href)">
+          <code>{{ contact.command }}</code>
+          <span>{{ contact.label }}</span>
+          <strong>{{ contact.value }}</strong>
+        </button>
+      }
+
+      <button type="button" class="command-row primary" (click)="downloadCv()">
+        <code>download.cv</code>
+        <span>CV</span>
+        <strong>{{ workspace.content().hero.secondaryAction }}</strong>
+      </button>
+    </div>
+  </div>
+</section>

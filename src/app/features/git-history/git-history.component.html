@@ -1,0 +1,26 @@
+<section class="history-section" aria-labelledby="history-title">
+  <div class="section-heading">
+    <p>{{ workspace.content().panels.timeline.kicker }}</p>
+    <h2 id="history-title">{{ workspace.content().panels.timeline.title }}</h2>
+    <span>{{ workspace.content().panels.timeline.description }}</span>
+  </div>
+
+  <div class="commit-line">
+    @for (item of workspace.content().timeline; track item.id) {
+      <article class="commit-card">
+        <time>{{ item.date }}</time>
+        <div>
+          <code>{{ item.command }}</code>
+          <h3>{{ item.title }}</h3>
+          <strong>{{ item.subtitle }}</strong>
+          <p>{{ item.description }}</p>
+          <div class="tags">
+            @for (tag of item.tags; track tag) {
+              <span>{{ tag }}</span>
+            }
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+</section>

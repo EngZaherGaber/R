@@ -66,7 +66,7 @@
   }
   .art-certain {
     @include flx(column, flex-start, center);
-    background: rgba(30, 30, 40, 0.5);
+    background: rgb(20 23 27 / 50%);
     position: absolute;
     z-index: 4;
     left: 0;
@@ -245,9 +245,6 @@
     }
     .super-img-con {
       box-shadow: inset 0px 20px 20px 20px $l-c1-tr4;
-      .super-img {
-        background: url("../../../../public/black-personal.jpg");
-      }
       .overlay {
         background-color: $l-c1-tr4;
       }

@@ -1,0 +1,43 @@
+<div class="contact-workbench">
+  <section class="terminal-pane" aria-label="Contact terminal commands">
+    <div class="terminal-status">
+      <span></span>
+      <strong>{{ workspace.content().contactLabels.availability }}</strong>
+    </div>
+
+    <div class="command-list">
+      @for (contact of workspace.content().contacts; track contact.id) {
+        <div class="command-line">
+          <i [class]="contact.icon" aria-hidden="true"></i>
+          <code>{{ contact.command }}</code>
+        </div>
+      }
+    </div>
+  </section>
+
+  <aside class="contact-panel">
+    <div class="contact-actions">
+      <h3>{{ workspace.content().contactLabels.directActions }}</h3>
+      <button type="button" (click)="copyEmail()">
+        <i class="bi bi-copy" aria-hidden="true"></i>
+        <span>{{ copied() ? workspace.content().contactLabels.copied : workspace.content().contactLabels.copy }}</span>
+      </button>
+    </div>
+
+    <div class="contact-grid">
+      @for (contact of workspace.content().contacts; track contact.id) {
+        <article>
+          <i [class]="contact.icon" aria-hidden="true"></i>
+          <div>
+            <span>{{ contact.label }}</span>
+            @if (contact.href) {
+              <a [href]="contact.href" target="_blank" rel="noopener noreferrer">{{ contact.value }}</a>
+            } @else {
+              <strong>{{ contact.value }}</strong>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </aside>
+</div>

@@ -1,0 +1,119 @@
+.history-section {
+  padding: clamp(3.2rem, 5vw, 5rem) clamp(1rem, 2.6vw, 3rem);
+}
+
+.section-heading {
+  max-width: 72rem;
+  margin-bottom: 2rem;
+}
+
+.section-heading p {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  margin: 0.5rem 0 0.7rem;
+  font-size: clamp(2rem, 5.5vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.section-heading span,
+.commit-card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.commit-line {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  max-width: 86rem;
+}
+
+.commit-line::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 8.2rem;
+  width: 2px;
+  background: linear-gradient(var(--accent), transparent);
+}
+
+.commit-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.commit-card::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 1.4rem;
+  inset-inline-start: 7.82rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 0.35rem color-mix(in srgb, var(--accent), transparent 78%);
+}
+
+time {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.commit-card > div {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--surface), transparent 8%);
+}
+
+code {
+  color: var(--accent);
+}
+
+h3,
+p {
+  margin: 0;
+}
+
+h3 {
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.tags span {
+  padding: 0.42rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: var(--surface-strong);
+}
+
+@media (max-width: 700px) {
+  .commit-line::before,
+  .commit-card::before {
+    display: none;
+  }
+
+  .commit-card {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}

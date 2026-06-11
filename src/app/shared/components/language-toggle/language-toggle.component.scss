@@ -1,0 +1,22 @@
+.language-toggle {
+  display: flex;
+  padding: 0.18rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-strong);
+}
+
+button {
+  min-width: 2.2rem;
+  height: 1.9rem;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+button.active {
+  color: var(--accent-contrast);
+  background: var(--accent);
+}

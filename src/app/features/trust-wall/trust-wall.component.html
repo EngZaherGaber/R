@@ -1,0 +1,39 @@
+<section class="trust-section" aria-labelledby="trust-title">
+  <div class="section-heading">
+    <p>{{ workspace.content().panels.recommendations.kicker }}</p>
+    <h2 id="trust-title">{{ workspace.content().panels.recommendations.title }}</h2>
+    <span>{{ workspace.content().panels.recommendations.description }}</span>
+  </div>
+
+  <div class="trust-layout">
+    <div class="letter-index">
+      @for (rec of workspace.content().recommendations; track rec.id) {
+        <button
+          type="button"
+          class="letter-button"
+          [class.active]="selectedRecommendation().id === rec.id"
+          (click)="selectRecommendation(rec.id)"
+        >
+          <span>{{ rec.name }}</span>
+          <small>{{ rec.signal }}</small>
+        </button>
+      }
+    </div>
+
+    <article class="sealed-letter">
+      <div class="seal">{{ selectedRecommendation().name.slice(0, 1) }}</div>
+      @if (selectedRecommendation().image) {
+        <img [src]="selectedRecommendation().image" width="72" height="72" [alt]="selectedRecommendation().name" loading="lazy" />
+      }
+      <p class="signal">{{ workspace.content().recommendationLabels.signal }} / {{ selectedRecommendation().signal }}</p>
+      <h3>{{ selectedRecommendation().name }}</h3>
+      <strong>{{ selectedRecommendation().position }}</strong>
+      <blockquote>{{ selectedRecommendation().message }}</blockquote>
+      <div class="related">
+        @for (project of relatedProjects(); track project.id) {
+          <span>{{ project.name }}</span>
+        }
+      </div>
+    </article>
+  </div>
+</section>

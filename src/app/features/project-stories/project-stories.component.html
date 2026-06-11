@@ -1,0 +1,115 @@
+<section class="project-stories" aria-labelledby="projects-title">
+  <div class="section-heading project-reveal">
+    <p>{{ workspace.content().panels.projects.kicker }}</p>
+    <h2 id="projects-title">{{ workspace.content().panels.projects.title }}</h2>
+    <span>{{ workspace.content().panels.projects.description }}</span>
+  </div>
+
+  <div class="project-layout" [style.--project-count]="projects().length">
+    <div class="project-stage">
+      <div class="stage-head">
+        <span>{{ activeProjectNumber() }} / {{ projects().length }}</span>
+        <strong>{{ selectedProject().fileName }}</strong>
+      </div>
+
+      <div class="project-cinema desktop-cinema" [attr.data-active]="selectedProject().id">
+        <div class="showcase-wrap">
+          <button
+            type="button"
+            class="showcase-card"
+            [attr.aria-label]="selectedProject().name"
+            (pointermove)="tiltCard($event)"
+            (pointerleave)="resetTilt($event)"
+            (pointercancel)="resetTilt($event)"
+          >
+            <span class="card-status">{{ selectedProject().category }} / {{ selectedProject().status }}</span>
+            <img [src]="selectedProject().image" width="720" height="440" [alt]="selectedProject().name" loading="lazy" />
+            <strong>{{ selectedProject().name }}</strong>
+            <small>{{ selectedProject().type }}</small>
+          </button>
+        </div>
+
+        <article class="case-copy">
+          <div class="meta-row">
+            <span>{{ selectedProject().category }}</span>
+            <span>{{ selectedProject().status }}</span>
+          </div>
+          <h3>{{ selectedProject().name }}</h3>
+          <p class="type">{{ selectedProject().type }}</p>
+          <p class="summary">{{ selectedProject().summary }}</p>
+
+          <div class="stack-list" aria-label="Project stack">
+            @for (item of selectedProject().stack; track item) {
+              <span>{{ item }}</span>
+            }
+          </div>
+
+          <div class="feature-grid">
+            @for (feature of selectedProject().features; track feature) {
+              <span><i class="bi bi-check2" aria-hidden="true"></i>{{ feature }}</span>
+            }
+          </div>
+
+          <div class="metric-row">
+            @for (metric of selectedProject().metrics; track metric.label) {
+              <strong><b>{{ metric.value }}</b><span>{{ metric.label }}</span></strong>
+            }
+          </div>
+
+          <div class="shot-strip" *ngIf="previewImages().length">
+            @for (image of previewImages(); track image) {
+              <img [src]="imagePath(image)" width="180" height="110" [alt]="selectedProject().name + ' screen'" loading="lazy" />
+            }
+          </div>
+
+          @if (selectedProject().url) {
+            <a class="project-link" [href]="selectedProject().url" target="_blank" rel="noreferrer">
+              Open project <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          }
+        </article>
+      </div>
+
+      <div class="project-index" aria-label="Project index">
+        @for (project of projects(); track project.id) {
+          <button
+            type="button"
+            [class.active]="selectedProject().id === project.id"
+            (click)="selectProject(project)"
+          >
+            <span>{{ project.name }}</span>
+            <small>{{ project.type }}</small>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-project-list" aria-label="Mobile project list">
+    @for (project of projects(); track project.id) {
+      <article class="mobile-project" [class.active]="selectedProject().id === project.id" #mobileArticle>
+        <button type="button" (click)="selectProject(project, mobileArticle)">
+          <span>{{ project.name }}</span>
+          <small>{{ project.type }}</small>
+        </button>
+
+        @if (selectedProject().id === project.id) {
+          <div class="mobile-project-detail">
+            <img [src]="project.image" width="520" height="320" [alt]="project.name" loading="lazy" />
+            <p>{{ project.summary }}</p>
+            <div class="stack-list">
+              @for (item of project.stack; track item) {
+                <span>{{ item }}</span>
+              }
+            </div>
+            <div class="feature-grid">
+              @for (feature of project.features; track feature) {
+                <span><i class="bi bi-check2" aria-hidden="true"></i>{{ feature }}</span>
+              }
+            </div>
+          </div>
+        }
+      </article>
+    }
+  </div>
+</section>

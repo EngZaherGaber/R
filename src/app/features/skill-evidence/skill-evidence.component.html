@@ -1,0 +1,51 @@
+<section class="evidence-section" aria-labelledby="skills-title">
+  <div class="section-heading">
+    <p>{{ workspace.content().panels.skills.kicker }}</p>
+    <h2 id="skills-title">{{ workspace.content().panels.skills.title }}</h2>
+    <span>{{ workspace.content().panels.skills.description }}</span>
+  </div>
+
+  <div class="skill-orbit-scene">
+    <span class="section-light-ribbon" aria-hidden="true"></span>
+
+    <div class="orbit-space" aria-label="Skill orbit selector">
+      @for (skill of workspace.content().skills; track skill.id; let index = $index) {
+        <button
+          type="button"
+          class="skill-node"
+          [class.active]="selectedSkill().id === skill.id"
+          [ngStyle]="skillNodeStyle(index)"
+          (click)="selectSkill(skill.id)"
+          [attr.aria-label]="skill.name"
+        >
+          <img [src]="skill.icon" width="38" height="38" [alt]="skill.name" loading="lazy" />
+          <span>{{ skill.name }}</span>
+        </button>
+      }
+    </div>
+
+    <aside class="evidence-panel">
+      <div class="detail-orb" aria-hidden="true">
+        <img [src]="selectedSkill().icon" width="112" height="112" [alt]="selectedSkill().name" loading="lazy" />
+      </div>
+      <p>{{ workspace.content().skillLabels.evidence }}</p>
+      <h3>{{ selectedSkill().name }}</h3>
+      <span class="summary">{{ selectedSkill().summary }}</span>
+
+      <div class="chip-group">
+        @for (dependency of selectedSkill().dependencies; track dependency) {
+          <span>{{ dependency }}</span>
+        }
+      </div>
+
+      <div class="proof-list">
+        @for (project of relatedProjects(); track project.id) {
+          <article>
+            <strong>{{ project.name }}</strong>
+            <span>{{ project.type }}</span>
+          </article>
+        }
+      </div>
+    </aside>
+  </div>
+</section>

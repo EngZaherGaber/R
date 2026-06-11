@@ -1,148 +1,132 @@
-@use "../public/_font.scss" as *;
-@use "../public/mixin" as *;
-@use "@angular/material" as mat;
-@use "../public/color" as *;
-@use "../public/animation" as *;
-@use "primeicons/primeicons.css" as *;
 :root {
-  @include mat.sidenav-overrides(
-    (
-      container-background-color: $c1,
-    )
-  );
-  @include mat.progress-spinner-overrides(
-    (
-      active-indicator-color: $c-gold,
-    )
-  );
-  @include mat.progress-bar-overrides(
-    (
-      active-indicator-color: $c-gold,
-      track-height: 4px,
-      active-indicator-height: 4px,
-      track-color: $c1-tr2,
-    )
-  );
-  @include mat.button-overrides(
-    (
-      filled-label-text-color: $c2,
-      filled-container-color: $c2,
-    )
-  );
-  @include mat.divider-overrides(
-    (
-      color: $c1-tr2,
-      width: 100%,
-    )
-  );
-  @include mat.sidenav-overrides(
-    (
-      container-width: 300px,
-    )
-  );
+  --accent: #f5b642;
+  --accent-contrast: #101114;
+  --bg: #0d0f14;
+  --bg-soft: #151924;
+  --surface: rgba(20, 24, 34, 0.86);
+  --surface-strong: rgba(255, 255, 255, 0.055);
+  --text: #f7f8fb;
+  --muted: #a9b0c0;
+  --line: rgba(255, 255, 255, 0.12);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+  --project-surface: rgba(20, 24, 34, 0.86);
+  --project-card: rgba(18, 22, 31, 0.94);
+  --project-soft: rgba(255, 255, 255, 0.055);
+  --project-line: rgba(255, 255, 255, 0.12);
+  --project-glow: color-mix(in srgb, var(--accent), transparent 72%);
+  --project-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+  color-scheme: dark;
+}
+
+body.light {
+  --bg: #f7f9fc;
+  --bg-soft: #e9eef6;
+  --surface: rgba(255, 255, 255, 0.9);
+  --surface-strong: rgba(24, 35, 55, 0.062);
+  --text: #111827;
+  --muted: #526071;
+  --line: rgba(17, 24, 39, 0.13);
+  --shadow: 0 24px 80px rgba(38, 52, 78, 0.13);
+  --project-surface: rgba(255, 255, 255, 0.82);
+  --project-card: rgba(255, 255, 255, 0.96);
+  --project-soft: rgba(242, 246, 252, 0.92);
+  --project-line: rgba(28, 42, 68, 0.12);
+  --project-glow: color-mix(in srgb, var(--accent), transparent 82%);
+  --project-shadow: 0 22px 70px rgba(50, 66, 94, 0.16);
+  color-scheme: light;
 }
 
 * {
-  @include transition-animatite();
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
+}
 
-  letter-spacing: 1px;
-}
-html{
-  height: 100%;
-}
+html,
 body {
-  @include responsive-headings();
-  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
   overflow-x: hidden;
-  // padding: calc(2 * $pad);
-  background-color: $c1;
-  .title {
-    color: $c2;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    "Manrope",
+    "Inter Tight",
+    Inter,
+    "IBM Plex Sans Arabic",
+    "Cairo",
+    "Segoe UI",
+    Tahoma,
+    Arial,
+    sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  border: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent), transparent 35%);
+  outline-offset: 3px;
+}
+
+::selection {
+  color: var(--accent-contrast);
+  background: var(--accent);
+}
+
+@keyframes reveal-line {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
-  .sub-title {
-    color: $c4;
-    opacity: 0.7;
-  }
-  .gold {
-    color: $c-gold;
-  }
-  .flx-col-bet {
-    width: 100%;
-    @include flx(column, center, center);
-  }
-  .flx-col-start {
-    width: 100%;
-    @include flx(column, flex-start, flex-start, 2 * $pad);
-  }
-  .flx-row-ev {
-    width: 100%;
-    @include flx(row, space-evenly, center);
-  }
-  .flx-row-bet {
-    width: 100%;
-    @include flx(row, space-between, center);
-  }
-  .flx-row-start {
-    width: 100%;
-    @include flx(row, flex-start, center);
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
-body.light {
-  @include mat.progress-spinner-overrides(
-    (
-      active-indicator-color: $l-c-gold,
-    )
-  );
-  @include mat.progress-bar-overrides(
-    (
-      active-indicator-color: $l-c-gold,
-      track-height: 4px,
-      active-indicator-height: 4px,
-      track-color: $c1-tr2,
-    )
-  );
-  @include mat.sidenav-overrides(
-    (
-      container-background-color: $l-c1,
-    )
-  );
-  @include mat.progress-bar-overrides(
-    (
-      track-color: $l-c1-tr2,
-    )
-  );
-  @include mat.button-overrides(
-    (
-      filled-label-text-color: $l-c2,
-      filled-container-color: $l-c2,
-    )
-  );
-  @include mat.divider-overrides(
-    (
-      color: $l-c1-tr2,
-    )
-  );
-  background-color: $l-c1-tr;
-  .title {
-    color: $l-c2;
+
+@keyframes panel-swap {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
   }
-  .sub-title {
-    color: $l-c4;
-    opacity: 0.7;
-  }
-  .gold {
-    color: $l-c-gold;
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
-@include forTablet() {
-  body {
-    padding: 0;
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
   }
-}
-/* Scrollbar Track */
-::-webkit-scrollbar {
-  display: none;
 }

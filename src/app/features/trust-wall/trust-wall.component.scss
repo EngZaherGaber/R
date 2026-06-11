@@ -1,0 +1,171 @@
+.trust-section {
+  padding: clamp(3.2rem, 5vw, 5rem) clamp(1rem, 2.6vw, 3rem);
+}
+
+.section-heading {
+  max-width: 72rem;
+  margin-bottom: 2rem;
+}
+
+.section-heading p,
+.signal {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  margin: 0.5rem 0 0.7rem;
+  font-size: clamp(2rem, 5.5vw, 4.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.section-heading span,
+.letter-button small,
+blockquote {
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.trust-layout {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.7fr) minmax(0, 1.3fr);
+  gap: 1rem;
+}
+
+@media (min-width: 1500px) {
+  .trust-layout {
+    grid-template-columns: minmax(22rem, 0.5fr) minmax(0, 1.5fr);
+  }
+}
+
+.letter-index {
+  display: grid;
+  gap: 0.65rem;
+  align-content: start;
+}
+
+.letter-button,
+.sealed-letter {
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--surface), transparent 8%);
+}
+
+.letter-button {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.9rem;
+  color: var(--text);
+  text-align: start;
+}
+
+.letter-button.active {
+  border-color: color-mix(in srgb, var(--accent), transparent 35%);
+  background: color-mix(in srgb, var(--accent), transparent 90%);
+}
+
+.sealed-letter {
+  position: relative;
+  min-height: 28rem;
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  overflow: hidden;
+  animation: letter-breathe 5s ease-in-out infinite;
+}
+
+.sealed-letter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--accent), transparent 88%), transparent 36%),
+    repeating-linear-gradient(0deg, transparent 0 18px, color-mix(in srgb, var(--line), transparent 55%) 19px);
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+.sealed-letter > * {
+  position: relative;
+  z-index: 1;
+}
+
+.seal {
+  position: absolute;
+  inset-block-start: 1rem;
+  inset-inline-end: 1rem;
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  font-weight: 900;
+  animation: seal-pulse 2.8s ease-in-out infinite;
+}
+
+.sealed-letter img {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+h3 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+blockquote {
+  margin: 0;
+  max-width: 72ch;
+  font-size: clamp(1rem, 1.6vw, 1.22rem);
+}
+
+.related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.related span {
+  padding: 0.46rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--accent);
+  background: var(--surface-strong);
+}
+
+@media (max-width: 860px) {
+  .trust-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes letter-breathe {
+  50% {
+    box-shadow: 0 26px 90px color-mix(in srgb, var(--accent), transparent 90%);
+  }
+}
+
+@keyframes seal-pulse {
+  50% {
+    transform: scale(1.08) rotate(-4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sealed-letter,
+  .seal {
+    animation: none;
+  }
+}

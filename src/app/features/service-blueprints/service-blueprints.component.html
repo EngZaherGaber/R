@@ -1,0 +1,63 @@
+<div class="services-workbench">
+  <aside class="service-index" aria-label="Services">
+    @for (service of workspace.content().services; track service.id) {
+      <button
+        type="button"
+        [class.active]="selectedService().id === service.id"
+        (click)="selectService(service.id)"
+      >
+        <i [class]="service.icon" aria-hidden="true"></i>
+        <span>
+          <strong>{{ service.title }}</strong>
+          <small>{{ service.deliverables[0] }}</small>
+        </span>
+      </button>
+    }
+  </aside>
+
+  <section class="service-detail" aria-label="Selected service details">
+    <div class="service-hero">
+      <i [class]="selectedService().icon" aria-hidden="true"></i>
+      <div>
+        <span>service.blueprint</span>
+        <h3>{{ selectedService().title }}</h3>
+        <p>{{ selectedService().description }}</p>
+      </div>
+    </div>
+
+    <div class="blueprint-grid">
+      <article>
+        <h4>{{ workspace.content().serviceLabels.deliverables }}</h4>
+        <div class="chip-list">
+          @for (item of selectedService().deliverables; track item) {
+            <span>{{ item }}</span>
+          }
+        </div>
+      </article>
+
+      <article>
+        <h4>{{ workspace.content().serviceLabels.relatedSkills }}</h4>
+        <div class="skill-strip">
+          @for (skill of relatedSkills(); track skill.id) {
+            <span>
+              <img [src]="skill.icon" [alt]="skill.name" loading="lazy" />
+              {{ skill.name }}
+            </span>
+          }
+        </div>
+      </article>
+
+      <article class="proof-panel">
+        <h4>{{ workspace.content().serviceLabels.proof }}</h4>
+        <div class="proof-list">
+          @for (project of relatedProjects(); track project.id) {
+            <span>
+              <img [src]="project.image" [alt]="project.name" loading="lazy" />
+              <strong>{{ project.name }}</strong>
+            </span>
+          }
+        </div>
+      </article>
+    </div>
+  </section>
+</div>

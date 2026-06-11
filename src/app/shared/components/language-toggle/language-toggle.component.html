@@ -1,0 +1,8 @@
+<div class="language-toggle" aria-label="Language">
+  <button type="button" [class.active]="workspace.language() === 'en'" (click)="workspace.setLanguage('en')">
+    EN
+  </button>
+  <button type="button" [class.active]="workspace.language() === 'ar'" (click)="workspace.setLanguage('ar')">
+    AR
+  </button>
+</div>

@@ -1,0 +1,45 @@
+<section class="hero-scene" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <p class="eyebrow hero-token">{{ workspace.content().hero.eyebrow }}</p>
+    <h1 id="hero-title">
+      <span class="hero-token">{{ workspace.content().meta.name }}</span>
+      <small class="hero-token">{{ workspace.content().meta.role }}</small>
+    </h1>
+    <p class="subtitle hero-token">{{ workspace.content().hero.title }}</p>
+    <p class="support hero-token">{{ workspace.content().hero.subtitle }}</p>
+
+    <div class="tag-row hero-token" aria-label="Specialties">
+      @for (tag of tags; track tag; let index = $index) {
+        <span [style.--tag-index]="index">{{ tag }}</span>
+      }
+    </div>
+
+    <div class="actions hero-token">
+      <button type="button" class="primary" (click)="navigateTo.emit('projects')">
+        {{ workspace.content().hero.primaryAction }}
+      </button>
+      <button type="button" class="ghost" (click)="downloadCv()">
+        {{ workspace.content().hero.secondaryAction }}
+      </button>
+      <button type="button" class="ghost" (click)="navigateTo.emit('contact')">Contact</button>
+    </div>
+  </div>
+
+  <div class="hero-visual" aria-label="Portfolio story status">
+    <img class="hero-person" src="black-personal-bg.png" width="720" height="820" alt="Zaher Jabr portrait" />
+    <div class="signal-orbit" aria-hidden="true"></div>
+    <div class="signal-dot dot-one" aria-hidden="true"></div>
+    <div class="signal-dot dot-two" aria-hidden="true"></div>
+    <div class="signal-dot dot-three" aria-hidden="true"></div>
+
+    <div class="story-signals" aria-label="Portfolio signals">
+      <span class="signal-kicker">Product story signals</span>
+      <div class="signal-grid">
+        <span><b>7</b> Proof projects</span>
+        <span><b>11</b> Skill links</span>
+        <span><b>2</b> Languages</span>
+        <span><b>UI</b> Product-minded</span>
+      </div>
+    </div>
+  </div>
+</section>
