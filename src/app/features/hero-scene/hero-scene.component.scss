@@ -1,11 +1,13 @@
 .hero-scene {
   position: relative;
+  width: min(100% - var(--section-gutter), var(--content-width));
   min-height: clamp(42rem, 92dvh, 61rem);
+  margin-inline: auto;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.82fr);
   align-items: center;
   gap: clamp(1.4rem, 4vw, 4.5rem);
-  padding: clamp(5rem, 7vw, 6.2rem) clamp(1rem, 3vw, 3rem) clamp(3.2rem, 5vw, 5rem);
+  padding-block: clamp(5rem, 7vw, 6.2rem) clamp(3.2rem, 5vw, 5rem);
   overflow: hidden;
 }
 
@@ -298,7 +300,7 @@ h1 small {
   .hero-scene {
     min-height: auto;
     grid-template-columns: 1fr;
-    padding: 4.8rem 1rem 4rem;
+    padding-block: 4.8rem 4rem;
     overflow-x: clip;
   }
 
@@ -326,7 +328,7 @@ h1 small {
   .hero-scene {
     min-height: calc(100svh - 4rem);
     align-content: center;
-    padding: 4.25rem 0.85rem 6.4rem;
+    padding-block: 4.25rem 6.4rem;
   }
 
   .hero-copy {

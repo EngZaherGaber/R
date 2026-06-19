@@ -15,6 +15,8 @@
   --project-line: rgba(255, 255, 255, 0.12);
   --project-glow: color-mix(in srgb, var(--accent), transparent 72%);
   --project-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+  --content-width: 86rem;
+  --section-gutter: clamp(1.5rem, 5.2vw, 6rem);
   color-scheme: dark;
 }
 

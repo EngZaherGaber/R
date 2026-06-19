@@ -4,11 +4,13 @@
 
 .ai-assessment-section {
   position: relative;
-  padding: clamp(3.5rem, 6vw, 6rem) clamp(0.9rem, 2.6vw, 3rem);
+  width: min(100% - var(--section-gutter), var(--content-width));
+  margin-inline: auto;
+  padding-block: clamp(3.5rem, 6vw, 6rem);
 }
 
 .section-heading {
-  max-width: 72rem;
+  max-width: 100%;
   margin-bottom: clamp(1.2rem, 3vw, 2rem);
 }
 
@@ -420,10 +422,6 @@
 }
 
 @media (max-width: 640px) {
-  .ai-assessment-section {
-    padding-inline: 0.75rem;
-  }
-
   .chat-header {
     grid-template-columns: auto minmax(0, 1fr);
   }

@@ -10,9 +10,10 @@
 
 .co-pilot-engine {
   position: relative;
-  width: 100%;
-  max-width: 100%;
-  padding: clamp(3.2rem, 5vw, 5.6rem) clamp(1rem, 3vw, 3.4rem);
+  width: min(100% - var(--section-gutter), var(--content-width));
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-block: clamp(3.2rem, 5vw, 5.6rem);
   overflow: clip;
   color: var(--text);
 }
@@ -26,15 +27,23 @@
   border-radius: clamp(1.2rem, 2.4vw, 2rem);
   opacity: 0.58;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--line), transparent 72%) 1px, transparent 1px),
-    linear-gradient(180deg, color-mix(in srgb, var(--line), transparent 78%) 1px, transparent 1px);
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--line), transparent 72%) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--line), transparent 78%) 1px,
+      transparent 1px
+    );
   background-size: 5.2rem 5.2rem;
   mask-image: radial-gradient(circle at 50% 42%, black, transparent 76%);
 }
 
 .engine-header {
-  width: min(100%, 86rem);
-  margin: 0 auto clamp(1.2rem, 3vw, 2.4rem);
+  width: 100%;
+  // margin: 0 auto clamp(1.2rem, 3vw, 2.4rem);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: start;
@@ -107,11 +116,14 @@
 
 .engine-pipeline {
   position: relative;
-  width: min(100%, 86rem);
+  width: 100%;
   min-height: clamp(30rem, 47vw, 41rem);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(12rem, 0.7fr) minmax(28rem, 1.8fr) minmax(13rem, 0.78fr);
+  grid-template-columns: minmax(12rem, 0.7fr) minmax(28rem, 1.8fr) minmax(
+      13rem,
+      0.78fr
+    );
   align-items: center;
   gap: clamp(0.8rem, 2vw, 1.8rem);
 }
@@ -163,8 +175,16 @@
   border-radius: 1rem;
   color: #06141d;
   background:
-    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.9), transparent 38%),
-    linear-gradient(135deg, color-mix(in srgb, var(--accent), white 35%), #eaffff);
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(255, 255, 255, 0.9),
+      transparent 38%
+    ),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent), white 35%),
+      #eaffff
+    );
   box-shadow:
     0 0 1.6rem color-mix(in srgb, var(--accent), transparent 42%),
     inset 0 0 1rem rgba(255, 255, 255, 0.45);
@@ -208,7 +228,11 @@
   border-radius: 0.85rem 1.8rem 0 0;
   color: var(--text);
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--accent), transparent 78%), transparent),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent), transparent 78%),
+      transparent
+    ),
     color-mix(in srgb, var(--surface), transparent 8%);
   box-shadow: 0 0 1.4rem color-mix(in srgb, var(--accent), transparent 68%);
 }
@@ -232,15 +256,33 @@
   border: 1px solid color-mix(in srgb, var(--accent), transparent 32%);
   border-radius: 1rem;
   background:
-    radial-gradient(circle at calc(50% + var(--magnet-x) * 12%) calc(35% + var(--magnet-y) * 10%), color-mix(in srgb, var(--accent), transparent 72%), transparent 18rem),
-    linear-gradient(90deg, color-mix(in srgb, var(--line), transparent 82%) 1px, transparent 1px),
-    linear-gradient(180deg, color-mix(in srgb, var(--line), transparent 86%) 1px, transparent 1px),
+    radial-gradient(
+      circle at calc(50% + var(--magnet-x) * 12%)
+        calc(35% + var(--magnet-y) * 10%),
+      color-mix(in srgb, var(--accent), transparent 72%),
+      transparent 18rem
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--line), transparent 82%) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--line), transparent 86%) 1px,
+      transparent 1px
+    ),
     color-mix(in srgb, var(--surface), transparent 9%);
-  background-size: auto, 4.5rem 4.5rem, 4.5rem 4.5rem, auto;
+  background-size:
+    auto,
+    4.5rem 4.5rem,
+    4.5rem 4.5rem,
+    auto;
   box-shadow:
     0 1.5rem 5rem rgba(0, 0, 0, 0.28),
     inset 0 0 2rem color-mix(in srgb, var(--accent), transparent 86%);
-  transform: rotateX(calc(var(--magnet-y) * -2deg)) rotateY(calc(var(--magnet-x) * 3deg));
+  transform: rotateX(calc(var(--magnet-y) * -2deg))
+    rotateY(calc(var(--magnet-x) * 3deg));
   transform-style: preserve-3d;
   transition: transform 180ms ease-out;
 }
@@ -252,7 +294,11 @@
   width: 4rem;
   height: 4rem;
   border-radius: 999px;
-  background: radial-gradient(circle, rgba(125, 211, 252, 0.68), transparent 68%);
+  background: radial-gradient(
+    circle,
+    rgba(125, 211, 252, 0.68),
+    transparent 68%
+  );
   pointer-events: none;
 }
 
@@ -266,8 +312,11 @@
   border: 0;
   color: var(--text);
   background: transparent;
-  transform:
-    translate3d(calc(var(--magnet-x) * var(--entity-depth, 0.8rem)), calc(var(--magnet-y) * var(--entity-depth, 0.8rem)), 0)
+  transform: translate3d(
+      calc(var(--magnet-x) * var(--entity-depth, 0.8rem)),
+      calc(var(--magnet-y) * var(--entity-depth, 0.8rem)),
+      0
+    )
     scale(1);
   will-change: transform;
 }
@@ -296,7 +345,11 @@
   border: 1px solid color-mix(in srgb, var(--accent), white 20%);
   border-radius: 0.5rem;
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--accent), transparent 64%), transparent 52%),
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent), transparent 64%),
+      transparent 52%
+    ),
     linear-gradient(315deg, rgba(244, 114, 182, 0.26), transparent 48%),
     color-mix(in srgb, var(--surface), transparent 2%);
   box-shadow: inset 0 0 1rem color-mix(in srgb, var(--accent), transparent 76%);
@@ -387,7 +440,8 @@
   border: 1px solid color-mix(in srgb, var(--accent), transparent 48%);
   border-radius: 1rem;
   background: color-mix(in srgb, var(--surface), transparent 7%);
-  box-shadow: inset 0 0 1.6rem color-mix(in srgb, var(--accent), transparent 90%);
+  box-shadow: inset 0 0 1.6rem
+    color-mix(in srgb, var(--accent), transparent 90%);
   transform: translate3d(0, 0, 0);
 }
 
@@ -429,7 +483,7 @@
 }
 
 .engine-footer {
-  width: min(100%, 86rem);
+  width: 100%;
   margin: clamp(1rem, 2vw, 1.5rem) auto 0;
   display: grid;
   grid-template-columns: 1fr minmax(12rem, 18rem) auto;
@@ -523,7 +577,7 @@
 
 @media (max-width: 768px) {
   .co-pilot-engine {
-    padding: clamp(2.8rem, 9vw, 4rem) 1rem;
+    padding-block: clamp(2.8rem, 9vw, 4rem);
   }
 
   .co-pilot-engine::before {
@@ -556,7 +610,11 @@
     border: 1px solid color-mix(in srgb, var(--accent), transparent 30%);
     border-radius: 999px;
     color: #031315;
-    background: linear-gradient(135deg, color-mix(in srgb, var(--accent), white 26%), var(--accent));
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--accent), white 26%),
+      var(--accent)
+    );
     font-weight: 900;
     box-shadow: 0 1rem 2.6rem color-mix(in srgb, var(--accent), transparent 72%);
   }

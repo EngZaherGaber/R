@@ -1,17 +1,20 @@
 .section-progress {
   min-width: 0;
+  width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 0.35rem;
   overflow-x: auto;
   scrollbar-width: none;
 }
 
 a {
-  flex: 0 1 auto;
-  min-width: 2.4rem;
+  min-width: 0;
   min-height: 2.25rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.62rem;
   padding: 0 0.7rem;
   border: 1px solid transparent;
@@ -36,6 +39,7 @@ a:focus-visible {
 }
 
 span {
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -44,9 +48,13 @@ span {
 }
 
 @media (max-width: 980px) {
+  .section-progress {
+    display: flex;
+  }
+
   a {
     flex: 0 0 auto;
-    width: auto;
+    width: 2.4rem;
   }
 
   span {

@@ -1,10 +1,12 @@
 .trust-section {
-  padding: clamp(3.2rem, 5vw, 5rem) clamp(0.9rem, 2.6vw, 3rem);
+  width: min(100% - var(--section-gutter), var(--content-width));
+  margin-inline: auto;
+  padding-block: clamp(3.2rem, 5vw, 5rem);
   overflow: clip;
 }
 
 .section-heading {
-  max-width: 72rem;
+  max-width: 100%;
   margin-bottom: 2rem;
 }
 
@@ -213,10 +215,6 @@ blockquote {
 }
 
 @media (max-width: 640px) {
-  .trust-section {
-    padding-inline: 0.75rem;
-  }
-
   .trust-layout {
     display: none;
   }

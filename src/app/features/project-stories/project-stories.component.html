@@ -8,134 +8,6 @@
     <h2 id="projects-title">{{ workspace.content().panels.projects.title }}</h2>
     <span>{{ workspace.content().panels.projects.description }}</span>
   </div>
-
-  <div
-    class="project-showcase project-reveal"
-    (touchstart)="onTouchStart($event)"
-    (touchend)="onTouchEnd($event)"
-  >
-    <div class="ambient-lines" aria-hidden="true"></div>
-
-    <div class="glass-stage" aria-live="polite">
-      <svg class="compound-shape" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <clipPath id="projectCompoundClip" clipPathUnits="objectBoundingBox">
-            <path
-              d="M .10 .04 H .48 C .55 .04 .55 .18 .55 .23 C .55 .30 .58 .33 .64 .33 H .86 C .94 .33 .98 .40 .98 .50 V .84 C .98 .93 .93 .98 .85 .98 H .52 C .46 .98 .45 .88 .45 .81 C .45 .73 .41 .70 .34 .70 H .10 C .04 .70 .02 .65 .02 .58 V .16 C .02 .08 .05 .04 .10 .04 Z"
-            />
-          </clipPath>
-          <linearGradient id="compoundStroke" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="rgba(255,255,255,.88)" />
-            <stop offset="48%" stop-color="rgba(255,255,255,.42)" />
-            <stop offset="100%" stop-color="rgba(255,255,255,.18)" />
-          </linearGradient>
-        </defs>
-        <path
-          class="compound-outline"
-          d="M100 25 H480 C550 25 550 112 550 142 C550 186 583 205 640 205 H860 C940 205 980 248 980 310 V520 C980 575 930 608 850 608 H520 C460 608 450 546 450 502 C450 454 410 434 340 434 H100 C42 434 22 402 22 360 V100 C22 50 52 25 100 25 Z"
-        />
-      </svg>
-
-      <div class="glass-lobe identity-lobe">
-        <div class="project-status">
-          <span class="project-file">{{ selectedProject().fileName }}</span>
-          <span class="live-dot" aria-hidden="true"></span>
-        </div>
-
-        <p class="project-kicker">
-          {{ selectedProject().category }} / {{ selectedProject().status }}
-        </p>
-        <h3 class="project-title">{{ selectedProject().name }}</h3>
-        <p class="project-summary">{{ selectedProject().summary }}</p>
-
-        <div class="project-meta">
-          <span>{{ selectedProject().type }}</span>
-          <span>{{ previewShots().length || selectedProject().metrics.length }} shots</span>
-        </div>
-
-        <div class="metric-row">
-          @for (metric of selectedProject().metrics; track metric.label) {
-            <strong class="metric-chip">
-              <b>{{ metric.value }}</b>
-              <span>{{ metric.label }}</span>
-            </strong>
-          }
-        </div>
-
-        <div class="project-actions">
-          <button type="button" aria-label="Previous project" (click)="selectNextProject(-1)">
-            <i class="bi bi-arrow-left" aria-hidden="true"></i>
-          </button>
-          <span>{{ projectNumber(selectedProjectIndex()) }} / {{ projects().length }}</span>
-          <button type="button" aria-label="Next project" (click)="selectNextProject(1)">
-            <i class="bi bi-arrow-right" aria-hidden="true"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="glass-lobe visual-lobe">
-        <div class="project-orbit" aria-hidden="true">
-          <img [src]="selectedProject().image" [alt]="" width="42" height="42" aria-hidden="true" />
-        </div>
-
-        <div class="project-visual">
-          @if (previewShots().length) {
-            <div class="visual-collage">
-              @for (shot of previewShots(); track shot; let i = $index) {
-                <img
-                  [class]="'visual-shot shot-' + i"
-                  [src]="shot"
-                  width="520"
-                  height="340"
-                  [alt]="selectedProject().name + ' preview'"
-                  loading="lazy"
-                />
-              }
-            </div>
-          } @else {
-            <img
-              class="visual-logo"
-              [src]="selectedProject().image"
-              width="420"
-              height="320"
-              [alt]="selectedProject().name"
-              loading="lazy"
-            />
-          }
-        </div>
-
-        <div class="preview-caption">
-          <button type="button" aria-label="Preview selected project">
-            <i class="bi bi-play-fill" aria-hidden="true"></i>
-          </button>
-          <span>{{ selectedProject().category }} · {{ selectedProject().type }}</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile swipe progress dots (hidden on desktop) -->
-    <div class="swipe-dots" aria-hidden="true">
-      @for (project of projects(); track project.id; let i = $index) {
-        <span class="swipe-dot" [class.active]="selectedProjectIndex() === i"></span>
-      }
-    </div>
-
-    <div class="detail-script" aria-label="Project details">
-      @for (row of detailRows(); track row.label) {
-        <article class="typing-line">
-          <span>{{ row.label }}</span>
-          <p>{{ row.text }}</p>
-        </article>
-      }
-    </div>
-
-    @if (selectedProject().url) {
-      <a class="project-live-link" [href]="selectedProject().url" target="_blank" rel="noreferrer">
-        Open live project <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-      </a>
-    }
-  </div>
-
   <div
     class="project-reel project-reveal"
     [class.paused]="reelPaused()"
@@ -148,7 +20,11 @@
     (touchend)="pauseReelTemporarily()"
   >
     <div class="reel-track">
-      @for (project of reelProjects(); track project.id + '-' + $index; let i = $index) {
+      @for (
+        project of reelProjects();
+        track project.id + "-" + $index;
+        let i = $index
+      ) {
         <button
           type="button"
           class="reel-card"
@@ -170,6 +46,94 @@
           <small>{{ project.category }}</small>
         </button>
       }
+    </div>
+  </div>
+  <div
+    class="project-showcase project-reveal"
+    (touchstart)="onTouchStart($event)"
+    (touchend)="onTouchEnd($event)"
+  >
+    <div class="glass-stage" aria-live="polite">
+      <div class="glass-lobe identity-lobe">
+        <div class="project-status">
+          <span class="project-file">{{ selectedProject().fileName }}</span>
+          <span class="live-dot" aria-hidden="true"></span>
+        </div>
+
+        <p class="project-kicker">
+          {{ selectedProject().category }} / {{ selectedProject().status }}
+        </p>
+        <h3 class="project-title">{{ selectedProject().name }}</h3>
+        <p class="project-summary">{{ selectedProject().summary }}</p>
+
+        <div class="project-meta">
+          <span>{{ selectedProject().type }}</span>
+          <span>{{ selectedProject().features.length }} features</span>
+        </div>
+
+        <div class="metric-row">
+          @for (metric of selectedProject().metrics; track metric.label) {
+            <strong class="metric-chip">
+              <b>{{ metric.value }}</b>
+              <span>{{ metric.label }}</span>
+            </strong>
+          }
+        </div>
+
+        <div class="detail-script" aria-label="Project details">
+          @for (row of detailRows(); track row.label) {
+            <article class="typing-line">
+              <span>{{ row.label }}</span>
+              <p>{{ row.text }}</p>
+            </article>
+          }
+        </div>
+
+        <div class="project-actions">
+          <button
+            type="button"
+            aria-label="Previous project"
+            (click)="selectNextProject(-1)"
+          >
+            <i class="bi bi-arrow-left" aria-hidden="true"></i>
+          </button>
+          <span
+            >{{ projectNumber(selectedProjectIndex()) }} /
+            {{ projects().length }}</span
+          >
+          <button
+            type="button"
+            aria-label="Next project"
+            (click)="selectNextProject(1)"
+          >
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
+          </button>
+          @if (selectedProject().url) {
+            <a
+              class="project-live-link"
+              [href]="selectedProject().url"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open live project
+              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+            </a>
+          }
+        </div>
+      </div>
+
+      <div class="glass-lobe visual-lobe">
+        <div class="project-visual">
+          <img
+            class="visual-logo"
+            [src]="selectedProject().image"
+            width="420"
+            height="320"
+            [alt]="selectedProject().name"
+            loading="lazy"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </section>

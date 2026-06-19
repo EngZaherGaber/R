@@ -36,14 +36,13 @@ export class ProjectStoriesComponent implements AfterViewInit, OnDestroy {
     Math.max(0, this.projects().findIndex((project) => project.id === this.selectedProject().id)),
   );
   readonly reelProjects = computed(() => [...this.projects(), ...this.projects()]);
-  readonly selectedAccent = computed(() => this.projectTone(this.selectedProject()));
-  readonly previewShots = computed(() => this.selectedProject().images?.slice(0, 4) ?? []);
+  readonly selectedAccent = computed(() => this.workspace.accent().value);
   readonly detailRows = computed(() => {
     const project = this.selectedProject();
     return [
       { label: 'Problem', text: project.caseStudy?.problem ?? project.summary },
-      { label: 'Role', text: project.caseStudy?.role ?? project.features.slice(0, 2).join(', ') },
       { label: 'Result', text: project.caseStudy?.result ?? project.features.slice(2, 4).join(', ') },
+      { label: 'Role', text: project.caseStudy?.role ?? project.features.slice(0, 2).join(', ') },
     ].filter((row) => row.text);
   });
 
@@ -124,38 +123,8 @@ export class ProjectStoriesComponent implements AfterViewInit, OnDestroy {
     this.pauseReelTemporarily();
   }
 
-  projectIcon(project: PortfolioProject): string {
-    const name = `${project.category} ${project.type}`.toLowerCase();
-    if (name.includes('shop') || name.includes('commerce')) {
-      return 'bi bi-bag-check';
-    }
-    if (name.includes('workflow')) {
-      return 'bi bi-diagram-3';
-    }
-    if (name.includes('hr') || name.includes('employee')) {
-      return 'bi bi-person-badge';
-    }
-    if (name.includes('tender')) {
-      return 'bi bi-file-earmark-check';
-    }
-    return 'bi bi-window-sidebar';
-  }
-
-  projectTone(project: PortfolioProject): string {
-    const name = `${project.id} ${project.category} ${project.type}`.toLowerCase();
-    if (name.includes('shop') || name.includes('commerce') || name.includes('2go')) {
-      return '#34d399';
-    }
-    if (name.includes('workflow') || name.includes('wf')) {
-      return '#fbbf24';
-    }
-    if (name.includes('hr') || name.includes('employee') || name.includes('undp')) {
-      return '#60a5fa';
-    }
-    if (name.includes('tender')) {
-      return '#22d3ee';
-    }
-    return '#2dd4bf';
+  projectTone(_project: PortfolioProject): string {
+    return this.workspace.accent().value;
   }
 
   pauseReelTemporarily(): void {
@@ -175,7 +144,7 @@ export class ProjectStoriesComponent implements AfterViewInit, OnDestroy {
     const lobes = gsap.utils.toArray<HTMLElement>('.glass-lobe', host);
     const visualMedia = gsap.utils.toArray<HTMLElement>('.project-visual img', host);
     const headline = gsap.utils.toArray<HTMLElement>(
-      '.project-kicker, .project-title, .project-summary, .project-meta span, .project-actions, .metric-chip, .stack-chip',
+      '.project-kicker, .project-title, .project-summary, .project-meta span, .project-actions, .metric-chip',
       host,
     );
     const detailLines = gsap.utils.toArray<HTMLElement>('.typing-line', host);

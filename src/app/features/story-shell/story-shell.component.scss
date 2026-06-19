@@ -17,8 +17,16 @@
   padding-top: 0;
   color: var(--text);
   background:
-    radial-gradient(circle at 18% 10%, color-mix(in srgb, var(--accent), transparent 78%), transparent 30rem),
-    radial-gradient(circle at 86% 28%, rgba(96, 165, 250, 0.14), transparent 28rem),
+    radial-gradient(
+      circle at 18% 10%,
+      color-mix(in srgb, var(--accent), transparent 78%),
+      transparent 30rem
+    ),
+    radial-gradient(
+      circle at 86% 28%,
+      rgba(96, 165, 250, 0.14),
+      transparent 28rem
+    ),
     linear-gradient(180deg, var(--bg), var(--bg-soft) 46%, var(--bg));
 }
 
@@ -46,35 +54,76 @@
 .star-layer.far {
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.55) 0 1px, transparent 1.4px),
-    radial-gradient(circle, color-mix(in srgb, var(--accent), white 30%) 0 1px, transparent 1.5px);
-  background-size: 150px 150px, 310px 310px;
-  transform: translate3d(calc(var(--star-drift-x) * 0.3), var(--star-far-y), -380px) scale(1.25);
+    radial-gradient(
+      circle,
+      color-mix(in srgb, var(--accent), white 30%) 0 1px,
+      transparent 1.5px
+    );
+  background-size:
+    150px 150px,
+    310px 310px;
+  transform: translate3d(
+      calc(var(--star-drift-x) * 0.3),
+      var(--star-far-y),
+      -380px
+    )
+    scale(1.25);
 }
 
 .star-layer.mid {
   opacity: 0.62;
   background-image:
-    radial-gradient(circle, rgba(255, 255, 255, 0.72) 0 1.2px, transparent 1.8px),
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.72) 0 1.2px,
+      transparent 1.8px
+    ),
     radial-gradient(circle, rgba(125, 211, 252, 0.72) 0 1px, transparent 1.8px);
-  background-size: 96px 96px, 220px 220px;
-  transform: translate3d(calc(var(--star-drift-x) * 0.7), var(--star-mid-y), -120px) scaleY(var(--star-stretch));
+  background-size:
+    96px 96px,
+    220px 220px;
+  transform: translate3d(
+      calc(var(--star-drift-x) * 0.7),
+      var(--star-mid-y),
+      -120px
+    )
+    scaleY(var(--star-stretch));
 }
 
 .star-layer.near {
   opacity: 0.24;
   background-image:
     radial-gradient(ellipse, rgba(255, 255, 255, 0.9) 0 1px, transparent 1.8px),
-    radial-gradient(ellipse, color-mix(in srgb, var(--accent), white 20%) 0 1px, transparent 2px);
-  background-size: 64px 120px, 180px 260px;
-  transform: translate3d(var(--star-drift-x), var(--star-near-y), 180px) scaleY(var(--star-stretch));
+    radial-gradient(
+      ellipse,
+      color-mix(in srgb, var(--accent), white 20%) 0 1px,
+      transparent 2px
+    );
+  background-size:
+    64px 120px,
+    180px 260px;
+  transform: translate3d(var(--star-drift-x), var(--star-near-y), 180px)
+    scaleY(var(--star-stretch));
 }
 
 .nebula-wash {
   opacity: 0.28;
   background:
-    radial-gradient(circle at 20% 18%, color-mix(in srgb, var(--accent), transparent 64%), transparent 30rem),
-    radial-gradient(circle at 78% 36%, rgba(96, 165, 250, 0.18), transparent 34rem),
-    radial-gradient(circle at 52% 82%, rgba(34, 211, 238, 0.12), transparent 30rem);
+    radial-gradient(
+      circle at 20% 18%,
+      color-mix(in srgb, var(--accent), transparent 64%),
+      transparent 30rem
+    ),
+    radial-gradient(
+      circle at 78% 36%,
+      rgba(96, 165, 250, 0.18),
+      transparent 34rem
+    ),
+    radial-gradient(
+      circle at 52% 82%,
+      rgba(34, 211, 238, 0.12),
+      transparent 30rem
+    );
   mix-blend-mode: plus-lighter;
   transform: translate3d(0, var(--wash-transform), 0);
 }
@@ -87,10 +136,19 @@
   z-index: 0;
   opacity: 0.22;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--line), transparent 68%) 1px, transparent 1px),
-    linear-gradient(180deg, color-mix(in srgb, var(--line), transparent 76%) 1px, transparent 1px);
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--line), transparent 68%) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--line), transparent 76%) 1px,
+      transparent 1px
+    );
   background-size: 84px 84px;
-  transform: translate3d(0, calc(var(--grid-warp) * -0.35), 0) scaleY(calc(1 + var(--grid-warp) / 220));
+  transform: translate3d(0, calc(var(--grid-warp) * -0.35), 0)
+    scaleY(calc(1 + var(--grid-warp) / 220));
   transform-origin: 50% 0%;
   mask-image: radial-gradient(circle at 50% 20%, black, transparent 68%);
   animation: story-grid-drift 18s linear infinite;
@@ -101,10 +159,10 @@
   inset-block-start: 0.75rem;
   inset-inline: 0;
   z-index: 40;
-  width: min(100% - 1.5rem, 86rem);
+  width: min(100% - var(--section-gutter), var(--content-width));
   min-width: 0;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 0.75rem;
   margin: 0 auto;
@@ -178,9 +236,6 @@
   align-items: center;
   gap: 0.55rem;
   padding: 0 0.7rem 0 0.35rem;
-  border-radius: 1rem;
-  border: 1px solid var(--line);
-  background: var(--surface-strong);
   text-decoration: none;
 }
 

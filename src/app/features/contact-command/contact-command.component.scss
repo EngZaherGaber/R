@@ -1,12 +1,14 @@
 .contact-section {
+  width: min(100% - var(--section-gutter), var(--content-width));
   min-height: clamp(40rem, 82dvh, 54rem);
+  margin-inline: auto;
   display: grid;
   align-content: center;
-  padding: clamp(3.2rem, 5vw, 5rem) clamp(1rem, 2.6vw, 3rem);
+  padding-block: clamp(3.2rem, 5vw, 5rem);
 }
 
 .section-heading {
-  max-width: 72rem;
+  max-width: 100%;
   margin-bottom: 2rem;
 }
 
@@ -34,7 +36,7 @@
 .terminal {
   position: relative;
   overflow: hidden;
-  max-width: 86rem;
+  max-width: 100%;
   transform-style: preserve-3d;
   transform: rotateX(4deg) rotateY(-3deg) translateZ(80px);
   border: 1px solid var(--line);
@@ -154,7 +156,6 @@ code span {
   .contact-section {
     min-height: auto;
     align-content: start;
-    padding-inline: 0.75rem;
   }
 
   .terminal {
