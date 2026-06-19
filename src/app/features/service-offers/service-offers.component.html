@@ -1,55 +1,57 @@
 <section class="offers-section" aria-labelledby="services-title">
-  <div class="section-heading">
-    <p>{{ workspace.content().panels.services.kicker }}</p>
-    <h2 id="services-title">{{ workspace.content().panels.services.title }}</h2>
-    <span>{{ workspace.content().panels.services.description }}</span>
-  </div>
-
-  <div class="services-layout">
-    <div class="offers-grid" aria-label="Services">
-      @for (service of workspace.content().services; track service.id) {
-        <button
-          type="button"
-          [id]="'service-card-' + service.id"
-          class="offer-card"
-          [class.active]="selectedService().id === service.id"
-          (click)="selectService(service.id)"
-        >
-          <i [class]="service.icon" aria-hidden="true"></i>
-          <strong>{{ service.title }}</strong>
-          <span>{{ service.description }}</span>
-        </button>
-      }
+  <div class="section-inner">
+    <div class="section-heading">
+      <p>{{ workspace.content().panels.services.kicker }}</p>
+      <h2 id="services-title">{{ workspace.content().panels.services.title }}</h2>
+      <span>{{ workspace.content().panels.services.description }}</span>
     </div>
 
-    <article class="offer-detail" id="service-detail-panel">
-      <div>
-        <p>{{ workspace.content().serviceLabels.selectedService }}</p>
-        <h3>{{ selectedService().title }}</h3>
-        <span>{{ selectedService().description }}</span>
+    <div class="services-layout">
+      <div class="offers-grid" aria-label="Services">
+        @for (service of workspace.content().services; track service.id) {
+          <button
+            type="button"
+            [id]="'service-card-' + service.id"
+            class="offer-card"
+            [class.active]="selectedService().id === service.id"
+            (click)="selectService(service.id)"
+          >
+            <i [class]="service.icon" aria-hidden="true"></i>
+            <strong>{{ service.title }}</strong>
+            <span>{{ service.description }}</span>
+          </button>
+        }
       </div>
 
-      <section>
-        <h4>{{ workspace.content().serviceLabels.deliverables }}</h4>
-        @for (item of selectedService().deliverables; track item) {
-          <span class="pill">{{ item }}</span>
-        }
-      </section>
+      <article class="offer-detail" id="service-detail-panel">
+        <div>
+          <p>{{ workspace.content().serviceLabels.selectedService }}</p>
+          <h3>{{ selectedService().title }}</h3>
+          <span>{{ selectedService().description }}</span>
+        </div>
 
-      <section>
-        <h4>{{ workspace.content().serviceLabels.relatedSkills }}</h4>
-        @for (skill of relatedSkills(); track skill.id) {
-          <span class="pill">{{ skill.name }}</span>
-        }
-      </section>
+        <section>
+          <h4>{{ workspace.content().serviceLabels.deliverables }}</h4>
+          @for (item of selectedService().deliverables; track item) {
+            <span class="pill">{{ item }}</span>
+          }
+        </section>
 
-      <section>
-        <h4>{{ workspace.content().serviceLabels.proof }}</h4>
-        @for (project of relatedProjects(); track project.id) {
-          <span class="pill accent">{{ project.name }}</span>
-        }
-      </section>
-    </article>
+        <section>
+          <h4>{{ workspace.content().serviceLabels.relatedSkills }}</h4>
+          @for (skill of relatedSkills(); track skill.id) {
+            <span class="pill">{{ skill.name }}</span>
+          }
+        </section>
+
+        <section>
+          <h4>{{ workspace.content().serviceLabels.proof }}</h4>
+          @for (project of relatedProjects(); track project.id) {
+            <span class="pill accent">{{ project.name }}</span>
+          }
+        </section>
+      </article>
+    </div>
   </div>
 
   @if (sheetOpen()) {

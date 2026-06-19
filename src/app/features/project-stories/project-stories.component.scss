@@ -4,12 +4,14 @@
   --project-ink: var(--text);
   --project-muted: var(--muted);
   position: relative;
-  width: min(100% - var(--section-gutter), var(--content-width));
-  margin-inline: auto;
-  display: grid;
-  gap: clamp(0.9rem, 2vw, 1.6rem);
+  padding-inline: calc(var(--section-gutter) / 2);
   padding-block: clamp(2.8rem, 5vw, 4.5rem) clamp(2rem, 4.5vw, 4rem);
   overflow: clip;
+}
+
+.section-inner {
+  display: grid;
+  gap: clamp(0.9rem, 2vw, 1.6rem);
 }
 
 .project-stories::before {

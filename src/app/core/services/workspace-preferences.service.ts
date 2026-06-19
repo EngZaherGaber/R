@@ -15,7 +15,7 @@ export class WorkspacePreferencesService {
   readonly language = signal<LanguageCode>(this.readPreference('portfolio-language', 'en'));
   readonly theme = signal<ThemeMode>(this.readPreference('portfolio-theme', 'dark'));
   readonly accent = signal<AccentColor>(
-    accentColors.find((item) => item.id === this.readPreference('portfolio-accent', 'amber')) ??
+    accentColors.find((item) => item.id === this.readPreference('portfolio-accent', 'blue')) ??
       accentColors[0],
   );
   readonly activePanel = signal<PanelId>(this.readPanelFromUrl());

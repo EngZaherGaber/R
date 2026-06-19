@@ -3,135 +3,137 @@
   aria-labelledby="projects-title"
   [style.--project-accent]="selectedAccent()"
 >
-  <div class="story-heading project-reveal">
-    <p>{{ workspace.content().panels.projects.kicker }}</p>
-    <h2 id="projects-title">{{ workspace.content().panels.projects.title }}</h2>
-    <span>{{ workspace.content().panels.projects.description }}</span>
-  </div>
-  <div
-    class="project-reel project-reveal"
-    [class.paused]="reelPaused()"
-    aria-label="Project selector"
-    (mouseenter)="setReelPaused(true)"
-    (mouseleave)="setReelPaused(false)"
-    (focusin)="setReelPaused(true)"
-    (focusout)="setReelPaused(false)"
-    (touchstart)="setReelPaused(true)"
-    (touchend)="pauseReelTemporarily()"
-  >
-    <div class="reel-track">
-      @for (
-        project of reelProjects();
-        track project.id + "-" + $index;
-        let i = $index
-      ) {
-        <button
-          type="button"
-          class="reel-card"
-          [class.active]="selectedProject().id === project.id"
-          [style.--card-accent]="projectTone(project)"
-          (click)="selectProject(project.id)"
-          [attr.aria-label]="project.name"
-        >
-          <img
-            class="reel-thumb"
-            [src]="project.image"
-            [alt]=""
-            width="34"
-            height="34"
-            loading="lazy"
-            aria-hidden="true"
-          />
-          <span>{{ project.name }}</span>
-          <small>{{ project.category }}</small>
-        </button>
-      }
+  <div class="section-inner">
+    <div class="story-heading project-reveal">
+      <p>{{ workspace.content().panels.projects.kicker }}</p>
+      <h2 id="projects-title">{{ workspace.content().panels.projects.title }}</h2>
+      <span>{{ workspace.content().panels.projects.description }}</span>
     </div>
-  </div>
-  <div
-    class="project-showcase project-reveal"
-    (touchstart)="onTouchStart($event)"
-    (touchend)="onTouchEnd($event)"
-  >
-    <div class="glass-stage" aria-live="polite">
-      <div class="glass-lobe identity-lobe">
-        <div class="project-status">
-          <span class="project-file">{{ selectedProject().fileName }}</span>
-          <span class="live-dot" aria-hidden="true"></span>
-        </div>
-
-        <p class="project-kicker">
-          {{ selectedProject().category }} / {{ selectedProject().status }}
-        </p>
-        <h3 class="project-title">{{ selectedProject().name }}</h3>
-        <p class="project-summary">{{ selectedProject().summary }}</p>
-
-        <div class="project-meta">
-          <span>{{ selectedProject().type }}</span>
-          <span>{{ selectedProject().features.length }} features</span>
-        </div>
-
-        <div class="metric-row">
-          @for (metric of selectedProject().metrics; track metric.label) {
-            <strong class="metric-chip">
-              <b>{{ metric.value }}</b>
-              <span>{{ metric.label }}</span>
-            </strong>
-          }
-        </div>
-
-        <div class="detail-script" aria-label="Project details">
-          @for (row of detailRows(); track row.label) {
-            <article class="typing-line">
-              <span>{{ row.label }}</span>
-              <p>{{ row.text }}</p>
-            </article>
-          }
-        </div>
-
-        <div class="project-actions">
+    <div
+      class="project-reel project-reveal"
+      [class.paused]="reelPaused()"
+      aria-label="Project selector"
+      (mouseenter)="setReelPaused(true)"
+      (mouseleave)="setReelPaused(false)"
+      (focusin)="setReelPaused(true)"
+      (focusout)="setReelPaused(false)"
+      (touchstart)="setReelPaused(true)"
+      (touchend)="pauseReelTemporarily()"
+    >
+      <div class="reel-track">
+        @for (
+          project of reelProjects();
+          track project.id + "-" + $index;
+          let i = $index
+        ) {
           <button
             type="button"
-            aria-label="Previous project"
-            (click)="selectNextProject(-1)"
+            class="reel-card"
+            [class.active]="selectedProject().id === project.id"
+            [style.--card-accent]="projectTone(project)"
+            (click)="selectProject(project.id)"
+            [attr.aria-label]="project.name"
           >
-            <i class="bi bi-arrow-left" aria-hidden="true"></i>
+            <img
+              class="reel-thumb"
+              [src]="project.image"
+              [alt]=""
+              width="34"
+              height="34"
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <span>{{ project.name }}</span>
+            <small>{{ project.category }}</small>
           </button>
-          <span
-            >{{ projectNumber(selectedProjectIndex()) }} /
-            {{ projects().length }}</span
-          >
-          <button
-            type="button"
-            aria-label="Next project"
-            (click)="selectNextProject(1)"
-          >
-            <i class="bi bi-arrow-right" aria-hidden="true"></i>
-          </button>
-          @if (selectedProject().url) {
-            <a
-              class="project-live-link"
-              [href]="selectedProject().url"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Open live project
-              <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
-            </a>
-          }
-        </div>
+        }
       </div>
+    </div>
+    <div
+      class="project-showcase project-reveal"
+      (touchstart)="onTouchStart($event)"
+      (touchend)="onTouchEnd($event)"
+    >
+      <div class="glass-stage" aria-live="polite">
+        <div class="glass-lobe identity-lobe">
+          <div class="project-status">
+            <span class="project-file">{{ selectedProject().fileName }}</span>
+            <span class="live-dot" aria-hidden="true"></span>
+          </div>
 
-      <div class="glass-lobe visual-lobe">
-        <div class="project-visual">
-          <img
-            class="visual-logo"
-            [src]="selectedProject().image"
-            width="420"
-            height="320"
-            [alt]="selectedProject().name"
-            loading="lazy"
-          />
+          <p class="project-kicker">
+            {{ selectedProject().category }} / {{ selectedProject().status }}
+          </p>
+          <h3 class="project-title">{{ selectedProject().name }}</h3>
+          <p class="project-summary">{{ selectedProject().summary }}</p>
+
+          <div class="project-meta">
+            <span>{{ selectedProject().type }}</span>
+            <span>{{ selectedProject().features.length }} features</span>
+          </div>
+
+          <div class="metric-row">
+            @for (metric of selectedProject().metrics; track metric.label) {
+              <strong class="metric-chip">
+                <b>{{ metric.value }}</b>
+                <span>{{ metric.label }}</span>
+              </strong>
+            }
+          </div>
+
+          <div class="detail-script" aria-label="Project details">
+            @for (row of detailRows(); track row.label) {
+              <article class="typing-line">
+                <span>{{ row.label }}</span>
+                <p>{{ row.text }}</p>
+              </article>
+            }
+          </div>
+
+          <div class="project-actions">
+            <button
+              type="button"
+              aria-label="Previous project"
+              (click)="selectNextProject(-1)"
+            >
+              <i class="bi bi-arrow-left" aria-hidden="true"></i>
+            </button>
+            <span
+              >{{ projectNumber(selectedProjectIndex()) }} /
+              {{ projects().length }}</span
+            >
+            <button
+              type="button"
+              aria-label="Next project"
+              (click)="selectNextProject(1)"
+            >
+              <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </button>
+            @if (selectedProject().url) {
+              <a
+                class="project-live-link"
+                [href]="selectedProject().url"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open live project
+                <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+              </a>
+            }
+          </div>
+        </div>
+
+        <div class="glass-lobe visual-lobe">
+          <div class="project-visual">
+            <img
+              class="visual-logo"
+              [src]="selectedProject().image"
+              width="420"
+              height="320"
+              [alt]="selectedProject().name"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
     </div>

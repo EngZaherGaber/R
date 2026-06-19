@@ -1,9 +1,8 @@
 .contact-section {
-  width: min(100% - var(--section-gutter), var(--content-width));
   min-height: clamp(40rem, 82dvh, 54rem);
-  margin-inline: auto;
   display: grid;
   align-content: center;
+  padding-inline: calc(var(--section-gutter) / 2);
   padding-block: clamp(3.2rem, 5vw, 5rem);
 }
 

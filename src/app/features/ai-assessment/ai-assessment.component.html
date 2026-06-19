@@ -1,95 +1,97 @@
 <section class="ai-assessment-section" aria-labelledby="ai-assessment-title">
-  <div class="section-heading">
-    <p>{{ content().kicker }}</p>
-    <h2 id="ai-assessment-title">{{ content().title }}</h2>
-    <span>{{ content().description }}</span>
-  </div>
+  <div class="section-inner">
+    <div class="section-heading">
+      <p>{{ content().kicker }}</p>
+      <h2 id="ai-assessment-title">{{ content().title }}</h2>
+      <span>{{ content().description }}</span>
+    </div>
 
-  <div class="assessment-layout">
-    <article class="chat-panel" aria-label="Animated AI assessment conversation">
-      <header class="chat-header">
-        <div>
-          <span class="window-dot"></span>
-          <span class="window-dot"></span>
-          <span class="window-dot"></span>
-        </div>
-        <strong>{{ content().assistantLabel }}</strong>
-        <small>{{ content().status }}</small>
-      </header>
-
-      <div #chatStream class="chat-stream" [class.empty]="visibleMessages().length === 0 && !isTyping()">
-        @for (message of visibleMessages(); track message.text) {
-          <div
-            class="message-row"
-            [class.user]="message.author === 'user'"
-            [class.assistant]="message.author === 'assistant'"
-          >
-            <span class="avatar">
-              @if (message.author === 'user') {
-                Z
-              } @else {
-                AI
-              }
-            </span>
-            <div class="message-bubble">
-              <small>{{ message.author === 'user' ? content().promptLabel : content().assistantLabel }}</small>
-              <p>{{ message.text }}</p>
-            </div>
+    <div class="assessment-layout">
+      <article class="chat-panel" aria-label="Animated AI assessment conversation">
+        <header class="chat-header">
+          <div>
+            <span class="window-dot"></span>
+            <span class="window-dot"></span>
+            <span class="window-dot"></span>
           </div>
-        }
+          <strong>{{ content().assistantLabel }}</strong>
+          <small>{{ content().status }}</small>
+        </header>
 
-        @if (isTyping()) {
-          <div class="typing-row">
-            <span class="avatar">AI</span>
-            <div class="typing-indicator" aria-hidden="true">
-              <span></span>
-              <span></span>
-              <span></span>
+        <div #chatStream class="chat-stream" [class.empty]="visibleMessages().length === 0 && !isTyping()">
+          @for (message of visibleMessages(); track message.text) {
+            <div
+              class="message-row"
+              [class.user]="message.author === 'user'"
+              [class.assistant]="message.author === 'assistant'"
+            >
+              <span class="avatar">
+                @if (message.author === 'user') {
+                  Z
+                } @else {
+                  AI
+                }
+              </span>
+              <div class="message-bubble">
+                <small>{{ message.author === 'user' ? content().promptLabel : content().assistantLabel }}</small>
+                <p>{{ message.text }}</p>
+              </div>
             </div>
-          </div>
-        }
-      </div>
-    </article>
+          }
 
-    <aside class="analysis-panel">
-      <div class="analysis-meter">
-        <div>
-          <p>{{ completed() ? content().complete : content().analyzing }}</p>
-          <strong>{{ progress() }}%</strong>
+          @if (isTyping()) {
+            <div class="typing-row">
+              <span class="avatar">AI</span>
+              <div class="typing-indicator" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          }
         </div>
-        <span [style.width.%]="progress()"></span>
-      </div>
+      </article>
 
-      <div class="analysis-copy">
-        <p>{{ content().analysisTitle }}</p>
-        <h3>{{ content().analysisDescription }}</h3>
-      </div>
+      <aside class="analysis-panel">
+        <div class="analysis-meter">
+          <div>
+            <p>{{ completed() ? content().complete : content().analyzing }}</p>
+            <strong>{{ progress() }}%</strong>
+          </div>
+          <span [style.width.%]="progress()"></span>
+        </div>
 
-      <div class="insight-list" aria-label="Assessment insights">
-        @for (section of revealedInsights(); track section.title; let index = $index) {
-          <article [class.active]="index === activeInsightIndex()">
-            <span>{{ index + 1 }}</span>
-            <div>
-              <h4>{{ section.title }}</h4>
-              <p>{{ section.text }}</p>
-            </div>
-          </article>
-        }
-      </div>
+        <div class="analysis-copy">
+          <p>{{ content().analysisTitle }}</p>
+          <h3>{{ content().analysisDescription }}</h3>
+        </div>
 
-      <div class="badge-grid" aria-label="Assessment focus areas">
-        @for (badge of content().badges; track badge) {
-          <span>{{ badge }}</span>
-        }
-      </div>
+        <div class="insight-list" aria-label="Assessment insights">
+          @for (section of revealedInsights(); track section.title; let index = $index) {
+            <article [class.active]="index === activeInsightIndex()">
+              <span>{{ index + 1 }}</span>
+              <div>
+                <h4>{{ section.title }}</h4>
+                <p>{{ section.text }}</p>
+              </div>
+            </article>
+          }
+        </div>
 
-      <div class="summary-actions">
-        <button type="button" (click)="replay()">
-          <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
-          {{ content().replay }}
-        </button>
-        <span>{{ content().status }}</span>
-      </div>
-    </aside>
+        <div class="badge-grid" aria-label="Assessment focus areas">
+          @for (badge of content().badges; track badge) {
+            <span>{{ badge }}</span>
+          }
+        </div>
+
+        <div class="summary-actions">
+          <button type="button" (click)="replay()">
+            <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+            {{ content().replay }}
+          </button>
+          <span>{{ content().status }}</span>
+        </div>
+      </aside>
+    </div>
   </div>
 </section>

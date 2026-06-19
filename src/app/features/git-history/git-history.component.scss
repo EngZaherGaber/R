@@ -1,6 +1,5 @@
 .history-section {
-  width: min(100% - var(--section-gutter), var(--content-width));
-  margin-inline: auto;
+  padding-inline: calc(var(--section-gutter) / 2);
   padding-block: clamp(3.2rem, 5vw, 5rem);
 }
 

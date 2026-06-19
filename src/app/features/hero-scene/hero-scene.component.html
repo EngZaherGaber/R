@@ -1,51 +1,63 @@
 <section class="hero-scene" aria-labelledby="hero-title">
-  <div class="hero-copy">
-    <p class="eyebrow hero-token">{{ workspace.content().hero.eyebrow }}</p>
-    <h1 id="hero-title">
-      <span class="hero-token">{{ workspace.content().meta.name }}</span>
-      <small class="hero-token">{{ workspace.content().meta.role }}</small>
-    </h1>
-    <p class="subtitle hero-token">{{ workspace.content().hero.title }}</p>
-    <p class="support hero-token">{{ workspace.content().hero.subtitle }}</p>
+  <div class="section-inner hero-inner">
+    <p class="intro-prompt prompt-question">{{ introQuestion() }}</p>
+    <p class="intro-prompt prompt-answer">{{ introAnswer() }}</p>
 
-    <div class="tag-row hero-token" aria-label="Specialties">
-      @for (tag of tags; track tag; let index = $index) {
-        <span [style.--tag-index]="index">{{ tag }}</span>
-      }
+    <div class="hero-visual" aria-label="Nx monorepo full-stack animation">
+      <span class="box-depth box-top" aria-hidden="true"></span>
+      <span class="box-depth box-right" aria-hidden="true"></span>
+      <span class="box-depth box-bottom" aria-hidden="true"></span>
+      <span class="box-depth box-left" aria-hidden="true"></span>
+
+      <div class="box-face box-front" aria-hidden="true">
+        <img src="icons/nx.svg" width="44" height="44" alt="" />
+        <span>Nx Monorepo</span>
+      </div>
+
+      <div class="box-face box-back" aria-hidden="true">
+        <span>apps</span>
+        <span>libs</span>
+        <span>shared</span>
+      </div>
+
+      <div class="connection-grid" aria-hidden="true"></div>
+
+      <div class="stack-nodes" aria-label="Full stack technologies">
+        @for (node of stackNodes; track node.label; let index = $index) {
+          <span class="tech-node {{ node.className }}" [style.--node-index]="index">
+            <img [src]="node.icon" width="36" height="36" [alt]="node.label + ' icon'" />
+            <b>{{ node.label }}</b>
+            <small>{{ node.role }}</small>
+          </span>
+        }
+      </div>
     </div>
 
-    <div class="actions hero-token">
-      <button type="button" class="primary" (click)="navigateTo.emit('projects')">
-        {{ workspace.content().hero.primaryAction }}
-      </button>
-      <button type="button" class="ghost" (click)="downloadCv()">
-        {{ workspace.content().hero.secondaryAction }}
-      </button>
-      <button type="button" class="ghost" (click)="navigateTo.emit('contact')">{{ workspace.content().hero.contactAction }}</button>
-    </div>
-  </div>
+    <div class="hero-copy">
+      <p class="eyebrow hero-token">Nx-powered full-stack delivery</p>
+      <h1 id="hero-title">
+        <span class="hero-token">{{ heroName() }}</span>
+        <small class="hero-token">{{ heroRole() }}</small>
+      </h1>
+      <p class="subtitle hero-token">{{ heroTitle() }}</p>
+      <p class="support hero-token">{{ heroSubtitle() }}</p>
 
-  <div class="hero-visual" aria-label="Portfolio story status">
-    <img
-      class="hero-person"
-      src="black-personal-bg.png"
-      width="720"
-      height="820"
-      alt="Zaher Jabr portrait"
-      fetchpriority="high"
-    />
-    <div class="signal-orbit" aria-hidden="true"></div>
-    <div class="signal-dot dot-one" aria-hidden="true"></div>
-    <div class="signal-dot dot-two" aria-hidden="true"></div>
-    <div class="signal-dot dot-three" aria-hidden="true"></div>
+      <div class="tag-row hero-token" aria-label="Specialties">
+        @for (tag of tags; track tag; let index = $index) {
+          <span [style.--tag-index]="index">{{ tag }}</span>
+        }
+      </div>
 
-    <div class="story-signals" aria-label="Portfolio signals">
-      <span class="signal-kicker">{{ workspace.content().hero.signalKicker }}</span>
-      <div class="signal-grid">
-        <span><b>7</b> {{ workspace.content().hero.signalProofProjects }}</span>
-        <span><b>11</b> {{ workspace.content().hero.signalSkillLinks }}</span>
-        <span><b>2</b> {{ workspace.content().hero.signalLanguages }}</span>
-        <span><b>UI</b> {{ workspace.content().hero.signalProductMindset }}</span>
+      <div class="actions hero-token">
+        <button type="button" class="primary" (click)="navigateTo.emit('projects')">
+          {{ workspace.content().hero.primaryAction }}
+        </button>
+        <button type="button" class="ghost" (click)="downloadCv()">
+          {{ workspace.content().hero.secondaryAction }}
+        </button>
+        <button type="button" class="ghost" (click)="navigateTo.emit('contact')">
+          {{ workspace.content().hero.contactAction || 'Contact' }}
+        </button>
       </div>
     </div>
   </div>

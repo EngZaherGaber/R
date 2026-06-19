@@ -1,5 +1,5 @@
 :root {
-  --accent: #f5b642;
+  --accent: #60a5fa;
   --accent-contrast: #101114;
   --bg: #0d0f14;
   --bg-soft: #151924;
@@ -80,6 +80,12 @@ img {
 
 a {
   color: inherit;
+}
+
+.section-inner {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-inline: auto;
 }
 
 button {

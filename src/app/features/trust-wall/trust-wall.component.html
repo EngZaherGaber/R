@@ -1,79 +1,81 @@
 <section class="trust-section" aria-labelledby="trust-title">
-  <div class="section-heading">
-    <p>{{ workspace.content().panels.recommendations.kicker }}</p>
-    <h2 id="trust-title">{{ workspace.content().panels.recommendations.title }}</h2>
-    <span>{{ workspace.content().panels.recommendations.description }}</span>
-  </div>
+  <div class="section-inner">
+    <div class="section-heading">
+      <p>{{ workspace.content().panels.recommendations.kicker }}</p>
+      <h2 id="trust-title">{{ workspace.content().panels.recommendations.title }}</h2>
+      <span>{{ workspace.content().panels.recommendations.description }}</span>
+    </div>
 
-  <div class="trust-layout testimonial-columns" aria-label="Recommendation columns">
-    @for (column of testimonialColumns(); track $index; let columnIndex = $index) {
-      <div
-        class="testimonial-column"
-        [class.reverse]="columnIndex === 1"
-        [style.--column-duration]="columnDuration(columnIndex)"
-      >
-        <div class="testimonial-track">
-          @for (copy of loopCopies; track copy) {
-            @for (rec of column; track $index) {
-              <article
-                class="testimonial-card"
-                role="button"
-                tabindex="0"
-                [class.active]="selectedRecommendation().id === rec.id"
-                (click)="selectRecommendation(rec.id)"
-                (keydown.enter)="selectRecommendation(rec.id)"
-                (keydown.space)="selectRecommendation(rec.id); $event.preventDefault()"
-              >
-                <div class="testimonial-head">
-                  @if (rec.image) {
-                    <img [src]="rec.image" width="48" height="48" [alt]="rec.name" loading="lazy" />
-                  } @else {
-                    <b>{{ rec.name.slice(0, 1) }}</b>
-                  }
-                  <div>
-                    <p class="signal">{{ workspace.content().recommendationLabels.signal }} / {{ rec.signal }}</p>
-                    <h3>{{ rec.name }}</h3>
-                    <strong>{{ rec.position }}</strong>
+    <div class="trust-layout testimonial-columns" aria-label="Recommendation columns">
+      @for (column of testimonialColumns(); track $index; let columnIndex = $index) {
+        <div
+          class="testimonial-column"
+          [class.reverse]="columnIndex === 1"
+          [style.--column-duration]="columnDuration(columnIndex)"
+        >
+          <div class="testimonial-track">
+            @for (copy of loopCopies; track copy) {
+              @for (rec of column; track $index) {
+                <article
+                  class="testimonial-card"
+                  role="button"
+                  tabindex="0"
+                  [class.active]="selectedRecommendation().id === rec.id"
+                  (click)="selectRecommendation(rec.id)"
+                  (keydown.enter)="selectRecommendation(rec.id)"
+                  (keydown.space)="selectRecommendation(rec.id); $event.preventDefault()"
+                >
+                  <div class="testimonial-head">
+                    @if (rec.image) {
+                      <img [src]="rec.image" width="48" height="48" [alt]="rec.name" loading="lazy" />
+                    } @else {
+                      <b>{{ rec.name.slice(0, 1) }}</b>
+                    }
+                    <div>
+                      <p class="signal">{{ workspace.content().recommendationLabels.signal }} / {{ rec.signal }}</p>
+                      <h3>{{ rec.name }}</h3>
+                      <strong>{{ rec.position }}</strong>
+                    </div>
                   </div>
-                </div>
 
-                <blockquote>{{ rec.message }}</blockquote>
+                  <blockquote>{{ rec.message }}</blockquote>
 
-                <div class="related">
-                  @for (project of relatedProjectsFor(rec); track project.id) {
-                    <span>{{ project.name }}</span>
-                  }
-                </div>
-              </article>
+                  <div class="related">
+                    @for (project of relatedProjectsFor(rec); track project.id) {
+                      <span>{{ project.name }}</span>
+                    }
+                  </div>
+                </article>
+              }
             }
-          }
-        </div>
-      </div>
-    }
-  </div>
-
-  <div class="mobile-recommendations" aria-label="All recommendations">
-    @for (rec of workspace.content().recommendations; track rec.id) {
-      <article class="mobile-rec-card">
-        <div class="mobile-rec-head">
-          @if (rec.image) {
-            <img [src]="rec.image" width="56" height="56" [alt]="rec.name" loading="lazy" />
-          } @else {
-            <b>{{ rec.name.slice(0, 1) }}</b>
-          }
-          <div>
-            <p class="signal">{{ workspace.content().recommendationLabels.signal }} / {{ rec.signal }}</p>
-            <h3>{{ rec.name }}</h3>
-            <strong>{{ rec.position }}</strong>
           </div>
         </div>
-        <blockquote>{{ rec.message }}</blockquote>
-        <div class="related">
-          @for (project of relatedProjectsFor(rec); track project.id) {
-            <span>{{ project.name }}</span>
-          }
-        </div>
-      </article>
-    }
+      }
+    </div>
+
+    <div class="mobile-recommendations" aria-label="All recommendations">
+      @for (rec of workspace.content().recommendations; track rec.id) {
+        <article class="mobile-rec-card">
+          <div class="mobile-rec-head">
+            @if (rec.image) {
+              <img [src]="rec.image" width="56" height="56" [alt]="rec.name" loading="lazy" />
+            } @else {
+              <b>{{ rec.name.slice(0, 1) }}</b>
+            }
+            <div>
+              <p class="signal">{{ workspace.content().recommendationLabels.signal }} / {{ rec.signal }}</p>
+              <h3>{{ rec.name }}</h3>
+              <strong>{{ rec.position }}</strong>
+            </div>
+          </div>
+          <blockquote>{{ rec.message }}</blockquote>
+          <div class="related">
+            @for (project of relatedProjectsFor(rec); track project.id) {
+              <span>{{ project.name }}</span>
+            }
+          </div>
+        </article>
+      }
+    </div>
   </div>
 </section>

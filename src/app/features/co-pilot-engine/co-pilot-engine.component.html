@@ -1,131 +1,133 @@
 @let tool = engine();
 
 <section id="co-pilot-section" class="co-pilot-engine" aria-labelledby="co-pilot-title">
-  <div class="engine-header engine-reveal">
-    <div>
-      <p>{{ tool.eyebrow }}</p>
-      <h2 id="co-pilot-title">{{ tool.title }}</h2>
-      <span>{{ tool.description }}</span>
-    </div>
-
-    <div class="build-badges" aria-label="Prototype status">
-      <strong>{{ tool.prototypeBadge }}</strong>
-      <span>{{ tool.digitalBadge }}</span>
-    </div>
-  </div>
-
-  <button type="button" class="initialize-button engine-reveal" (click)="initializeEngine()">
-    <i class="bi bi-play-fill" aria-hidden="true"></i>
-    <span>{{ tool.initialize }}</span>
-  </button>
-
-  <div class="engine-pipeline engine-reveal">
-    <article class="phase-card idea-phase" aria-label="Idea seed">
-      <div class="idea-core">
-        <i class="bi bi-lightbulb" aria-hidden="true"></i>
-      </div>
-      <span class="phase-number">Phase 1</span>
-      <h3>{{ tool.phases.idea }}</h3>
-      <p>{{ tool.ideaName }}</p>
-    </article>
-
-    <svg class="engine-lines desktop-lines" viewBox="0 0 1220 420" preserveAspectRatio="none" aria-hidden="true">
-      <path class="draw-line flow-line seed-line" pathLength="1" d="M116 210 C220 118 282 88 388 140" />
-      <path class="draw-line flow-line seed-line alt" pathLength="1" d="M116 210 C236 210 276 204 396 210" />
-      <path class="draw-line flow-line seed-line" pathLength="1" d="M116 210 C220 302 286 322 404 275" />
-
-      <path class="draw-line relation-line" pathLength="1" d="M498 128 C580 108 650 140 696 212" />
-      <path class="draw-line relation-line" pathLength="1" d="M480 214 C540 258 608 278 675 284" />
-      <path class="draw-line relation-line" pathLength="1" d="M575 128 C570 194 614 228 676 284" />
-
-      <path class="draw-line output-line" pathLength="1" d="M732 210 C840 154 890 110 980 92" />
-      <path class="draw-line output-line" pathLength="1" d="M732 210 C858 216 918 212 1002 210" />
-      <path class="draw-line output-line" pathLength="1" d="M732 210 C842 278 912 316 988 334" />
-    </svg>
-
-    <article class="lab-panel" aria-label="Architecture lab">
-      <div class="lab-tabs">
-        <span class="lab-icon"><i class="bi bi-braces" aria-hidden="true"></i></span>
-        <strong>{{ tool.labTitle }}</strong>
+  <div class="section-inner">
+    <div class="engine-header engine-reveal">
+      <div>
+        <p>{{ tool.eyebrow }}</p>
+        <h2 id="co-pilot-title">{{ tool.title }}</h2>
+        <span>{{ tool.description }}</span>
       </div>
 
-      <div class="lab-window">
-        <div class="window-controls" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
+      <div class="build-badges" aria-label="Prototype status">
+        <strong>{{ tool.prototypeBadge }}</strong>
+        <span>{{ tool.digitalBadge }}</span>
+      </div>
+    </div>
+
+    <button type="button" class="initialize-button engine-reveal" (click)="initializeEngine()">
+      <i class="bi bi-play-fill" aria-hidden="true"></i>
+      <span>{{ tool.initialize }}</span>
+    </button>
+
+    <div class="engine-pipeline engine-reveal">
+      <article class="phase-card idea-phase" aria-label="Idea seed">
+        <div class="idea-core">
+          <i class="bi bi-lightbulb" aria-hidden="true"></i>
+        </div>
+        <span class="phase-number">Phase 1</span>
+        <h3>{{ tool.phases.idea }}</h3>
+        <p>{{ tool.ideaName }}</p>
+      </article>
+
+      <svg class="engine-lines desktop-lines" viewBox="0 0 1220 420" preserveAspectRatio="none" aria-hidden="true">
+        <path class="draw-line flow-line seed-line" pathLength="1" d="M116 210 C220 118 282 88 388 140" />
+        <path class="draw-line flow-line seed-line alt" pathLength="1" d="M116 210 C236 210 276 204 396 210" />
+        <path class="draw-line flow-line seed-line" pathLength="1" d="M116 210 C220 302 286 322 404 275" />
+
+        <path class="draw-line relation-line" pathLength="1" d="M498 128 C580 108 650 140 696 212" />
+        <path class="draw-line relation-line" pathLength="1" d="M480 214 C540 258 608 278 675 284" />
+        <path class="draw-line relation-line" pathLength="1" d="M575 128 C570 194 614 228 676 284" />
+
+        <path class="draw-line output-line" pathLength="1" d="M732 210 C840 154 890 110 980 92" />
+        <path class="draw-line output-line" pathLength="1" d="M732 210 C858 216 918 212 1002 210" />
+        <path class="draw-line output-line" pathLength="1" d="M732 210 C842 278 912 316 988 334" />
+      </svg>
+
+      <article class="lab-panel" aria-label="Architecture lab">
+        <div class="lab-tabs">
+          <span class="lab-icon"><i class="bi bi-braces" aria-hidden="true"></i></span>
+          <strong>{{ tool.labTitle }}</strong>
         </div>
 
-        <div class="build-pulse" aria-hidden="true"></div>
+        <div class="lab-window">
+          <div class="window-controls" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
 
-        @for (entity of tool.entities; track entity; let index = $index) {
-          <button
-            type="button"
-            class="entity-node"
-            [class.product]="index === 0"
-            [class.user]="index === 1"
-            [class.order]="index === 2"
-            [attr.aria-label]="entity"
-          >
-            <span class="entity-cube" aria-hidden="true"></span>
-            <strong>[{{ entity }}]</strong>
-          </button>
-        }
+          <div class="build-pulse" aria-hidden="true"></div>
 
-        <span class="relationship-label">{{ tool.relationshipLabel }}</span>
+          @for (entity of tool.entities; track entity; let index = $index) {
+            <button
+              type="button"
+              class="entity-node"
+              [class.product]="index === 0"
+              [class.user]="index === 1"
+              [class.order]="index === 2"
+              [attr.aria-label]="entity"
+            >
+              <span class="entity-cube" aria-hidden="true"></span>
+              <strong>[{{ entity }}]</strong>
+            </button>
+          }
 
-        <div class="question-card" role="group" [attr.aria-label]="tool.question">
-          <strong>{{ tool.question }}</strong>
-          <div>
-            @for (option of tool.options; track option; let index = $index) {
-              <button
-                type="button"
-                class="question-option"
-                [class.active]="selectedOption() === index"
-                (click)="selectOption(index)"
-              >
-                [{{ option }}]
-              </button>
-            }
+          <span class="relationship-label">{{ tool.relationshipLabel }}</span>
+
+          <div class="question-card" role="group" [attr.aria-label]="tool.question">
+            <strong>{{ tool.question }}</strong>
+            <div>
+              @for (option of tool.options; track option; let index = $index) {
+                <button
+                  type="button"
+                  class="question-option"
+                  [class.active]="selectedOption() === index"
+                  (click)="selectOption(index)"
+                >
+                  [{{ option }}]
+                </button>
+              }
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="phase-strip" aria-hidden="true">
+        <div class="phase-strip" aria-hidden="true">
+          <span>{{ tool.phases.relationships }}</span>
+          <span>{{ tool.phases.adaptive }}</span>
+        </div>
+      </article>
+
+      <article class="output-stack" aria-label="Autonomous output stack">
+        @for (output of tool.outputs; track output.title; let index = $index) {
+          <div class="stack-node" [class.active]="activeOutput() === index">
+            <span class="stack-orb">
+              <i [class]="output.icon" aria-hidden="true"></i>
+              <b>{{ output.meta }}</b>
+            </span>
+            <div>
+              <strong>{{ output.title }}</strong>
+              <small>{{ output.label }}</small>
+            </div>
+          </div>
+        }
+      </article>
+    </div>
+
+    <div class="engine-footer engine-reveal">
+      <div class="phase-track" aria-label="Build phases">
+        <span>{{ tool.phases.idea }}</span>
         <span>{{ tool.phases.relationships }}</span>
         <span>{{ tool.phases.adaptive }}</span>
+        <span>{{ tool.phases.output }}</span>
       </div>
-    </article>
 
-    <article class="output-stack" aria-label="Autonomous output stack">
-      @for (output of tool.outputs; track output.title; let index = $index) {
-        <div class="stack-node" [class.active]="activeOutput() === index">
-          <span class="stack-orb">
-            <i [class]="output.icon" aria-hidden="true"></i>
-            <b>{{ output.meta }}</b>
-          </span>
-          <div>
-            <strong>{{ output.title }}</strong>
-            <small>{{ output.label }}</small>
-          </div>
-        </div>
-      }
-    </article>
-  </div>
+      <div class="development-meter">
+        <span>{{ tool.progress }}</span>
+        <b aria-hidden="true"><i></i></b>
+      </div>
 
-  <div class="engine-footer engine-reveal">
-    <div class="phase-track" aria-label="Build phases">
-      <span>{{ tool.phases.idea }}</span>
-      <span>{{ tool.phases.relationships }}</span>
-      <span>{{ tool.phases.adaptive }}</span>
-      <span>{{ tool.phases.output }}</span>
+      <code>{{ tool.command }}</code>
     </div>
-
-    <div class="development-meter">
-      <span>{{ tool.progress }}</span>
-      <b aria-hidden="true"><i></i></b>
-    </div>
-
-    <code>{{ tool.command }}</code>
   </div>
 </section>

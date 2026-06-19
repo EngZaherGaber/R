@@ -1,8 +1,7 @@
 .evidence-section {
   position: relative;
-  width: min(100% - var(--section-gutter), var(--content-width));
   min-height: clamp(42rem, 92dvh, 58rem);
-  margin-inline: auto;
+  padding-inline: calc(var(--section-gutter) / 2);
   padding-block: clamp(3.2rem, 5vw, 5rem) clamp(5rem, 8vw, 8rem);
   overflow: visible;
 }
