@@ -7,7 +7,12 @@
   </div>
 
   <header class="story-header" aria-label="Portfolio controls">
-    <a class="brand-mark" href="#scene-hero" (click)="goTo('hero')" aria-label="Back to hero">
+    <a
+      class="brand-mark"
+      href="#scene-hero"
+      (click)="$event.preventDefault(); goTo('hero')"
+      aria-label="Back to hero"
+    >
       <img src="Zaher.webp" width="42" height="42" alt="Zaher Jabr" />
       <span>{{ workspace.content().meta.name }}</span>
     </a>
@@ -20,12 +25,12 @@
 
     <nav class="star-map" aria-label="Journey star map">
       @for (section of sections(); track section.id) {
-        <button
-          type="button"
+        <a
+          [href]="'#scene-' + section.id"
           [class.active]="activeScene() === section.id"
           [attr.aria-label]="section.label"
-          (click)="goTo(section.id)"
-        ></button>
+          (click)="$event.preventDefault(); goTo(section.id)"
+        ></a>
       }
     </nav>
 
@@ -38,16 +43,16 @@
 
   <nav class="mobile-dock" aria-label="Mobile portfolio sections">
     @for (section of sections(); track section.id) {
-      <button
-        type="button"
+      <a
+        [href]="'#scene-' + section.id"
         [class.active]="activeScene() === section.id"
         [attr.aria-current]="activeScene() === section.id ? 'step' : null"
         [attr.aria-label]="section.label"
-        (click)="goTo(section.id)"
+        (click)="$event.preventDefault(); goTo(section.id)"
       >
         <i [class]="section.icon" aria-hidden="true"></i>
         <span>{{ section.label }}</span>
-      </button>
+      </a>
     }
   </nav>
 
@@ -55,6 +60,7 @@
   <project-stories id="scene-projects" data-scene="projects" />
   <co-pilot-engine id="scene-copilot" data-scene="copilot" />
   <skill-evidence id="scene-skills" data-scene="skills" />
+  <ai-assessment id="scene-ai-review" data-scene="ai-review" />
   <service-offers id="scene-services" data-scene="services" />
   <trust-wall id="scene-trust" data-scene="trust" />
   <git-history id="scene-history" data-scene="history" />

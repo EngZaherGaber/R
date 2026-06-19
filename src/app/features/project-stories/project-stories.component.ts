@@ -3,14 +3,16 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  OnDestroy,
   computed,
   effect,
   inject,
   signal,
 } from '@angular/core';
+import gsap from 'gsap';
 import { PortfolioProject } from '../../core/data/portfolio-content';
-import { WorkspacePreferencesService } from '../../core/services/workspace-preferences.service';
 import { ScrollSceneService } from '../../core/services/scroll-scene.service';
+import { WorkspacePreferencesService } from '../../core/services/workspace-preferences.service';
 
 @Component({
   selector: 'project-stories',
@@ -19,83 +21,225 @@ import { ScrollSceneService } from '../../core/services/scroll-scene.service';
   templateUrl: './project-stories.component.html',
   styleUrl: './project-stories.component.scss',
 })
-export class ProjectStoriesComponent implements AfterViewInit {
+export class ProjectStoriesComponent implements AfterViewInit, OnDestroy {
   readonly workspace = inject(WorkspacePreferencesService);
-  readonly selectedProjectId = signal(this.workspace.readUrlParam('project') ?? 'tli');
+  readonly selectedProjectId = signal(this.workspace.readUrlParam('project') ?? '');
+  readonly reelPaused = signal(false);
+
   readonly projects = computed(() =>
     [...this.workspace.content().projects].sort((a, b) => (a.priority ?? 99) - (b.priority ?? 99)),
   );
   readonly selectedProject = computed(
     () => this.projects().find((project) => project.id === this.selectedProjectId()) ?? this.projects()[0],
   );
-  readonly activeIndex = computed(() =>
+  readonly selectedProjectIndex = computed(() =>
     Math.max(0, this.projects().findIndex((project) => project.id === this.selectedProject().id)),
   );
-  readonly activeProjectNumber = computed(() => String(this.activeIndex() + 1).padStart(2, '0'));
-  readonly previewImages = computed(() => this.selectedProject().images?.slice(0, 3) ?? []);
+  readonly reelProjects = computed(() => [...this.projects(), ...this.projects()]);
+  readonly selectedAccent = computed(() => this.projectTone(this.selectedProject()));
+  readonly previewShots = computed(() => this.selectedProject().images?.slice(0, 4) ?? []);
+  readonly detailRows = computed(() => {
+    const project = this.selectedProject();
+    return [
+      { label: 'Problem', text: project.caseStudy?.problem ?? project.summary },
+      { label: 'Role', text: project.caseStudy?.role ?? project.features.slice(0, 2).join(', ') },
+      { label: 'Result', text: project.caseStudy?.result ?? project.features.slice(2, 4).join(', ') },
+    ].filter((row) => row.text);
+  });
 
-  private viewReady = false;
-  private previousProjectIndex = this.activeIndex();
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly scrollScene = inject(ScrollSceneService);
+  private switchTimeline?: gsap.core.Timeline;
+  private viewReady = false;
+  private touchStartX = 0;
+  private touchStartY = 0;
+  private resumeReelTimer?: number;
 
   constructor() {
     effect(() => {
-      const projectId = this.selectedProject().id;
-      this.workspace.setUrlParams({
-        project: projectId,
-      });
+      this.workspace.setUrlParams({ project: this.selectedProject().id });
       if (this.viewReady) {
-        const nextIndex = this.activeIndex();
-        const direction = nextIndex >= this.previousProjectIndex ? 1 : -1;
-        this.previousProjectIndex = nextIndex;
-        setTimeout(() => this.animateProjectSwap(direction));
+        window.requestAnimationFrame(() => this.animateProjectSwitch());
       }
     });
   }
 
   ngAfterViewInit(): void {
-    const host = this.elementRef.nativeElement;
     this.viewReady = true;
-    this.scrollScene.reveal(host, '.project-reveal');
+    this.scrollScene.reveal(this.elementRef.nativeElement, '.project-reveal');
+    this.animateProjectSwitch(true);
   }
 
-  selectProject(project: PortfolioProject, mobileArticle?: HTMLElement): void {
-    this.selectedProjectId.set(project.id);
-    this.workspace.setUrlParams({ scene: 'projects', project: project.id });
+  ngOnDestroy(): void {
+    this.switchTimeline?.kill();
+    if (this.resumeReelTimer) {
+      window.clearTimeout(this.resumeReelTimer);
+    }
   }
 
-  tiltCard(event: PointerEvent): void {
-    if (this.scrollScene.reducedMotion || event.pointerType === 'touch') {
+  projectNumber(index: number): string {
+    return String(index + 1).padStart(2, '0');
+  }
+
+  selectProject(projectId: string): void {
+    if (projectId === this.selectedProject().id) {
+      return;
+    }
+    this.pauseReelTemporarily();
+    this.selectedProjectId.set(projectId);
+  }
+
+  selectNextProject(direction = 1): void {
+    const projects = this.projects();
+    if (!projects.length) {
+      return;
+    }
+    const nextIndex = (this.selectedProjectIndex() + direction + projects.length) % projects.length;
+    this.selectProject(projects[nextIndex].id);
+  }
+
+  setReelPaused(paused: boolean): void {
+    this.reelPaused.set(paused);
+    if (paused && this.resumeReelTimer) {
+      window.clearTimeout(this.resumeReelTimer);
+    }
+  }
+
+  onTouchStart(event: TouchEvent): void {
+    const touch = event.touches[0];
+    this.touchStartX = touch.clientX;
+    this.touchStartY = touch.clientY;
+    this.setReelPaused(true);
+  }
+
+  onTouchEnd(event: TouchEvent): void {
+    const touch = event.changedTouches[0];
+    const deltaX = touch.clientX - this.touchStartX;
+    const deltaY = touch.clientY - this.touchStartY;
+
+    if (Math.abs(deltaX) > 48 && Math.abs(deltaX) > Math.abs(deltaY) * 1.35) {
+      this.selectNextProject(deltaX < 0 ? 1 : -1);
+    }
+
+    this.pauseReelTemporarily();
+  }
+
+  projectIcon(project: PortfolioProject): string {
+    const name = `${project.category} ${project.type}`.toLowerCase();
+    if (name.includes('shop') || name.includes('commerce')) {
+      return 'bi bi-bag-check';
+    }
+    if (name.includes('workflow')) {
+      return 'bi bi-diagram-3';
+    }
+    if (name.includes('hr') || name.includes('employee')) {
+      return 'bi bi-person-badge';
+    }
+    if (name.includes('tender')) {
+      return 'bi bi-file-earmark-check';
+    }
+    return 'bi bi-window-sidebar';
+  }
+
+  projectTone(project: PortfolioProject): string {
+    const name = `${project.id} ${project.category} ${project.type}`.toLowerCase();
+    if (name.includes('shop') || name.includes('commerce') || name.includes('2go')) {
+      return '#34d399';
+    }
+    if (name.includes('workflow') || name.includes('wf')) {
+      return '#fbbf24';
+    }
+    if (name.includes('hr') || name.includes('employee') || name.includes('undp')) {
+      return '#60a5fa';
+    }
+    if (name.includes('tender')) {
+      return '#22d3ee';
+    }
+    return '#2dd4bf';
+  }
+
+  pauseReelTemporarily(): void {
+    this.reelPaused.set(true);
+    if (this.resumeReelTimer) {
+      window.clearTimeout(this.resumeReelTimer);
+    }
+    this.resumeReelTimer = window.setTimeout(() => this.reelPaused.set(false), 2600);
+  }
+
+  private animateProjectSwitch(initial = false): void {
+    if (this.scrollScene.reducedMotion) {
       return;
     }
 
-    const card = event.currentTarget as HTMLElement;
-    const rect = card.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-
-    card.style.setProperty('--tilt-x', `${(-y * 10).toFixed(2)}deg`);
-    card.style.setProperty('--tilt-y', `${(x * 14).toFixed(2)}deg`);
-    card.style.setProperty('--tilt-z', '8px');
-    card.style.setProperty('--glow-x', `${((x + 0.5) * 100).toFixed(1)}%`);
-    card.style.setProperty('--glow-y', `${((y + 0.5) * 100).toFixed(1)}%`);
-  }
-
-  resetTilt(event: PointerEvent): void {
-    const card = event.currentTarget as HTMLElement;
-    this.scrollScene.elasticTiltReset(card);
-  }
-
-  private animateProjectSwap(direction: number): void {
-    this.scrollScene.projectFlip(this.elementRef.nativeElement, direction);
-    this.scrollScene.switchReveal(
-      this.elementRef.nativeElement,
-      '.shot-strip img, .case-copy .meta-row, .case-copy h3, .case-copy .type, .case-copy .summary, .stack-list span, .feature-grid span, .metric-row strong, .project-link',
+    const host = this.elementRef.nativeElement;
+    const lobes = gsap.utils.toArray<HTMLElement>('.glass-lobe', host);
+    const visualMedia = gsap.utils.toArray<HTMLElement>('.project-visual img', host);
+    const headline = gsap.utils.toArray<HTMLElement>(
+      '.project-kicker, .project-title, .project-summary, .project-meta span, .project-actions, .metric-chip, .stack-chip',
+      host,
     );
-  }
+    const detailLines = gsap.utils.toArray<HTMLElement>('.typing-line', host);
 
-  imagePath(path: string): string {
-    return path;
+    this.switchTimeline?.kill();
+    gsap.killTweensOf([...lobes, ...visualMedia, ...headline, ...detailLines]);
+
+    this.switchTimeline = gsap
+      .timeline({ defaults: { ease: 'power3.out' } })
+      .to(
+        lobes,
+        {
+          x: (index) => (index === 0 ? 24 : -24),
+          y: (index) => (index === 0 ? 14 : -14),
+          scale: 0.92,
+          autoAlpha: initial ? 0 : 0.46,
+          duration: initial ? 0.01 : 0.22,
+          ease: 'power2.in',
+        },
+        0,
+      )
+      .set(visualMedia, { clipPath: 'inset(0 50% 0 50% round 28px)', scale: 1.08 }, initial ? 0 : 0.2)
+      .to(
+        lobes,
+        {
+          x: 0,
+          y: 0,
+          scale: 1,
+          autoAlpha: 1,
+          duration: 0.62,
+          stagger: 0.035,
+          ease: 'expo.out',
+        },
+        initial ? 0 : 0.24,
+      )
+      .to(
+        visualMedia,
+        {
+          clipPath: 'inset(0 0% 0 0% round 24px)',
+          scale: 1,
+          duration: 0.68,
+          stagger: 0.035,
+          ease: 'expo.out',
+        },
+        initial ? 0.08 : 0.3,
+      )
+      .fromTo(
+        headline,
+        { autoAlpha: 0, y: 18, rotateX: -5 },
+        { autoAlpha: 1, y: 0, rotateX: 0, duration: 0.48, stagger: 0.035 },
+        initial ? 0.12 : 0.42,
+      )
+      .fromTo(
+        detailLines,
+        { autoAlpha: 0, y: 14, clipPath: 'inset(0 100% 0 0)' },
+        {
+          autoAlpha: 1,
+          y: 0,
+          clipPath: 'inset(0 0% 0 0)',
+          duration: 0.54,
+          stagger: 0.105,
+          ease: 'power2.out',
+        },
+        initial ? 0.22 : 0.58,
+      )
   }
 }

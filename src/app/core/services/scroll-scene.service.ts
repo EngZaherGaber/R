@@ -37,7 +37,12 @@ export class ScrollSceneService {
     const root = this.documentRef.documentElement;
     const prefersCoarse = window.matchMedia('(pointer: coarse)').matches;
     const weakDevice = (navigator.hardwareConcurrency ?? 8) <= 4;
-    root.toggleAttribute('data-lean-cosmic', prefersCoarse || weakDevice);
+    const leanCosmic = prefersCoarse || weakDevice || this.viewport() !== 'desktop';
+    root.toggleAttribute('data-lean-cosmic', leanCosmic);
+
+    if (leanCosmic) {
+      return;
+    }
 
     ScrollTrigger.create({
       start: 0,
@@ -198,6 +203,39 @@ export class ScrollSceneService {
     const tokens = gsap.utils.toArray<HTMLElement>('.hero-token', scope);
     const halo = scope.querySelector<HTMLElement>('.hero-visual');
     const particles = gsap.utils.toArray<HTMLElement>('.signal-dot', scope);
+
+    if (this.viewport() === 'mobile') {
+      gsap.set(tokens, {
+        autoAlpha: 1,
+        y: 0,
+        clearProps: 'clipPath',
+      });
+
+      gsap.from(tokens, {
+        autoAlpha: 0,
+        y: 18,
+        duration: 0.46,
+        stagger: 0.045,
+        ease: 'power2.out',
+      });
+
+      gsap.fromTo(
+        halo,
+        { '--hero-halo-scale': 0.86, '--hero-halo-opacity': 0.58 },
+        {
+          '--hero-halo-scale': 1,
+          '--hero-halo-opacity': 1,
+          duration: 0.62,
+          ease: 'power2.out',
+        },
+      );
+      gsap.fromTo(
+        particles,
+        { autoAlpha: 0, scale: 0.65 },
+        { autoAlpha: 1, scale: 1, duration: 0.32, stagger: 0.08 },
+      );
+      return;
+    }
 
     gsap.set(tokens, {
       autoAlpha: 0,
@@ -589,6 +627,22 @@ export class ScrollSceneService {
     });
   }
 
+  scrollToScene(scene: string): void {
+    if (!this.isBrowser) {
+      return;
+    }
+
+    const element =
+      this.documentRef.getElementById(`scene-${scene}`) ??
+      this.documentRef.querySelector<HTMLElement>(`[data-scene="${scene}"]`);
+
+    if (!element) {
+      return;
+    }
+
+    this.scrollToElement(element);
+  }
+
   anchorToElement(elementId: string): void {
     if (!this.isBrowser) {
       return;
@@ -614,6 +668,23 @@ export class ScrollSceneService {
       duration: 0.35,
       ease: 'power2.out',
     });
+  }
+
+  private scrollToElement(element: HTMLElement): void {
+    const targetY = Math.max(
+      0,
+      element.getBoundingClientRect().top + window.scrollY - this.sceneScrollOffset(),
+    );
+
+    window.scrollTo({
+      top: targetY,
+      behavior: this.reducedMotion ? 'auto' : 'smooth',
+    });
+  }
+
+  sceneScrollOffset(): number {
+    const header = this.documentRef.querySelector<HTMLElement>('.story-header');
+    return (header?.offsetHeight ?? 0) + 16;
   }
 
   private readonly updateViewport = (): void => {

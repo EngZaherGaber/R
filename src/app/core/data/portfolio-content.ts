@@ -43,6 +43,11 @@ export interface PortfolioProject {
   url?: string;
   featured?: boolean;
   priority?: number;
+  caseStudy?: {
+    problem: string;
+    role: string;
+    result: string;
+  };
 }
 
 export interface PortfolioSkill {
@@ -225,6 +230,11 @@ const englishProjects: PortfolioProject[] = [
       'A Syriatel project designed to manage loads on towers, including space allocation and weight distribution for efficient resource utilization and structural safety.',
     stack: ['Angular', 'ERP UI', 'Data Tables', 'Forms', 'Dashboards'],
     features: ['Tower load tracking', 'Space allocation', 'Weight distribution', 'User graphs'],
+    caseStudy: {
+      problem: 'Telecom teams needed a clearer way to track tower capacity, loads, and allocation decisions without losing structural context.',
+      role: 'Built Angular ERP screens that turned technical tower data into navigable forms, tables, and graph-based views.',
+      result: 'Created a focused operational interface for safer capacity planning and faster tower load review.',
+    },
     metrics: [
       { value: '5', label: 'Screenshots' },
       { value: 'ERP', label: 'Category' },
@@ -246,6 +256,11 @@ const englishProjects: PortfolioProject[] = [
       'A dynamic task and request automation system built as a flexible layer that can integrate with existing systems and support customizable management options.',
     stack: ['Angular', 'Workflow UI', 'Dynamic Requests', 'Configuration', 'Graphs'],
     features: ['Request automation', 'Action management', 'Graph templates', 'Holiday workflows'],
+    caseStudy: {
+      problem: 'Internal teams needed configurable request flows that could adapt to different departments and approval rules.',
+      role: 'Designed dynamic Angular workflow interfaces for requests, actions, graph templates, and operational configuration.',
+      result: 'Reduced workflow friction by giving administrators a flexible system layer instead of hard-coded process screens.',
+    },
     metrics: [
       { value: '4', label: 'Screenshots' },
       { value: 'ERP', label: 'Category' },
@@ -267,6 +282,11 @@ const englishProjects: PortfolioProject[] = [
       'A United Nations system for managing employee contracts, calculating salaries, and streamlining HR processes.',
     stack: ['Angular', 'HR UI', 'Contracts', 'Salary Flows', 'Forms'],
     features: ['Employee records', 'Contract management', 'Salary calculations', 'HR workflow screens'],
+    caseStudy: {
+      problem: 'HR work required accurate contract, employee, and salary handling inside a professional multilingual enterprise system.',
+      role: 'Implemented Angular screens for sensitive HR flows with structured forms, records, and process-oriented navigation.',
+      result: 'Helped deliver a clearer HR management experience for contract and salary operations.',
+    },
     metrics: [
       { value: '3', label: 'Screenshots' },
       { value: 'ERP', label: 'Category' },
@@ -288,6 +308,11 @@ const englishProjects: PortfolioProject[] = [
       'An advanced B2B Shopify e-commerce platform for the German market, focused on mobile phone parts, catalog management, bulk pricing, order tracking, and customer relationship workflows.',
     stack: ['Shopify', 'Liquid', 'E-commerce UX', 'Catalogs', 'B2B'],
     features: ['Product catalog', 'Bulk pricing', 'Order tracking', 'Customer workflows'],
+    caseStudy: {
+      problem: 'A German B2B parts store needed catalog and ordering flows that fit business buyers, not only retail shoppers.',
+      role: 'Worked on Shopify storefront UX, catalog structure, customer workflows, and B2B buying interactions.',
+      result: 'Moved the store toward a clearer wholesale-ready commerce experience for repeat customers.',
+    },
     metrics: [
       { value: 'B2B', label: 'Market' },
       { value: 'DE', label: 'Region' },
@@ -308,6 +333,11 @@ const englishProjects: PortfolioProject[] = [
       'A B2C Shopify e-commerce platform for the German market, designed around mobile phone accessories and a clear buying experience.',
     stack: ['Shopify', 'Liquid', 'Storefront UX', 'Responsive UI', 'B2C'],
     features: ['Storefront design', 'Product presentation', 'Responsive commerce', 'Customer journey'],
+    caseStudy: {
+      problem: 'The accessory storefront needed a cleaner buying path and responsive presentation for mobile-first customers.',
+      role: 'Shaped Shopify theme and storefront interactions around product clarity, responsive layout, and conversion flow.',
+      result: 'Created a more focused storefront foundation for German-market B2C sales.',
+    },
     metrics: [
       { value: 'B2C', label: 'Market' },
       { value: 'DE', label: 'Region' },
@@ -328,6 +358,11 @@ const englishProjects: PortfolioProject[] = [
       'A Shopify-based B2C storefront for the German market focused on suitcases, product catalog flows, and responsive shopping interactions.',
     stack: ['Shopify', 'Liquid', 'Catalog UX', 'Responsive UI', 'B2C'],
     features: ['Suitcase catalog', 'Product pages', 'Responsive storefront', 'Shopping flow'],
+    caseStudy: {
+      problem: 'The luggage catalog needed a dedicated storefront experience that made product browsing simple across devices.',
+      role: 'Built Shopify catalog and product-page flows with attention to responsive commerce details.',
+      result: 'Prepared a practical B2C storefront structure for browsing and purchasing suitcase products.',
+    },
     metrics: [
       { value: 'B2C', label: 'Market' },
       { value: 'DE', label: 'Region' },
@@ -348,6 +383,11 @@ const englishProjects: PortfolioProject[] = [
       'A centralized platform for streamlining tender management from tender creation and publication to bid submission, evaluation, and award.',
     stack: ['Angular', 'ERP UI', 'Workflow Screens', 'Forms', 'Compliance UX'],
     features: ['Tender creation', 'Bid submission', 'Evaluation flows', 'Award workflows'],
+    caseStudy: {
+      problem: 'Tender operations needed one structured path from publication through bid evaluation and award decisions.',
+      role: 'Designed Angular workflow screens for tender lifecycle steps, compliance-heavy forms, and evaluation states.',
+      result: 'Turned a complex tender process into a clearer guided platform experience.',
+    },
     metrics: [
       { value: 'ERP', label: 'Category' },
       { value: 'Flow', label: 'Core UX' },
@@ -993,6 +1033,13 @@ Object.assign(portfolioContent.ar.meta, {
   availability: 'متاح لأعمال Angular وواجهات المنتجات والتجارة الإلكترونية',
 });
 
+Object.assign(portfolioContent.ar.meta, {
+  name: 'زاهر جبر',
+  role: 'مهندس واجهات Angular',
+  location: 'سوريا',
+  availability: 'متاح لأعمال Angular وواجهات المنتجات والتجارة الإلكترونية',
+});
+
 Object.assign(portfolioContent.ar.hero, {
   eyebrow: 'Portfolio كتجربة منتج تفاعلية',
   title: 'أبني أنظمة Angular قابلة للتوسع بواجهة تفكر كمنتج.',
@@ -1085,6 +1132,177 @@ Object.assign(portfolioContent.ar.panels, {
     description:
       'مختبر الهندسة الذي يحول الفكرة والكيانات والأسئلة التكيفية إلى API وواجهة Web وتطبيق Mobile.',
   },
+});
+
+Object.assign(portfolioContent.ar.skillLabels, {
+  core: 'المهارة',
+  dependencies: 'التقنيات المرتبطة',
+  evidence: 'الدليل العملي',
+  relatedProjects: 'المشاريع المرتبطة',
+  proofProjects: 'مشاريع مثبتة',
+  closeDetails: 'إغلاق تفاصيل المهارة',
+});
+
+Object.assign(portfolioContent.ar.timelineLabels, {
+  work: 'عمل',
+  education: 'تعليم',
+});
+
+Object.assign(portfolioContent.ar.contactLabels, {
+  availability: 'متاح لأعمال Angular وواجهات ERP والتجارة الإلكترونية بشكل مركز وعملي.',
+  location: 'الموقع',
+  directActions: 'إجراءات مباشرة',
+  copy: 'نسخ البريد',
+  copied: 'تم النسخ',
+  missionControl: 'لوحة التحكم',
+  transmitting: 'جار الإرسال...',
+  channelReady: 'القناة جاهزة',
+  openingChannel: 'جار فتح القناة...',
+  preparingDossier: 'جار تجهيز الملف...',
+  cv: 'السيرة',
+});
+
+portfolioContent.ar.contacts = [
+  { ...englishContacts[0], label: 'الدولة' },
+  { ...englishContacts[1], label: 'المدينة' },
+  { ...englishContacts[2], label: 'المنطقة' },
+  { ...englishContacts[3], label: 'البريد الإلكتروني' },
+  { ...englishContacts[4], label: 'تيليغرام' },
+  { ...englishContacts[5], label: 'رقم الهاتف' },
+];
+
+Object.assign(portfolioContent.ar.serviceLabels, {
+  deliverables: 'ما يستلمه العميل',
+  proof: 'مشاريع تثبت الخدمة',
+  relatedSkills: 'المهارات المرتبطة',
+  selectedService: 'الخدمة المختارة',
+  closeDetails: 'إغلاق تفاصيل الخدمة',
+});
+
+Object.assign(portfolioContent.ar.recommendationLabels, {
+  signal: 'إشارة الثقة',
+  relatedWork: 'العمل المرتبط',
+  trustedBy: 'موصى به من',
+});
+
+Object.assign(portfolioContent.ar.meta, {
+  name: 'زاهر جبر',
+  role: 'مهندس واجهات Angular',
+  location: 'سوريا',
+  availability: 'متاح لأعمال Angular وواجهات المنتجات والتجارة الإلكترونية',
+});
+
+Object.assign(portfolioContent.ar.hero, {
+  eyebrow: 'Portfolio كتجربة منتج تفاعلية',
+  title: 'أبني أنظمة Angular قابلة للتوسع بواجهة تفكر كمنتج.',
+  subtitle:
+    'مساحة واحدة لاستكشاف المشاريع والمهارات والخدمات والثقة، مبنية كسرد تفاعلي سريع يدعم العربية والإنجليزية.',
+  primaryAction: 'استكشف الأعمال',
+  secondaryAction: 'تحميل السيرة الذاتية',
+  contactAction: 'تواصل',
+  signalKicker: 'إشارات القصة',
+  signalProofProjects: 'مشاريع مثبتة',
+  signalSkillLinks: 'روابط مهارية',
+  signalLanguages: 'لغات',
+  signalProductMindset: 'تفكير منتجي',
+});
+
+portfolioContent.ar.initialize = [
+  'تم تحميل الملف الشخصي',
+  'تم ربط المشاريع بالمهارات',
+  'تم تجهيز تجربة السرد',
+  'المسار جاهز',
+];
+
+portfolioContent.ar.metrics = [
+  { value: '+3', label: 'سنوات خبرة' },
+  { value: '7', label: 'مشاريع مهمة' },
+  { value: '11', label: 'مهارات أساسية' },
+  { value: '2', label: 'مسارات تعليمية' },
+];
+
+portfolioContent.ar.nav = [
+  { id: 'overview', label: 'البداية', icon: 'bi bi-house' },
+  { id: 'projects', label: 'المشاريع', icon: 'bi bi-folder2-open' },
+  { id: 'copilot', label: 'Co-Pilot', icon: 'bi bi-cpu' },
+  { id: 'skills', label: 'المهارات', icon: 'bi bi-diagram-3' },
+  { id: 'services', label: 'الخدمات', icon: 'bi bi-grid-1x2' },
+  { id: 'timeline', label: 'الخبرة', icon: 'bi bi-git' },
+  { id: 'recommendations', label: 'الثقة', icon: 'bi bi-chat-quote' },
+  { id: 'contact', label: 'التواصل', icon: 'bi bi-send' },
+];
+
+Object.assign(portfolioContent.ar.panels, {
+  overview: {
+    title: 'بداية القصة',
+    kicker: 'تعريف سريع',
+    description: 'مقدمة تفاعلية تعرض من أنا وما الذي أبنيه ولماذا ترتبط المشاريع بالمهارات والخدمات.',
+  },
+  projects: {
+    title: 'قصص المشاريع',
+    kicker: 'دليل عملي',
+    description:
+      'المشاريع تظهر كدراسات حالة متحركة توضّح المشكلة والدور والنتيجة والتقنيات والصور المتاحة.',
+  },
+  skills: {
+    title: 'دليل المهارات',
+    kicker: 'Evidence Matrix',
+    description: 'كل مهارة مرتبطة بمشاريع حقيقية بدلا من نسب مئوية زخرفية.',
+  },
+  copilot: {
+    title: 'محرك Co-Pilot',
+    kicker: 'نموذج قيد التطوير',
+    description:
+      'مختبر الهندسة الذي يحول الفكرة والكيانات والأسئلة التكيفية إلى API وواجهة Web وتطبيق Mobile.',
+  },
+  services: {
+    title: 'عروض خدمات عملية',
+    kicker: 'ما أقدمه',
+    description: 'خدمات تقنية واضحة مرتبطة بمهارات ومشاريع تثبت القدرة على التنفيذ.',
+  },
+  timeline: {
+    title: 'سجل الخبرة كـ Git',
+    kicker: 'Commit History',
+    description: 'الخبرة والتعليم معروضان كمحطات تشبه commits برسائل مختصرة وتواريخ ووسوم.',
+  },
+  recommendations: {
+    title: 'إشارات ثقة خاصة',
+    kicker: 'توصيات',
+    description: 'توصيات مرتبطة بسياق عمل أو مشروع، مع عرض هادئ يحافظ على الخصوصية والمصداقية.',
+  },
+  contact: {
+    title: 'أوامر التواصل',
+    kicker: 'Command Palette',
+    description: 'نهاية مركزة للتواصل عبر البريد وتيليغرام والهاتف وتحميل السيرة الذاتية.',
+  },
+});
+
+portfolioContent.ar.projectTabs = {
+  preview: 'معاينة',
+  architecture: 'التفاصيل',
+  metrics: 'المؤشرات',
+};
+
+Object.assign(portfolioContent.ar.coPilot, {
+  eyebrow: 'نموذج قيد التطوير: بناء نشط',
+  title: 'محرك Co-Pilot',
+  description:
+    'أداة داخلية تقرأ فكرة المشروع، تربط الكيانات، تسأل الأسئلة الهندسية الناقصة، ثم تجهز مخرجات API وWeb وMobile.',
+  prototypeBadge: 'بناء نشط',
+  digitalBadge: 'رقمي',
+  initialize: 'تشغيل المحرك',
+  progress: 'التطوير: 75% مكتمل',
+  phases: {
+    idea: 'بذرة الفكرة',
+    relationships: 'علاقات الكيانات',
+    adaptive: 'أسئلة تكيفية',
+    output: 'مخرجات تلقائية',
+  },
+  ideaName: 'تطبيق متجر إلكتروني',
+  labTitle: 'قصة منتج تفاعلية',
+  relationshipLabel: 'واحد إلى متعدد',
+  question: 'هل نحتاج تسجيل دخول؟',
+  options: ['OAuth', 'JWT', 'تخطي'],
 });
 
 Object.assign(portfolioContent.ar.skillLabels, {

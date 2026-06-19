@@ -23,6 +23,7 @@ import { HeroSceneComponent } from '../hero-scene/hero-scene.component';
 import { ProjectStoriesComponent } from '../project-stories/project-stories.component';
 import { CoPilotEngineComponent } from '../co-pilot-engine/co-pilot-engine.component';
 import { SkillEvidenceComponent } from '../skill-evidence/skill-evidence.component';
+import { AiAssessmentComponent } from '../ai-assessment/ai-assessment.component';
 import { ServiceOffersComponent } from '../service-offers/service-offers.component';
 import { TrustWallComponent } from '../trust-wall/trust-wall.component';
 import { GitHistoryComponent } from '../git-history/git-history.component';
@@ -40,6 +41,7 @@ import { ContactCommandComponent } from '../contact-command/contact-command.comp
     ProjectStoriesComponent,
     CoPilotEngineComponent,
     SkillEvidenceComponent,
+    AiAssessmentComponent,
     ServiceOffersComponent,
     TrustWallComponent,
     GitHistoryComponent,
@@ -68,6 +70,11 @@ export class StoryShellComponent implements AfterViewInit, OnDestroy {
       item('projects', 'projects', 'Projects', 'bi bi-folder2-open'),
       item('copilot', 'copilot', 'Co-Pilot', 'bi bi-cpu'),
       item('skills', 'skills', 'Skills', 'bi bi-diagram-3'),
+      {
+        id: 'ai-review',
+        label: this.workspace.language() === 'ar' ? 'تقييم AI' : 'AI Review',
+        icon: 'bi bi-chat-square-text',
+      },
       item('services', 'services', 'Services', 'bi bi-box-seam'),
       item('recommendations', 'trust', 'Trust', 'bi bi-envelope-paper'),
       item('timeline', 'history', 'Timeline', 'bi bi-git'),
@@ -75,7 +82,6 @@ export class StoryShellComponent implements AfterViewInit, OnDestroy {
     ];
   });
 
-  private observer?: IntersectionObserver;
   private sceneElements: HTMLElement[] = [];
   private ticking = false;
 
@@ -93,24 +99,6 @@ export class StoryShellComponent implements AfterViewInit, OnDestroy {
       this.elementRef.nativeElement.querySelectorAll('[data-scene]') as NodeListOf<HTMLElement>,
     );
 
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        const scene = visible?.target.getAttribute('data-scene');
-
-        if (scene && scene !== this.activeScene()) {
-          this.activeScene.set(scene);
-          this.workspace.setUrlParams(this.sceneUrlParams(scene), false);
-        }
-      },
-      { rootMargin: '-18% 0px -62% 0px', threshold: [0.05, 0.18, 0.4] },
-    );
-
-    this.sceneElements.forEach((section) => {
-      this.observer?.observe(section);
-    });
     this.scrollScene.setupKineticSceneVars();
     window.addEventListener('scroll', this.onScroll, { passive: true });
     window.addEventListener('resize', this.onScroll, { passive: true });
@@ -118,7 +106,6 @@ export class StoryShellComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.observer?.disconnect();
     if (isPlatformBrowser(this.platformId)) {
       window.removeEventListener('scroll', this.onScroll);
       window.removeEventListener('resize', this.onScroll);
@@ -126,9 +113,7 @@ export class StoryShellComponent implements AfterViewInit, OnDestroy {
   }
 
   goTo(scene: string): void {
-    this.activeScene.set(scene);
-    this.workspace.setUrlParams(this.sceneUrlParams(scene));
-    this.scrollScene.scrollTo(`scene-${scene}`);
+    this.scrollScene.scrollToScene(scene);
   }
 
   private readonly onScroll = (): void => {
@@ -144,22 +129,31 @@ export class StoryShellComponent implements AfterViewInit, OnDestroy {
   };
 
   private updateActiveSceneFromViewport(): void {
-    const viewportAnchor = window.innerHeight * 0.42;
-    const active = this.sceneElements
-      .map((section) => {
-        const rect = section.getBoundingClientRect();
-        return {
-          scene: section.getAttribute('data-scene') ?? 'hero',
-          distance: Math.abs(rect.top - viewportAnchor),
-          visible: rect.bottom > viewportAnchor && rect.top < window.innerHeight,
-        };
-      })
-      .filter((item) => item.visible)
-      .sort((a, b) => a.distance - b.distance)[0];
+    if (this.sceneElements.length === 0) {
+      return;
+    }
 
-    if (active && active.scene !== this.activeScene()) {
-      this.activeScene.set(active.scene);
-      this.workspace.setUrlParams(this.sceneUrlParams(active.scene), false);
+    const trackingY = window.scrollY + this.scrollScene.sceneScrollOffset() + 1;
+    let activeElement = this.sceneElements[0];
+
+    for (const section of this.sceneElements) {
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      if (sectionTop > trackingY) {
+        break;
+      }
+      activeElement = section;
+    }
+
+    const pageBottom =
+      window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+    if (pageBottom) {
+      activeElement = this.sceneElements[this.sceneElements.length - 1];
+    }
+
+    const activeScene = activeElement.getAttribute('data-scene') ?? 'hero';
+    if (activeScene !== this.activeScene()) {
+      this.activeScene.set(activeScene);
+      this.workspace.setUrlParams(this.sceneUrlParams(activeScene), false);
     }
   }
 

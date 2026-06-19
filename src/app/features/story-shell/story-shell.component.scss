@@ -123,7 +123,7 @@
   z-index: 39;
   width: min(100% - 2rem, 28rem);
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(9, minmax(0, 1fr));
   align-items: center;
   gap: 0.35rem;
   padding: 0.2rem 0.35rem;
@@ -134,14 +134,15 @@
   transform: translateX(-50%);
 }
 
-.star-map button {
+.star-map a {
   position: relative;
   min-width: 1.5rem;
   min-height: 2rem;
   background: transparent;
+  text-decoration: none;
 }
 
-.star-map button::before {
+.star-map a::before {
   content: "";
   position: absolute;
   inset-inline: 0;
@@ -150,7 +151,7 @@
   background: color-mix(in srgb, var(--line), transparent 10%);
 }
 
-.star-map button::after {
+.star-map a::after {
   content: "";
   position: absolute;
   inset-block-start: calc(50% - 0.25rem);
@@ -163,7 +164,7 @@
   transform: scale(0.72);
 }
 
-.star-map button.active::after {
+.star-map a.active::after {
   background: var(--accent);
   opacity: 1;
   transform: scale(1.2);
@@ -215,6 +216,7 @@ hero-scene,
 project-stories,
 co-pilot-engine,
 skill-evidence,
+ai-assessment,
 service-offers,
 trust-wall,
 git-history,
@@ -231,6 +233,7 @@ contact-command {
 project-stories,
 co-pilot-engine,
 skill-evidence,
+ai-assessment,
 service-offers,
 trust-wall,
 git-history,
@@ -242,6 +245,7 @@ contact-command {
 project-stories::before,
 co-pilot-engine::before,
 skill-evidence::before,
+ai-assessment::before,
 service-offers::before,
 trust-wall::before,
 git-history::before,
@@ -253,6 +257,7 @@ contact-command::before {
 :host-context(html[data-lean-cosmic]) project-stories::before,
 :host-context(html[data-lean-cosmic]) co-pilot-engine::before,
 :host-context(html[data-lean-cosmic]) skill-evidence::before,
+:host-context(html[data-lean-cosmic]) ai-assessment::before,
 :host-context(html[data-lean-cosmic]) service-offers::before,
 :host-context(html[data-lean-cosmic]) trust-wall::before,
 :host-context(html[data-lean-cosmic]) git-history::before,
@@ -268,6 +273,11 @@ skill-evidence {
 co-pilot-engine {
   --wash-a: #22d3ee;
   --wash-b: #fb7185;
+}
+
+ai-assessment {
+  --wash-a: #22d3ee;
+  --wash-b: var(--accent);
 }
 
 service-offers {
@@ -335,11 +345,6 @@ contact-command {
     min-width: 0;
   }
 
-  .rail-controls accent-picker {
-    max-width: 6.5rem;
-    overflow: hidden;
-  }
-
   .brand-mark {
     min-height: 2.65rem;
     border-radius: 999px;
@@ -355,7 +360,7 @@ contact-command {
     inset-block-end: calc(0.55rem + env(safe-area-inset-bottom));
     z-index: 45;
     display: grid;
-    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-columns: repeat(9, minmax(0, 1fr));
     gap: 0.25rem;
     padding: 0.35rem;
     border: 1px solid var(--line);
@@ -365,7 +370,7 @@ contact-command {
     backdrop-filter: blur(18px);
   }
 
-  .mobile-dock button {
+  .mobile-dock a {
     min-width: 0;
     min-height: 44px;
     display: grid;
@@ -374,9 +379,10 @@ contact-command {
     border-radius: 0.95rem;
     color: var(--muted);
     background: transparent;
+    text-decoration: none;
   }
 
-  .mobile-dock button.active {
+  .mobile-dock a.active {
     color: var(--accent);
     background: color-mix(in srgb, var(--accent), transparent 88%);
   }
@@ -406,7 +412,7 @@ contact-command {
     display: none;
   }
 
-  .mobile-dock button {
+  .mobile-dock a {
     min-height: 44px;
   }
 }

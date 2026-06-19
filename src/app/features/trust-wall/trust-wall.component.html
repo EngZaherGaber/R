@@ -5,41 +5,51 @@
     <span>{{ workspace.content().panels.recommendations.description }}</span>
   </div>
 
-  <div class="trust-layout">
-    <div class="letter-index" aria-label="Recommendation index">
-      @for (rec of workspace.content().recommendations; track rec.id) {
-        <button
-          type="button"
-          class="letter-button"
-          [class.active]="selectedRecommendation().id === rec.id"
-          (click)="selectRecommendation(rec.id)"
-        >
-          @if (rec.image) {
-            <img [src]="rec.image" width="44" height="44" [alt]="rec.name" loading="lazy" />
-          } @else {
-            <b>{{ rec.name.slice(0, 1) }}</b>
-          }
-          <span>{{ rec.name }}</span>
-          <small>{{ rec.signal }}</small>
-        </button>
-      }
-    </div>
+  <div class="trust-layout testimonial-columns" aria-label="Recommendation columns">
+    @for (column of testimonialColumns(); track $index; let columnIndex = $index) {
+      <div
+        class="testimonial-column"
+        [class.reverse]="columnIndex === 1"
+        [style.--column-duration]="columnDuration(columnIndex)"
+      >
+        <div class="testimonial-track">
+          @for (copy of loopCopies; track copy) {
+            @for (rec of column; track $index) {
+              <article
+                class="testimonial-card"
+                role="button"
+                tabindex="0"
+                [class.active]="selectedRecommendation().id === rec.id"
+                (click)="selectRecommendation(rec.id)"
+                (keydown.enter)="selectRecommendation(rec.id)"
+                (keydown.space)="selectRecommendation(rec.id); $event.preventDefault()"
+              >
+                <div class="testimonial-head">
+                  @if (rec.image) {
+                    <img [src]="rec.image" width="48" height="48" [alt]="rec.name" loading="lazy" />
+                  } @else {
+                    <b>{{ rec.name.slice(0, 1) }}</b>
+                  }
+                  <div>
+                    <p class="signal">{{ workspace.content().recommendationLabels.signal }} / {{ rec.signal }}</p>
+                    <h3>{{ rec.name }}</h3>
+                    <strong>{{ rec.position }}</strong>
+                  </div>
+                </div>
 
-    <article class="sealed-letter" id="trust-carousel-card">
-      <div class="seal">{{ selectedRecommendation().name.slice(0, 1) }}</div>
-      @if (selectedRecommendation().image) {
-        <img [src]="selectedRecommendation().image" width="72" height="72" [alt]="selectedRecommendation().name" loading="lazy" />
-      }
-      <p class="signal">{{ workspace.content().recommendationLabels.signal }} / {{ selectedRecommendation().signal }}</p>
-      <h3>{{ selectedRecommendation().name }}</h3>
-      <strong>{{ selectedRecommendation().position }}</strong>
-      <blockquote>{{ selectedRecommendation().message }}</blockquote>
-      <div class="related">
-        @for (project of relatedProjects(); track project.id) {
-          <span>{{ project.name }}</span>
-        }
+                <blockquote>{{ rec.message }}</blockquote>
+
+                <div class="related">
+                  @for (project of relatedProjectsFor(rec); track project.id) {
+                    <span>{{ project.name }}</span>
+                  }
+                </div>
+              </article>
+            }
+          }
+        </div>
       </div>
-    </article>
+    }
   </div>
 
   <div class="mobile-recommendations" aria-label="All recommendations">

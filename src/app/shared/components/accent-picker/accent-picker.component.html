@@ -1,11 +1,33 @@
 <div class="accent-picker" aria-label="Accent color">
-  @for (accent of workspace.accents; track accent.id) {
-    <button
-      type="button"
-      [class.active]="workspace.accent().id === accent.id"
-      [style.--swatch]="accent.value"
-      [attr.aria-label]="accent.label"
-      (click)="workspace.setAccent(accent)"
-    ></button>
+  <button
+    type="button"
+    class="accent-trigger"
+    [class.open]="isOpen()"
+    [style.--swatch]="workspace.accent().value"
+    [attr.aria-expanded]="isOpen()"
+    aria-haspopup="menu"
+    aria-label="Accent color"
+    (click)="toggleMenu()"
+  >
+    <span class="current-swatch" aria-hidden="true"></span>
+  </button>
+
+  @if (isOpen()) {
+    <div class="accent-menu" role="menu" aria-label="Choose accent color">
+      @for (accent of workspace.accents; track accent.id) {
+        <button
+          type="button"
+          class="accent-option"
+          role="menuitemradio"
+          [class.active]="workspace.accent().id === accent.id"
+          [style.--swatch]="accent.value"
+          [attr.aria-checked]="workspace.accent().id === accent.id"
+          (click)="selectAccent(accent)"
+        >
+          <span class="option-swatch" aria-hidden="true"></span>
+          <span>{{ accent.label }}</span>
+        </button>
+      }
+    </div>
   }
 </div>

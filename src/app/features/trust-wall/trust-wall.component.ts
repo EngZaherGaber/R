@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, computed, effect, inject, signal } from '@angular/core';
+import gsap from 'gsap';
 import { PortfolioRecommendation } from '../../core/data/portfolio-content';
 import { WorkspacePreferencesService } from '../../core/services/workspace-preferences.service';
 import { ScrollSceneService } from '../../core/services/scroll-scene.service';
@@ -31,6 +32,18 @@ export class TrustWallComponent implements AfterViewInit {
     const ids = new Set(this.selectedRecommendation().relatedProjectIds);
     return this.workspace.content().projects.filter((project) => ids.has(project.id));
   });
+  readonly testimonialColumns = computed(() => {
+    const recommendations = this.workspace.content().recommendations;
+    if (recommendations.length === 0) {
+      return [];
+    }
+
+    return [0, 2, 4].map((offset) => [
+      ...recommendations.slice(offset),
+      ...recommendations.slice(0, offset),
+    ]);
+  });
+  readonly loopCopies = [0, 1];
 
   private readonly elementRef = inject(ElementRef<HTMLElement>);
   private readonly scrollScene = inject(ScrollSceneService);
@@ -69,8 +82,7 @@ export class TrustWallComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.viewReady = true;
-    this.scrollScene.stagger(this.elementRef.nativeElement, '.letter-button');
-    this.scrollScene.reveal(this.elementRef.nativeElement, '.sealed-letter');
+    this.scrollScene.stagger(this.elementRef.nativeElement, '.testimonial-card');
   }
 
   relatedProjectsFor(recommendation: PortfolioRecommendation) {
@@ -78,15 +90,26 @@ export class TrustWallComponent implements AfterViewInit {
     return this.workspace.content().projects.filter((project) => ids.has(project.id));
   }
 
+  columnDuration(index: number): string {
+    return `${[42, 54, 48][index] ?? 46}s`;
+  }
+
   private animateLetterSwap(): void {
-    const card = this.elementRef.nativeElement.querySelector('.sealed-letter') as HTMLElement | null;
-    if (card && this.scrollScene.isMobile()) {
-      this.scrollScene.deckShuffle(card, this.lastDirection);
+    const host = this.elementRef.nativeElement;
+    const activeCards = gsap.utils.toArray(
+      '.testimonial-card.active',
+      host,
+    ) as HTMLElement[];
+
+    if (this.scrollScene.reducedMotion || activeCards.length === 0) {
+      return;
     }
 
-    this.scrollScene.switchReveal(
-      this.elementRef.nativeElement,
-      '.sealed-letter img, .sealed-letter .signal, .sealed-letter h3, .sealed-letter strong, .sealed-letter blockquote, .related span, .seal',
+    gsap.killTweensOf(activeCards);
+    gsap.fromTo(
+      activeCards,
+      { y: 10, scale: 0.985 },
+      { y: 0, scale: 1, duration: 0.28, stagger: 0.035, ease: 'power2.out' },
     );
   }
 

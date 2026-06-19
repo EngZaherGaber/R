@@ -326,28 +326,66 @@ h1 small {
   .hero-scene {
     min-height: calc(100svh - 4rem);
     align-content: center;
-    padding: 4.5rem 0.85rem 3rem;
+    padding: 4.25rem 0.85rem 6.4rem;
   }
 
   .hero-copy {
     z-index: 3;
+    width: 100%;
+    max-width: 100%;
+    padding-inline-end: 0.2rem;
+  }
+
+  h1 {
+    gap: 0.42rem;
+    font-size: clamp(3rem, 14vw, 3.75rem);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+  }
+
+  h1 small {
+    font-size: clamp(1rem, 5vw, 1.25rem);
+  }
+
+  .subtitle {
+    max-width: 100%;
+    font-size: clamp(1.45rem, 7.2vw, 1.95rem);
+    line-height: 1.08;
+    overflow-wrap: anywhere;
+  }
+
+  .support {
+    max-width: 100%;
+    padding-inline-end: 0.45rem;
+    line-height: 1.7;
+    font-size: 0.95rem;
+    overflow-wrap: anywhere;
   }
 
   .hero-visual {
     position: absolute;
     inset: auto 0 0;
     z-index: 1;
-    min-height: 54svh;
-    opacity: 0.42;
+    min-height: 58svh;
+    opacity: 0.32;
     justify-items: center;
   }
 
   .hero-person {
-    width: min(96vw, 26rem);
+    width: min(94vw, 24rem);
   }
 
   .tag-row span {
     animation-name: tag-breathe;
+  }
+
+  .tag-row {
+    gap: 0.52rem;
+  }
+
+  .tag-row span {
+    padding: 0.48rem 0.68rem;
+    font-size: 0.75rem;
   }
 
   .story-signals {
@@ -356,10 +394,12 @@ h1 small {
 
   .actions {
     display: grid;
+    gap: 0.62rem;
   }
 
   .actions button {
     min-height: 44px;
+    width: 100%;
   }
 }
 

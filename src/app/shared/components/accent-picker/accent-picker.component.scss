@@ -1,21 +1,101 @@
 .accent-picker {
-  display: flex;
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: 0.38rem;
 }
 
-button {
-  width: 1.25rem;
-  height: 1.25rem;
+.accent-trigger {
+  width: 2.35rem;
+  height: 2.35rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-strong);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--swatch), transparent 82%);
+}
+
+.accent-trigger.open,
+.accent-trigger:hover {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--swatch), transparent 42%),
+    0 0 22px color-mix(in srgb, var(--swatch), transparent 58%);
+}
+
+.current-swatch,
+.option-swatch {
   border-radius: 999px;
   background: var(--swatch);
-  box-shadow: 0 0 0 1px var(--line);
-  border: 3px solid transparent;
 }
 
-button.active {
-  border-color: var(--bg);
+.current-swatch {
+  width: 1.1rem;
+  height: 1.1rem;
   box-shadow:
-    0 0 0 1px var(--line),
-    0 0 0 4px color-mix(in srgb, var(--swatch), transparent 68%);
+    inset 0 0 0 2px color-mix(in srgb, white, transparent 62%),
+    0 0 0 3px color-mix(in srgb, var(--swatch), transparent 78%);
+}
+
+.accent-menu {
+  position: absolute;
+  inset-block-start: calc(100% + 0.6rem);
+  inset-inline-end: 0;
+  z-index: 70;
+  width: 11rem;
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  background: color-mix(in srgb, var(--surface), transparent 2%);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.accent-option {
+  min-height: 2.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0 0.6rem;
+  border-radius: 0.65rem;
+  color: var(--text);
+  background: transparent;
+  text-align: start;
+}
+
+.accent-option:hover,
+.accent-option.active {
+  background: color-mix(in srgb, var(--swatch), transparent 88%);
+}
+
+.accent-option.active {
+  color: var(--swatch);
+}
+
+.option-swatch {
+  width: 0.86rem;
+  height: 0.86rem;
+  flex: 0 0 auto;
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.accent-option span:last-child {
+  overflow: hidden;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+  .accent-trigger {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .accent-menu {
+    inset-block-start: calc(100% + 0.5rem);
+    width: 10rem;
+  }
 }
