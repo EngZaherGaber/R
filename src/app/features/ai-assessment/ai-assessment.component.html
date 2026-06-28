@@ -6,92 +6,138 @@
       <span>{{ content().description }}</span>
     </div>
 
-    <div class="assessment-layout">
-      <article class="chat-panel" aria-label="Animated AI assessment conversation">
-        <header class="chat-header">
-          <div>
-            <span class="window-dot"></span>
-            <span class="window-dot"></span>
-            <span class="window-dot"></span>
-          </div>
-          <strong>{{ content().assistantLabel }}</strong>
-          <small>{{ content().status }}</small>
-        </header>
+    <div class="chat-stage" aria-label="Interactive AI professional assessment">
+      <div
+        class="conversation-viewport"
+        [class.can-scroll]="canScroll()"
+        [class.has-history]="hasHistoryAbove()"
+      >
+        <div
+          #chatStream
+          class="chat-stream"
+          aria-live="polite"
+          aria-relevant="additions"
+          (scroll)="onChatScroll()"
+        >
+          <div class="conversation-spacer" aria-hidden="true"></div>
 
-        <div #chatStream class="chat-stream" [class.empty]="visibleMessages().length === 0 && !isTyping()">
-          @for (message of visibleMessages(); track message.text) {
-            <div
-              class="message-row"
-              [class.user]="message.author === 'user'"
-              [class.assistant]="message.author === 'assistant'"
-            >
-              <span class="avatar">
-                @if (message.author === 'user') {
-                  Z
-                } @else {
-                  AI
+          @for (message of messages(); track message.id) {
+            <div class="message-row" [class.user]="message.author === 'user'">
+              @if (message.author === 'assistant') {
+                <span class="message-mark" aria-hidden="true">
+                  <i class="bi bi-stars"></i>
+                </span>
+              }
+
+              @if (message.author === 'user') {
+                <div class="user-message">
+                  <p>{{ message.text }}</p>
+                </div>
+              } @else {
+                @if (answerFor(message.answerId); as answer) {
+                  <article class="assistant-answer">
+                    <small>ChatGPT</small>
+                    <h3>{{ answer.title }}</h3>
+                    <p class="answer-lead">{{ answer.lead }}</p>
+
+                    <ul class="answer-highlights">
+                      @for (highlight of answer.highlights; track highlight) {
+                        <li>
+                          <i class="bi bi-check2" aria-hidden="true"></i>
+                          <span>{{ highlight }}</span>
+                        </li>
+                      }
+                    </ul>
+
+                    @if (isExpanded(message.id)) {
+                      <div class="answer-details">
+                        @for (detail of answer.details; track detail.title) {
+                          <section>
+                            <h4>{{ detail.title }}</h4>
+                            @if (detail.text) {
+                              <p>{{ detail.text }}</p>
+                            }
+                            @if (detail.bullets) {
+                              <ul>
+                                @for (bullet of detail.bullets; track bullet) {
+                                  <li>{{ bullet }}</li>
+                                }
+                              </ul>
+                            }
+                          </section>
+                        }
+                      </div>
+                    }
+
+                    <button class="expand-answer" type="button" (click)="toggleExpanded(message.id)">
+                      <span>{{ isExpanded(message.id) ? content().less : content().more }}</span>
+                      <i
+                        class="bi"
+                        [class.bi-chevron-up]="isExpanded(message.id)"
+                        [class.bi-chevron-down]="!isExpanded(message.id)"
+                        aria-hidden="true"
+                      ></i>
+                    </button>
+                  </article>
                 }
+              }
+            </div>
+          }
+
+          @if (isThinking()) {
+            <div class="message-row thinking-row" role="status">
+              <span class="message-mark" aria-hidden="true">
+                <i class="bi bi-stars"></i>
               </span>
-              <div class="message-bubble">
-                <small>{{ message.author === 'user' ? content().promptLabel : content().assistantLabel }}</small>
-                <p>{{ message.text }}</p>
-              </div>
-            </div>
-          }
-
-          @if (isTyping()) {
-            <div class="typing-row">
-              <span class="avatar">AI</span>
-              <div class="typing-indicator" aria-hidden="true">
-                <span></span>
-                <span></span>
-                <span></span>
+              <div class="thinking-state">
+                <span class="thinking-orbit" aria-hidden="true">
+                  <i></i><i></i><i></i>
+                </span>
+                <span>{{ content().thinking[thinkingStep()] }}</span>
               </div>
             </div>
           }
         </div>
-      </article>
+      </div>
 
-      <aside class="analysis-panel">
-        <div class="analysis-meter">
-          <div>
-            <p>{{ completed() ? content().complete : content().analyzing }}</p>
-            <strong>{{ progress() }}%</strong>
-          </div>
-          <span [style.width.%]="progress()"></span>
-        </div>
-
-        <div class="analysis-copy">
-          <p>{{ content().analysisTitle }}</p>
-          <h3>{{ content().analysisDescription }}</h3>
-        </div>
-
-        <div class="insight-list" aria-label="Assessment insights">
-          @for (section of revealedInsights(); track section.title; let index = $index) {
-            <article [class.active]="index === activeInsightIndex()">
-              <span>{{ index + 1 }}</span>
-              <div>
-                <h4>{{ section.title }}</h4>
-                <p>{{ section.text }}</p>
-              </div>
-            </article>
+      <footer class="composer-area">
+        <div class="suggestions" [attr.aria-label]="content().suggestionsLabel">
+          @for (answer of content().answers; track answer.id) {
+            <button
+              type="button"
+              [disabled]="isThinking() || isAutoTyping()"
+              (click)="askSuggestion(answer)"
+            >
+              {{ answer.suggestion }}
+            </button>
           }
         </div>
 
-        <div class="badge-grid" aria-label="Assessment focus areas">
-          @for (badge of content().badges; track badge) {
-            <span>{{ badge }}</span>
-          }
-        </div>
+        <div class="composer">
+          <textarea
+            #composerInput
+            rows="1"
+            [value]="draft()"
+            [placeholder]="content().placeholder"
+            [attr.aria-label]="content().placeholder"
+            [readOnly]="isAutoTyping()"
+            (input)="onDraftInput($event)"
+            (keydown)="onComposerKeydown($event)"
+          ></textarea>
 
-        <div class="summary-actions">
-          <button type="button" (click)="replay()">
-            <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
-            {{ content().replay }}
+          <button
+            class="send-button"
+            type="button"
+            [disabled]="!canSend()"
+            (click)="sendMessage()"
+            [attr.aria-label]="content().send"
+            [title]="content().send"
+          >
+            <i class="bi bi-arrow-up" aria-hidden="true"></i>
           </button>
-          <span>{{ content().status }}</span>
         </div>
-      </aside>
+        <small>{{ content().hint }}</small>
+      </footer>
     </div>
   </div>
 </section>
