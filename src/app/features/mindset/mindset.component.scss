@@ -1,0 +1,136 @@
+:host {
+  display: block;
+}
+
+.mindset-layout {
+  display: grid;
+  gap: 1.15rem;
+}
+
+@media (min-width: 56rem) {
+  .mindset-layout {
+    grid-template-columns: minmax(0, 18rem) minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+/* ------------------------------------------------------------- topic list */
+
+.topic-list {
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+}
+
+@media (min-width: 56rem) {
+  .topic-list {
+    display: grid;
+    overflow: visible;
+    padding-bottom: 0;
+  }
+}
+
+.topic-list button {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: none;
+  min-height: 46px;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--muted-strong);
+  font-size: 0.9rem;
+  text-align: start;
+  scroll-snap-align: start;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.topic-list button:hover {
+  border-color: var(--accent-line);
+  color: var(--text-strong);
+}
+
+.topic-list button.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+.topic-list i {
+  color: var(--accent-text);
+  font-size: 1rem;
+}
+
+/* ------------------------------------------------------------- topic body */
+
+.topic-detail {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.topic-detail h3 {
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+}
+
+.lead {
+  max-width: 68ch;
+  font-size: 1rem;
+  color: var(--muted-strong);
+}
+
+.points {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.points li {
+  position: relative;
+  padding-inline-start: 1.2rem;
+  font-size: 0.92rem;
+  color: var(--muted-strong);
+  max-width: 74ch;
+}
+
+.points li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.6em;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.evidence {
+  padding: 0.85rem 1rem;
+  border-inline-start: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  font-size: 0.9rem;
+  color: var(--muted-strong);
+}
+
+.evidence-label {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+html[lang="ar"] .evidence-label {
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.78rem;
+}

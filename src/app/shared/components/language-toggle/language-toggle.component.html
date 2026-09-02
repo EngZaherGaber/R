@@ -1,8 +1,20 @@
-<div class="language-toggle" aria-label="Language">
-  <button type="button" [class.active]="workspace.language() === 'en'" (click)="workspace.setLanguage('en')">
+<div class="language-toggle" role="group" [attr.aria-label]="workspace.t(workspace.ui.chrome.language)">
+  <button
+    type="button"
+    lang="en"
+    [class.active]="workspace.language() === 'en'"
+    [attr.aria-pressed]="workspace.language() === 'en'"
+    (click)="workspace.setLanguage('en')"
+  >
     EN
   </button>
-  <button type="button" [class.active]="workspace.language() === 'ar'" (click)="workspace.setLanguage('ar')">
-    AR
+  <button
+    type="button"
+    lang="ar"
+    [class.active]="workspace.language() === 'ar'"
+    [attr.aria-pressed]="workspace.language() === 'ar'"
+    (click)="workspace.setLanguage('ar')"
+  >
+    ع
   </button>
 </div>

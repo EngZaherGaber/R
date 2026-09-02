@@ -1,4 +1,4 @@
-<div class="accent-picker" aria-label="Accent color">
+<div class="accent-picker">
   <button
     type="button"
     class="accent-trigger"
@@ -6,14 +6,14 @@
     [style.--swatch]="workspace.accent().value"
     [attr.aria-expanded]="isOpen()"
     aria-haspopup="menu"
-    aria-label="Accent color"
+    [attr.aria-label]="workspace.t(workspace.ui.chrome.accent)"
     (click)="toggleMenu()"
   >
     <span class="current-swatch" aria-hidden="true"></span>
   </button>
 
   @if (isOpen()) {
-    <div class="accent-menu" role="menu" aria-label="Choose accent color">
+    <div class="accent-menu" role="menu" [attr.aria-label]="workspace.t(workspace.ui.chrome.accent)">
       @for (accent of workspace.accents; track accent.id) {
         <button
           type="button"
@@ -25,7 +25,7 @@
           (click)="selectAccent(accent)"
         >
           <span class="option-swatch" aria-hidden="true"></span>
-          <span>{{ accent.label }}</span>
+          <span>{{ workspace.t(accent.label) }}</span>
         </button>
       }
     </div>

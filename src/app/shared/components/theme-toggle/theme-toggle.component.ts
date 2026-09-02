@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { WorkspacePreferencesService } from '../../../core/services/workspace-preferences.service';
 
 @Component({
@@ -9,4 +9,12 @@ import { WorkspacePreferencesService } from '../../../core/services/workspace-pr
 })
 export class ThemeToggleComponent {
   readonly workspace = inject(WorkspacePreferencesService);
+
+  readonly label = computed(() =>
+    this.workspace.t(
+      this.workspace.theme() === 'dark'
+        ? this.workspace.ui.chrome.themeDark
+        : this.workspace.ui.chrome.themeLight,
+    ),
+  );
 }

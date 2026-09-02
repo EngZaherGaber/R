@@ -1,74 +1,113 @@
+/* ============================================================================
+   Design tokens
+   Dark is the default; `body.light` swaps the same token names so every
+   component reads one vocabulary and never hard-codes a colour.
+   ========================================================================= */
+
 :root {
-  --accent: #60a5fa;
-  --accent-contrast: #101114;
-  --bg: #0d0f14;
-  --bg-soft: #151924;
-  --surface: rgba(20, 24, 34, 0.86);
-  --surface-strong: rgba(255, 255, 255, 0.055);
-  --text: #f7f8fb;
-  --muted: #a9b0c0;
-  --line: rgba(255, 255, 255, 0.12);
-  --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
-  --project-surface: rgba(20, 24, 34, 0.86);
-  --project-card: rgba(18, 22, 31, 0.94);
-  --project-soft: rgba(255, 255, 255, 0.055);
-  --project-line: rgba(255, 255, 255, 0.12);
-  --project-glow: color-mix(in srgb, var(--accent), transparent 72%);
-  --project-shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
-  --content-width: 86rem;
-  --section-gutter: clamp(1.5rem, 5.2vw, 6rem);
+  --accent: #5b9dff;
+  --accent-soft: color-mix(in srgb, var(--accent), transparent 86%);
+  --accent-line: color-mix(in srgb, var(--accent), transparent 66%);
+  --accent-contrast: #08121f;
+  /*
+   * `--accent` is set inline on :root by the accent picker, so the light theme
+   * cannot override it. Text that sits on the page background uses this darkened
+   * derivative instead, which keeps contrast above 4.5:1 in both themes.
+   */
+  --accent-text: var(--accent);
+
+  --bg: #0a0c11;
+  --bg-elevated: #10131a;
+  --surface: #12161f;
+  --surface-2: #171c27;
+  --surface-hover: #1c2230;
+
+  --text: #f2f4f8;
+  --text-strong: #ffffff;
+  --muted: #9aa4b6;
+  --muted-strong: #c3cbd9;
+
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.18);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 12px 34px rgba(0, 0, 0, 0.38);
+  --shadow-lg: 0 26px 70px rgba(0, 0, 0, 0.46);
+
+  --tone-active: #4ade80;
+  --tone-delivered: #7dd3fc;
+  --tone-archived: #9aa4b6;
+
+  --content-width: 78rem;
+  --gutter: clamp(1.15rem, 4.5vw, 4rem);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  --font-sans: "Inter", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
   color-scheme: dark;
 }
 
 body.light {
-  --bg: #f7f9fc;
-  --bg-soft: #e9eef6;
-  --surface: rgba(255, 255, 255, 0.9);
-  --surface-strong: rgba(24, 35, 55, 0.062);
-  --text: #111827;
-  --muted: #526071;
-  --line: rgba(17, 24, 39, 0.13);
-  --shadow: 0 24px 80px rgba(38, 52, 78, 0.13);
-  --project-surface: rgba(255, 255, 255, 0.82);
-  --project-card: rgba(255, 255, 255, 0.96);
-  --project-soft: rgba(242, 246, 252, 0.92);
-  --project-line: rgba(28, 42, 68, 0.12);
-  --project-glow: color-mix(in srgb, var(--accent), transparent 82%);
-  --project-shadow: 0 22px 70px rgba(50, 66, 94, 0.16);
+  --accent-contrast: #ffffff;
+  --accent-soft: color-mix(in srgb, var(--accent), transparent 90%);
+  --accent-line: color-mix(in srgb, var(--accent), transparent 62%);
+  --accent-text: color-mix(in srgb, var(--accent), #0a1424 42%);
+
+  --bg: #f6f8fb;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f0f3f8;
+  --surface-hover: #e8edf5;
+
+  --text: #131820;
+  --text-strong: #05080d;
+  --muted: #5b6779;
+  --muted-strong: #3b4759;
+
+  --line: rgba(14, 22, 36, 0.12);
+  --line-strong: rgba(14, 22, 36, 0.22);
+
+  --shadow-sm: 0 1px 2px rgba(30, 45, 70, 0.08);
+  --shadow-md: 0 12px 30px rgba(30, 45, 70, 0.1);
+  --shadow-lg: 0 24px 60px rgba(30, 45, 70, 0.14);
+
+  --tone-active: #128a4a;
+  --tone-delivered: #1c6fa8;
+  --tone-archived: #5b6779;
+
   color-scheme: light;
 }
 
-* {
-  box-sizing: border-box;
-}
+/* ------------------------------------------------------------------- base */
 
-html,
-body {
-  min-height: 100%;
-  margin: 0;
-  max-width: 100%;
-  overflow-x: clip;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 body {
-  min-height: 100dvh;
-  overflow-x: hidden;
   background: var(--bg);
   color: var(--text);
-  font-family:
-    "Manrope",
-    "Inter Tight",
-    Inter,
-    "IBM Plex Sans Arabic",
-    "Cairo",
-    "Segoe UI",
-    Tahoma,
-    Arial,
-    sans-serif;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
@@ -76,65 +115,226 @@ body {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 a {
   color: inherit;
 }
 
-.section-inner {
-  width: 100%;
-  max-width: var(--content-width);
-  margin-inline: auto;
-}
-
 button {
   border: 0;
+  background: none;
   font: inherit;
   color: inherit;
   cursor: pointer;
 }
 
-button:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--accent), transparent 35%);
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  color: var(--text-strong);
+  font-weight: 650;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * The Nx wordmark ships in its dark brand navy, which disappears on the dark
+ * theme. It is drawn in white and inverted for the light theme instead.
+ */
+img[src$="nx.svg"] {
+  filter: none;
+}
+
+body.light img[src$="nx.svg"] {
+  filter: invert(1);
+}
+
+/* Arabic reads better a touch larger and with more line height. */
+html[lang="ar"] body {
+  font-size: 1.03rem;
+  line-height: 1.78;
+}
+
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3 {
+  letter-spacing: 0;
+  line-height: 1.4;
+}
+
+/* --------------------------------------------------------------- a11y --- */
+
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  inset-inline-start: 1rem;
+  top: -6rem;
+  z-index: 200;
+  padding: 0.7rem 1.1rem;
+  border-radius: var(--radius-sm);
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
+  transition: top 0.18s ease;
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+}
+
+/* ----------------------------------------------------------- primitives - */
+
+.section-inner {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.portfolio-section {
+  padding-block: clamp(3.5rem, 8vw, 7rem);
+  scroll-margin-top: 5.5rem;
+}
+
+.section-heading {
+  display: grid;
+  gap: 0.65rem;
+  max-width: 46rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.section-kicker {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+html[lang="ar"] .section-kicker {
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.85rem;
+}
+
+.section-heading h2 {
+  font-size: clamp(1.65rem, 3.4vw, 2.4rem);
+}
+
+.section-heading p:last-child {
+  color: var(--muted);
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 0.78rem;
+  color: var(--muted-strong);
+  white-space: nowrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.7rem 1.15rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 0.94rem;
+  text-decoration: none;
+  transition: background 0.16s ease, border-color 0.16s ease, transform 0.16s ease;
+}
+
+.btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent-line);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  /* --accent-text, not --accent: on the light theme a raw accent fill leaves
+     white label text below 3:1. */
+  background: var(--accent-text);
+  border-color: var(--accent-text);
+  color: var(--accent-contrast);
+}
+
+.btn-primary:hover {
+  background: color-mix(in srgb, var(--accent-text), var(--text-strong) 14%);
+  border-color: color-mix(in srgb, var(--accent-text), var(--text-strong) 14%);
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
 }
 
 ::selection {
+  background: var(--accent-text);
   color: var(--accent-contrast);
-  background: var(--accent);
 }
 
-@keyframes reveal-line {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes panel-swap {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.985);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+/* ------------------------------------------------------------ motion --- */
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
-    animation-duration: 1ms !important;
-    scroll-behavior: auto !important;
-    transition-duration: 1ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -1,0 +1,244 @@
+:host {
+  display: block;
+}
+
+.timeline {
+  display: grid;
+  gap: 1.75rem;
+  position: relative;
+  padding-inline-start: 1.5rem;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  inset-block: 0.5rem;
+  inset-inline-start: 5px;
+  width: 1px;
+  background: linear-gradient(var(--accent-line), var(--line), transparent);
+}
+
+.entry {
+  position: relative;
+}
+
+.entry-marker {
+  position: absolute;
+  inset-inline-start: -1.5rem;
+  top: 0.55rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: var(--bg);
+}
+
+.entry[data-kind="education"] .entry-marker {
+  border-color: var(--line-strong);
+}
+
+.entry-body {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.entry-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.kind {
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.period {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+html[lang="ar"] .period {
+  font-family: var(--font-sans);
+}
+
+.current {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+.entry h3 {
+  font-size: 1.12rem;
+}
+
+.organization {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--accent-text);
+}
+
+.summary {
+  max-width: 72ch;
+  font-size: 0.93rem;
+  color: var(--muted-strong);
+}
+
+.highlights {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.highlights li {
+  position: relative;
+  padding-inline-start: 1.05rem;
+  font-size: 0.88rem;
+  color: var(--muted-strong);
+  max-width: 74ch;
+}
+
+.highlights li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.entry-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+
+.related {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+}
+
+.related-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+html[lang="ar"] .related-label {
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.78rem;
+}
+
+.related-item {
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  color: var(--muted-strong);
+}
+
+/* ------------------------------------------------------------- references */
+
+.references {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: clamp(1.75rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.references h3 {
+  font-size: 1.15rem;
+}
+
+.references-note {
+  margin-top: 0.35rem;
+  margin-bottom: 1.25rem;
+  max-width: 60ch;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.reference-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+  align-items: start;
+}
+
+.reference {
+  margin: 0;
+  padding: 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.reference blockquote {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--muted-strong);
+}
+
+.reference figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.reference img,
+.initial {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.initial {
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+.reference figcaption span {
+  display: grid;
+  min-width: 0;
+}
+
+.reference strong {
+  font-size: 0.92rem;
+  color: var(--text-strong);
+}
+
+.reference small {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.reference em {
+  font-size: 0.78rem;
+  font-style: normal;
+  color: var(--accent-text);
+}

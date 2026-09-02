@@ -1,0 +1,61 @@
+<section class="portfolio-section" aria-labelledby="work-title">
+  <div class="section-inner">
+    <div class="section-heading reveal">
+      <p class="section-kicker">{{ workspace.t(ui.work.kicker) }}</p>
+      <h2 id="work-title">{{ workspace.t(ui.work.title) }}</h2>
+      <p>{{ workspace.t(ui.work.description) }}</p>
+    </div>
+
+    <div class="work-list">
+      <project-case-study class="reveal" [project]="flagship" />
+
+      @for (project of projects; track project.id) {
+        <project-case-study
+          class="reveal"
+          [project]="project"
+          [compact]="isCompact(project.id)"
+        />
+      }
+    </div>
+
+    <!-- Lab work sits after the delivered projects, and says what it is. -->
+    <section class="lab reveal" aria-labelledby="lab-title">
+      <h3 id="lab-title">{{ workspace.t(ui.work.labTitle) }}</h3>
+      <p class="lab-note">{{ workspace.t(ui.work.labNote) }}</p>
+
+      @for (entry of lab; track entry.id) {
+        <article class="lab-card card">
+          <header>
+            <h4>{{ workspace.t(entry.name) }}</h4>
+            <span class="pill">{{ workspace.t(entry.status) }}</span>
+          </header>
+          <p>{{ workspace.t(entry.summary) }}</p>
+          <ul>
+            @for (point of workspace.t(entry.points); track point) {
+              <li>{{ point }}</li>
+            }
+          </ul>
+        </article>
+      }
+    </section>
+
+    <!-- Archived commerce work: listed, not featured. -->
+    <section class="archive reveal" aria-labelledby="archive-title">
+      <h3 id="archive-title">{{ workspace.t(ui.work.archiveTitle) }}</h3>
+      <p class="archive-note">{{ workspace.t(ui.work.archiveNote) }}</p>
+
+      <ul class="archive-list">
+        @for (project of archive; track project.id) {
+          <li class="archive-item">
+            <div>
+              <strong>{{ workspace.t(project.name) }}</strong>
+              <span>{{ workspace.t(project.descriptor) }}</span>
+            </div>
+            <p>{{ workspace.t(project.summary) }}</p>
+            <span class="archive-status">{{ workspace.t(project.status.label) }}</span>
+          </li>
+        }
+      </ul>
+    </section>
+  </div>
+</section>

@@ -1,33 +1,51 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Inject, Injectable, PLATFORM_ID, computed, effect, signal } from '@angular/core';
+import { Injectable, PLATFORM_ID, computed, effect, inject, signal } from '@angular/core';
 import {
   AccentColor,
   LanguageCode,
-  PanelId,
+  Localized,
   ThemeMode,
-  accentColors,
-  portfolioContent,
-} from '../data/portfolio-content';
+} from '../models/portfolio.model';
+import { accentColors, navigation, profile } from '../data/profile.data';
+import { ui } from '../data/ui.data';
+
+const STORAGE_KEYS = {
+  language: 'portfolio-language',
+  theme: 'portfolio-theme',
+  accent: 'portfolio-accent',
+} as const;
 
 @Injectable({ providedIn: 'root' })
 export class WorkspacePreferencesService {
+  /*
+   * These are injected as fields rather than constructor parameters: class
+   * fields initialise before the constructor body, so the signals below would
+   * otherwise read an undefined `platformId` and always fall back to defaults.
+   */
+  private readonly documentRef = inject(DOCUMENT);
+  private readonly platformId = inject(PLATFORM_ID);
+
   readonly accents = accentColors;
-  readonly language = signal<LanguageCode>(this.readPreference('portfolio-language', 'en'));
-  readonly theme = signal<ThemeMode>(this.readPreference('portfolio-theme', 'dark'));
-  readonly accent = signal<AccentColor>(
-    accentColors.find((item) => item.id === this.readPreference('portfolio-accent', 'blue')) ??
-      accentColors[0],
-  );
-  readonly activePanel = signal<PanelId>(this.readPanelFromUrl());
+  readonly profile = profile;
+  readonly ui = ui;
 
-  readonly content = computed(() => portfolioContent[this.language()]);
+  readonly language = signal<LanguageCode>(this.readLanguage());
+  readonly theme = signal<ThemeMode>(this.readTheme());
+  readonly accent = signal<AccentColor>(this.readAccent());
+
   readonly direction = computed(() => (this.language() === 'ar' ? 'rtl' : 'ltr'));
+  readonly isArabic = computed(() => this.language() === 'ar');
+  readonly navigation = computed(() =>
+    navigation.map((item) => ({ ...item, text: item.label[this.language()] })),
+  );
 
-  constructor(
-    @Inject(DOCUMENT) private documentRef: Document,
-    @Inject(PLATFORM_ID) private platformId: object,
-  ) {
+  constructor() {
     effect(() => this.applyDocumentState());
+  }
+
+  /** Resolve any localized value against the active language. */
+  t<T>(value: Localized<T>): T {
+    return value[this.language()];
   }
 
   setLanguage(language: LanguageCode): void {
@@ -42,34 +60,6 @@ export class WorkspacePreferencesService {
     this.accent.set(accent);
   }
 
-  setActivePanel(panel: PanelId): void {
-    this.activePanel.set(panel);
-  }
-
-  readUrlParam(key: string): string | null {
-    if (!isPlatformBrowser(this.platformId)) {
-      return null;
-    }
-
-    return new URLSearchParams(window.location.search).get(key);
-  }
-
-  setUrlParams(params: Record<string, string | null | undefined>, _anchorMobile = false): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-
-    const url = new URL(window.location.href);
-    Object.entries(params).forEach(([key, value]) => {
-      if (value === null || value === undefined || value === '') {
-        url.searchParams.delete(key);
-      } else {
-        url.searchParams.set(key, value);
-      }
-    });
-    window.history.replaceState({}, '', `${url.pathname}?${url.searchParams.toString()}${url.hash}`);
-  }
-
   private applyDocumentState(): void {
     const root = this.documentRef.documentElement;
     const body = this.documentRef.body;
@@ -80,35 +70,75 @@ export class WorkspacePreferencesService {
     root.lang = language;
     root.dir = this.direction();
     root.style.setProperty('--accent', accent.value);
-    body.classList.toggle('light', theme === 'light');
-    body.classList.toggle('dark', theme === 'dark');
+    // `dataset` is not implemented by every server-side DOM, so set the attribute.
+    root.setAttribute('data-theme', theme);
+    body?.classList.toggle('light', theme === 'light');
+    body?.classList.toggle('dark', theme === 'dark');
 
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('portfolio-language', language);
-      localStorage.setItem('portfolio-theme', theme);
-      localStorage.setItem('portfolio-accent', accent.id);
-    }
-  }
-
-  private readPreference<T extends string>(key: string, fallback: T): T {
     if (!isPlatformBrowser(this.platformId)) {
-      return fallback;
+      return;
     }
 
-    return (localStorage.getItem(key) as T | null) ?? fallback;
+    try {
+      localStorage.setItem(STORAGE_KEYS.language, language);
+      localStorage.setItem(STORAGE_KEYS.theme, theme);
+      localStorage.setItem(STORAGE_KEYS.accent, accent.id);
+    } catch {
+      // Private browsing or blocked storage - preferences simply do not persist.
+    }
   }
 
-  private readPanelFromUrl(): PanelId {
-    const panel = this.readUrlParam('panel');
-    const panels: PanelId[] = [
-      'overview',
-      'projects',
-      'skills',
-      'services',
-      'timeline',
-      'recommendations',
-      'contact',
-    ];
-    return panels.includes(panel as PanelId) ? (panel as PanelId) : 'overview';
+  private readStored(key: string): string | null {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
+    try {
+      return localStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  }
+
+  /** A `?lang=` / `?theme=` value wins, so a link can open in a chosen state. */
+  private readParam(key: string): string | null {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
+    return new URLSearchParams(window.location.search).get(key);
+  }
+
+  private readLanguage(): LanguageCode {
+    const requested = this.readParam('lang');
+    if (requested === 'ar' || requested === 'en') {
+      return requested;
+    }
+
+    return this.readStored(STORAGE_KEYS.language) === 'ar' ? 'ar' : 'en';
+  }
+
+  private readTheme(): ThemeMode {
+    const requested = this.readParam('theme');
+    if (requested === 'light' || requested === 'dark') {
+      return requested;
+    }
+
+    const stored = this.readStored(STORAGE_KEYS.theme);
+    if (stored === 'light' || stored === 'dark') {
+      return stored;
+    }
+
+    if (
+      isPlatformBrowser(this.platformId) &&
+      window.matchMedia?.('(prefers-color-scheme: light)').matches
+    ) {
+      return 'light';
+    }
+
+    return 'dark';
+  }
+
+  private readAccent(): AccentColor {
+    const stored = this.readStored(STORAGE_KEYS.accent);
+    return accentColors.find((accent) => accent.id === stored) ?? accentColors[0];
   }
 }

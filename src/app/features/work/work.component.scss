@@ -1,0 +1,133 @@
+:host {
+  display: block;
+}
+
+.work-list {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* ------------------------------------------------------------------- lab */
+
+.lab,
+.archive {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: clamp(1.75rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.lab h3,
+.archive h3 {
+  font-size: 1.15rem;
+}
+
+.lab-note,
+.archive-note {
+  margin-top: 0.35rem;
+  margin-bottom: 1.15rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.lab-card {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1.25rem;
+  background: var(--surface-2);
+  border-style: dashed;
+}
+
+.lab-card header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lab-card h4 {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.lab-card p {
+  color: var(--muted-strong);
+  font-size: 0.93rem;
+  max-width: 70ch;
+}
+
+.lab-card ul {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.lab-card li {
+  position: relative;
+  padding-inline-start: 1.05rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.lab-card li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+/* --------------------------------------------------------------- archive */
+
+.archive-list {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.archive-item {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.95rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.archive-item > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.archive-item strong {
+  font-size: 0.98rem;
+  color: var(--text-strong);
+}
+
+.archive-item > div span {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.archive-item p {
+  font-size: 0.88rem;
+  color: var(--muted-strong);
+  max-width: 70ch;
+}
+
+.archive-status {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+html[lang="ar"] .archive-status {
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.8rem;
+}

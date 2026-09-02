@@ -1,22 +1,21 @@
-import { CommonModule } from '@angular/common';
 import { Component, ElementRef, HostListener, inject, signal } from '@angular/core';
-import { AccentColor } from '../../../core/data/portfolio-content';
+import { AccentColor } from '../../../core/models/portfolio.model';
 import { WorkspacePreferencesService } from '../../../core/services/workspace-preferences.service';
 
 @Component({
   selector: 'accent-picker',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './accent-picker.component.html',
   styleUrl: './accent-picker.component.scss',
 })
 export class AccentPickerComponent {
   readonly workspace = inject(WorkspacePreferencesService);
-  private readonly elementRef = inject(ElementRef<HTMLElement>);
   readonly isOpen = signal(false);
 
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
+
   toggleMenu(): void {
-    this.isOpen.update((value) => !value);
+    this.isOpen.update((open) => !open);
   }
 
   selectAccent(accent: AccentColor): void {

@@ -1,0 +1,77 @@
+<section class="hero portfolio-section" aria-labelledby="hero-name">
+  <div class="section-inner hero-inner">
+    <div class="hero-copy">
+      <p class="section-kicker hero-token">{{ workspace.t(ui.hero.eyebrow) }}</p>
+
+      <h1 id="hero-name" class="hero-token">{{ name() }}</h1>
+      <p class="hero-role hero-token">{{ role() }}</p>
+      <p class="hero-tagline hero-token">{{ tagline() }}</p>
+
+      <p class="hero-employment hero-token">
+        <span class="employment-label">{{ workspace.t(ui.hero.employmentLabel) }}</span>
+        <strong>{{ workspace.t(employment.title) }}</strong>
+        <span aria-hidden="true">·</span>
+        <span>{{ workspace.t(employment.company) }}</span>
+        <span class="employment-since">{{ workspace.t(employment.since) }}</span>
+      </p>
+
+      <div class="hero-actions hero-token">
+        <button type="button" class="btn btn-primary" (click)="navigate.emit('work')">
+          {{ workspace.t(ui.hero.primaryCta) }}
+        </button>
+        <a class="btn" [href]="profile.cvPath" download target="_blank" rel="noopener">
+          <i class="bi bi-download" aria-hidden="true"></i>
+          {{ workspace.t(ui.hero.secondaryCta) }}
+        </a>
+        <button type="button" class="btn" (click)="navigate.emit('contact')">
+          {{ workspace.t(ui.hero.tertiaryCta) }}
+        </button>
+      </div>
+
+      <div class="hero-stack">
+        <p class="stack-label">{{ workspace.t(ui.hero.stackLabel) }}</p>
+        <ul class="stack-list">
+          @for (item of coreStack; track item.id) {
+            <li class="stack-node">
+              @if (item.icon) {
+                <img [src]="item.icon" width="20" height="20" alt="" aria-hidden="true" />
+              }
+              <span class="stack-name">{{ item.label }}</span>
+              <span class="stack-role">{{ workspace.t(item.role) }}</span>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- How the stack fits together. Structural, not decorative: four clients,
+         one API, one database, inside a single Nx workspace. -->
+    <figure class="hero-diagram hero-token">
+      <figcaption class="diagram-caption">{{ workspace.t(ui.hero.diagramLabel) }}</figcaption>
+
+      <div class="workspace-frame" aria-hidden="true">
+        <span class="frame-label">Nx workspace</span>
+
+        <div class="frame-row clients">
+          <span class="node"><img src="icons/angular.svg" width="16" height="16" alt="" />Web</span>
+          <span class="node"><img src="icons/ionic.svg" width="16" height="16" alt="" />Mobile</span>
+          <span class="node"><img src="icons/angular.svg" width="16" height="16" alt="" />Admin</span>
+        </div>
+
+        <span class="connector"></span>
+
+        <div class="frame-row">
+          <span class="node api"><img src="icons/nestjs.svg" width="16" height="16" alt="" />NestJS API</span>
+        </div>
+
+        <span class="connector"></span>
+
+        <div class="frame-row">
+          <span class="node data">
+            <img src="icons/postgresql.svg" width="16" height="16" alt="" />PostgreSQL
+          </span>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>

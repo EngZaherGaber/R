@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { StoryShellComponent } from './features/story-shell/story-shell.component';
+import { ShellComponent } from './features/shell/shell.component';
 
 @Component({
   selector: 'app-root',
-  imports: [StoryShellComponent],
   standalone: true,
+  imports: [ShellComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

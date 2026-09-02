@@ -1,0 +1,40 @@
+<section class="portfolio-section" aria-labelledby="expertise-title">
+  <div class="section-inner">
+    <div class="section-heading reveal">
+      <p class="section-kicker">{{ workspace.t(ui.expertise.kicker) }}</p>
+      <h2 id="expertise-title">{{ workspace.t(ui.expertise.title) }}</h2>
+      <p>{{ workspace.t(ui.expertise.description) }}</p>
+    </div>
+
+    <div class="category-grid">
+      @for (category of categories; track category.id) {
+        <section class="category card reveal" [attr.aria-labelledby]="'category-' + category.id">
+          <header>
+            <i [class]="category.icon" aria-hidden="true"></i>
+            <div>
+              <h3 [id]="'category-' + category.id">{{ workspace.t(category.title) }}</h3>
+              <p>{{ workspace.t(category.description) }}</p>
+            </div>
+          </header>
+
+          <ul class="skill-list">
+            @for (skill of category.skills; track skill.id) {
+              <li class="skill">
+                <strong>{{ skill.name }}</strong>
+                <p>{{ workspace.t(skill.note) }}</p>
+                @if (proofNames(skill.projectIds).length) {
+                  <p class="proof">
+                    <span class="proof-label">{{ workspace.t(ui.expertise.proofLabel) }}</span>
+                    @for (name of proofNames(skill.projectIds); track name) {
+                      <span class="proof-item">{{ name }}</span>
+                    }
+                  </p>
+                }
+              </li>
+            }
+          </ul>
+        </section>
+      }
+    </div>
+  </div>
+</section>
