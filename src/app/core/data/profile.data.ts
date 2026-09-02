@@ -118,7 +118,7 @@ export const accentColors: AccentColor[] = [
 export const navigation: NavItem[] = [
   { id: 'home', label: { en: 'Home', ar: 'البداية' }, icon: 'bi bi-house' },
   { id: 'work', label: { en: 'Work', ar: 'الأعمال' }, icon: 'bi bi-collection' },
-  { id: 'expertise', label: { en: 'Expertise', ar: 'الخبرات التقنية' }, icon: 'bi bi-diagram-3' },
+  { id: 'expertise', label: { en: 'Skills', ar: 'المهارات' }, icon: 'bi bi-diagram-3' },
   { id: 'experience', label: { en: 'Experience', ar: 'المسار المهني' }, icon: 'bi bi-briefcase' },
   { id: 'mindset', label: { en: 'About', ar: 'عني' }, icon: 'bi bi-lightbulb' },
   { id: 'contact', label: { en: 'Contact', ar: 'التواصل' }, icon: 'bi bi-send' },

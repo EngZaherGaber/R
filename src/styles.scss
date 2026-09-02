@@ -17,10 +17,12 @@
   --accent-text: var(--accent);
 
   --bg: #0a0c11;
+  --bg-deep: #0d1119;
   --bg-elevated: #10131a;
-  --surface: #12161f;
-  --surface-2: #171c27;
-  --surface-hover: #1c2230;
+  --surface: rgba(20, 25, 35, 0.82);
+  --surface-2: rgba(30, 37, 51, 0.62);
+  --surface-hover: rgba(38, 46, 63, 0.72);
+  --surface-solid: #12161f;
 
   --text: #f2f4f8;
   --text-strong: #ffffff;
@@ -57,10 +59,12 @@ body.light {
   --accent-text: color-mix(in srgb, var(--accent), #0a1424 42%);
 
   --bg: #f6f8fb;
+  --bg-deep: #eef2f8;
   --bg-elevated: #ffffff;
-  --surface: #ffffff;
-  --surface-2: #f0f3f8;
-  --surface-hover: #e8edf5;
+  --surface: rgba(255, 255, 255, 0.86);
+  --surface-2: rgba(240, 243, 248, 0.78);
+  --surface-hover: rgba(228, 235, 246, 0.9);
+  --surface-solid: #ffffff;
 
   --text: #131820;
   --text-strong: #05080d;
@@ -104,6 +108,7 @@ body {
 
 body {
   background: var(--bg);
+  /* The cosmic field paints the real backdrop; the body only guarantees a base. */
   color: var(--text);
   font-family: var(--font-sans);
   font-size: 1rem;
@@ -116,6 +121,14 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+
+/*
+ * Components set their own `display`, which would otherwise beat the user-agent
+ * rule for [hidden]. Inactive tab panels rely on this.
+ */
+[hidden] {
+  display: none !important;
 }
 
 a {
@@ -225,8 +238,19 @@ html[lang="ar"] h3 {
 }
 
 .portfolio-section {
-  padding-block: clamp(3.5rem, 8vw, 7rem);
-  scroll-margin-top: 5.5rem;
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(3.25rem, 7vw, 6rem);
+  scroll-margin-top: 6rem;
+}
+
+/* Glass panel: the recurring surface of the workspace identity. */
+.panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-md);
 }
 
 .section-heading {
@@ -316,6 +340,23 @@ html[lang="ar"] .section-kicker {
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   background: var(--surface);
+  backdrop-filter: blur(12px);
+}
+
+/* Monospace micro-label used across the workspace UI. */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+html[lang="ar"] .mono-label {
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.78rem;
 }
 
 ::selection {

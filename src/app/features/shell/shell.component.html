@@ -1,18 +1,25 @@
 <a class="skip-link" href="#main-content">{{ workspace.t(ui.chrome.skipToContent) }}</a>
 
-<div class="ambient" aria-hidden="true"></div>
+<!--
+  The cosmic field. Fixed, painted once, and driven only by CSS custom
+  properties that MotionService updates from scroll velocity. Lean devices get
+  the quiet version via the `data-lean-motion` attribute on <html>.
+-->
+<div class="cosmic-field" aria-hidden="true">
+  <span class="star-layer far"></span>
+  <span class="star-layer mid"></span>
+  <span class="star-layer near"></span>
+  <span class="nebula-wash"></span>
+  <span class="tech-grid"></span>
+</div>
 
-<header class="site-header" [class.is-scrolled]="scrolled()">
+<header class="story-header" [class.is-scrolled]="scrolled()">
   <div class="header-inner">
-    <a
-      class="brand"
-      href="#section-home"
-      (click)="$event.preventDefault(); goTo('home')"
-    >
+    <a class="brand-mark" href="#section-home" (click)="$event.preventDefault(); goTo('home')">
       <img
         [src]="workspace.profile.avatar"
-        width="36"
-        height="36"
+        width="34"
+        height="34"
         [alt]="brandName()"
         fetchpriority="high"
       />
@@ -35,7 +42,7 @@
       }
     </nav>
 
-    <div class="header-controls">
+    <div class="rail-controls">
       <language-toggle />
       <theme-toggle />
       <accent-picker />
@@ -69,27 +76,42 @@
   }
 </header>
 
+<!-- The star map: a quiet scene index that mirrors the original journey rail. -->
+<nav class="star-map" [attr.aria-label]="workspace.t(ui.chrome.sections)">
+  @for (item of navItems(); track item.id) {
+    <a
+      [href]="'#section-' + item.id"
+      [class.active]="activeSection() === item.id"
+      [attr.aria-current]="activeSection() === item.id ? 'true' : null"
+      [attr.aria-label]="item.text"
+      (click)="$event.preventDefault(); goTo(item.id)"
+    >
+      <span class="star-dot" aria-hidden="true"></span>
+      <span class="star-label">{{ item.text }}</span>
+    </a>
+  }
+</nav>
+
 <main id="main-content">
-  <!-- Every section renders eagerly so the prerendered HTML carries the full
-       content. Weight is kept down by lazy motion, lazy images and a light DOM,
-       not by hiding text behind @defer. -->
+  <!--
+    Every scene renders eagerly so the prerendered HTML carries the full
+    content. Weight is controlled by lazy motion, lazy images and a light DOM,
+    not by hiding text behind @defer.
+  -->
   <app-hero id="section-home" data-section="home" (navigate)="goTo($event)" />
-
   <app-work id="section-work" data-section="work" />
-
   <app-expertise id="section-expertise" data-section="expertise" />
-
+  <app-services />
   <app-experience id="section-experience" data-section="experience" />
-
+  <app-trust />
   <app-mindset id="section-mindset" data-section="mindset" />
-
   <app-contact id="section-contact" data-section="contact" />
 </main>
 
 <footer class="site-footer">
   <div class="section-inner footer-inner">
     <p>© {{ year }} {{ brandName() }} · {{ workspace.t(workspace.profile.location) }}</p>
-    <button type="button" class="to-top" (click)="backToTop()">
+    <button type="button" class="to-top" (click)="goTo('home')">
       <i class="bi bi-arrow-up" aria-hidden="true"></i>
       <span>{{ workspace.t(ui.chrome.backToTop) }}</span>
     </button>

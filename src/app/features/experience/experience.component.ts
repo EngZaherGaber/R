@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, inject } from '@angular/core';
 import { MotionService } from '../../core/services/motion.service';
 import { WorkspacePreferencesService } from '../../core/services/workspace-preferences.service';
-import { experience, recommendations } from '../../core/data/experience.data';
+import { experience } from '../../core/data/experience.data';
 import { projectById } from '../../core/data/projects.data';
 import { ExperienceEntry } from '../../core/models/portfolio.model';
 
@@ -16,14 +16,25 @@ export class ExperienceComponent implements AfterViewInit {
   readonly ui = this.workspace.ui;
 
   readonly entries = experience;
-  /** References sit with the experience they belong to, not in a marketing carousel. */
-  readonly references = recommendations;
 
-  private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly motion = inject(MotionService);
 
   ngAfterViewInit(): void {
-    void this.motion.revealOnScroll(this.elementRef.nativeElement, '.reveal');
+    void this.motion.sectionReveal(this.elementRef.nativeElement);
+    void this.motion.timelineReveal(this.elementRef.nativeElement);
+  }
+
+  /**
+   * A stable short hash per entry, so the commit metaphor reads as real without
+   * pretending to reference an actual repository.
+   */
+  commitHash(id: string): string {
+    let hash = 0;
+    for (const char of id) {
+      hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
+    }
+    return hash.toString(16).padStart(7, '0').slice(0, 7);
   }
 
   kindLabel(entry: ExperienceEntry): string {

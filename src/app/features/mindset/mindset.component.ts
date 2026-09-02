@@ -24,11 +24,11 @@ export class MindsetComponent implements AfterViewInit {
     () => this.topics.find((topic) => topic.id === this.selectedId()) ?? this.topics[0],
   );
 
-  private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly motion = inject(MotionService);
 
   ngAfterViewInit(): void {
-    void this.motion.revealOnScroll(this.elementRef.nativeElement, '.reveal');
+    void this.motion.sectionReveal(this.elementRef.nativeElement);
   }
 
   select(topicId: string): void {
@@ -36,6 +36,39 @@ export class MindsetComponent implements AfterViewInit {
       return;
     }
     this.selectedId.set(topicId);
-    void this.motion.swap(this.elementRef.nativeElement, '.topic-detail > *');
+    void this.motion.panelSwap(this.elementRef.nativeElement, '.topic-detail > *');
+  }
+
+  /** Arrow / Home / End navigation, as a tablist requires. */
+  onKeydown(event: KeyboardEvent): void {
+    const forward = this.workspace.isArabic() ? 'ArrowLeft' : 'ArrowRight';
+    const backward = this.workspace.isArabic() ? 'ArrowRight' : 'ArrowLeft';
+    const index = this.topics.findIndex((topic) => topic.id === this.selectedId());
+    let next = index;
+
+    switch (event.key) {
+      case forward:
+      case 'ArrowDown':
+        next = (index + 1) % this.topics.length;
+        break;
+      case backward:
+      case 'ArrowUp':
+        next = (index - 1 + this.topics.length) % this.topics.length;
+        break;
+      case 'Home':
+        next = 0;
+        break;
+      case 'End':
+        next = this.topics.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    this.select(this.topics[next].id);
+    this.elementRef.nativeElement
+      .querySelector<HTMLElement>(`#tab-${this.topics[next].id}`)
+      ?.focus();
   }
 }

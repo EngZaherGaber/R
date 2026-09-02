@@ -1,4 +1,4 @@
-<section class="portfolio-section" aria-labelledby="experience-title">
+<section class="portfolio-section experience" aria-labelledby="experience-title">
   <div class="section-inner">
     <div class="section-heading reveal">
       <p class="section-kicker">{{ workspace.t(ui.experience.kicker) }}</p>
@@ -6,17 +6,25 @@
       <p>{{ workspace.t(ui.experience.description) }}</p>
     </div>
 
-    <ol class="timeline">
+    <!--
+      Experience as a commit history: the line grows on scroll and each entry
+      lands like a commit. Distinctive, and true to how the work accumulated.
+    -->
+    <ol class="commit-line">
       @for (entry of entries; track entry.id) {
-        <li class="entry reveal" [attr.data-kind]="entry.kind">
-          <div class="entry-marker" aria-hidden="true"></div>
+        <li class="commit-card" [attr.data-kind]="entry.kind">
+          <span class="commit-node" aria-hidden="true"></span>
 
-          <div class="entry-body">
-            <p class="entry-meta">
+          <div class="commit-body">
+            <p class="commit-meta">
+              <code class="commit-hash">{{ commitHash(entry.id) }}</code>
               <span class="kind">{{ kindLabel(entry) }}</span>
               <span class="period">{{ workspace.t(entry.period) }}</span>
               @if (entry.current) {
-                <span class="current">{{ workspace.t(ui.experience.currentLabel) }}</span>
+                <span class="current">
+                  <span class="current-dot" aria-hidden="true"></span>
+                  {{ workspace.t(ui.experience.currentLabel) }}
+                </span>
               }
             </p>
 
@@ -38,7 +46,7 @@
 
             @if (relatedProjectNames(entry).length) {
               <p class="related">
-                <span class="related-label">{{ workspace.t(ui.experience.relatedWork) }}</span>
+                <span class="mono-label">{{ workspace.t(ui.experience.relatedWork) }}</span>
                 @for (name of relatedProjectNames(entry); track name) {
                   <span class="related-item">{{ name }}</span>
                 }
@@ -48,31 +56,5 @@
         </li>
       }
     </ol>
-
-    <!-- References: professional trust signals, kept close to the work. -->
-    <section class="references reveal" aria-labelledby="references-title">
-      <h3 id="references-title">{{ workspace.t(ui.experience.referencesTitle) }}</h3>
-      <p class="references-note">{{ workspace.t(ui.experience.referencesNote) }}</p>
-
-      <div class="reference-grid">
-        @for (reference of references; track reference.id) {
-          <figure class="reference card">
-            <blockquote>{{ workspace.t(reference.message) }}</blockquote>
-            <figcaption>
-              @if (reference.image) {
-                <img [src]="reference.image" width="44" height="44" alt="" aria-hidden="true" loading="lazy" />
-              } @else {
-                <span class="initial" aria-hidden="true">{{ workspace.t(reference.name).charAt(0) }}</span>
-              }
-              <span>
-                <strong>{{ workspace.t(reference.name) }}</strong>
-                <small>{{ workspace.t(reference.position) }}</small>
-                <em>{{ workspace.t(reference.context) }}</em>
-              </span>
-            </figcaption>
-          </figure>
-        }
-      </div>
-    </section>
   </div>
 </section>

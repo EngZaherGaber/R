@@ -2,92 +2,349 @@
   display: block;
 }
 
-.category-grid {
-  display: grid;
-  gap: 1.15rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
-  align-items: start;
+:host(.sheet-open) {
+  z-index: 90;
 }
 
-.category {
-  padding: 1.35rem;
-}
+/* ========================================================= category rail == */
 
-.category header {
+.category-rail {
   display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--line);
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  padding: 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
 }
 
-.category header i {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
-  background: var(--accent-soft);
+.category-rail button {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 46px;
+  padding: 0 0.95rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
+  color: var(--muted-strong);
+  font-size: 0.88rem;
+  scroll-snap-align: start;
+  white-space: nowrap;
+  transition: border-color 0.16s ease, background 0.16s ease, color 0.16s ease;
+}
+
+.category-rail button i {
   color: var(--accent-text);
-  font-size: 1.05rem;
 }
 
-.category h3 {
-  font-size: 1.05rem;
-}
-
-.category header p {
-  margin-top: 0.25rem;
-  font-size: 0.86rem;
-  color: var(--muted);
-}
-
-.skill-list {
-  display: grid;
-  gap: 1rem;
-}
-
-.skill strong {
-  font-size: 0.95rem;
+.category-rail button:hover {
+  border-color: var(--accent-line);
   color: var(--text-strong);
 }
 
-.skill > p {
-  margin-top: 0.15rem;
-  font-size: 0.875rem;
+.category-rail button.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+/* ========================================================== constellation = */
+
+.constellation {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 62rem) {
+  .constellation {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+    align-items: stretch;
+  }
+}
+
+.orbit {
+  position: relative;
+  min-height: clamp(20rem, 42vw, 26rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  overflow: hidden;
+}
+
+.orbit-ring {
+  position: absolute;
+  inset: 12%;
+  border: 1px dashed color-mix(in srgb, var(--accent), transparent 72%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.orbit-ring.inner {
+  inset: 28%;
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--accent), transparent 86%);
+}
+
+.orbit-core {
+  position: absolute;
+  inset-inline-start: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border: 1px solid var(--accent-line);
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-size: 1.2rem;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 34px color-mix(in srgb, var(--accent), transparent 76%);
+}
+
+.constellation-node {
+  position: absolute;
+  inset-inline-start: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+  min-height: 40px;
+  padding: 0.42rem 0.72rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface-2);
+  backdrop-filter: blur(8px);
   color: var(--muted-strong);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.constellation-node:hover {
+  border-color: var(--accent-line);
+  color: var(--text-strong);
+}
+
+.constellation-node.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text-strong);
+  font-weight: 600;
+  box-shadow: 0 0 22px color-mix(in srgb, var(--accent), transparent 70%);
+}
+
+/* Particles travelling from the picked node to the evidence orb. */
+:host ::ng-deep .skill-particle {
+  position: absolute;
+  z-index: 7;
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 999px;
+  background: var(--accent);
+  pointer-events: none;
+}
+
+@media (max-width: 62rem) {
+  /* On narrow screens the orbit becomes a readable wrap of chips. */
+  .orbit {
+    min-height: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 1rem;
+  }
+
+  .orbit-ring,
+  .orbit-core {
+    display: none;
+  }
+
+  .constellation-node {
+    position: static;
+    transform: none;
+  }
+}
+
+/* =============================================================== evidence = */
+
+.evidence {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 0.6rem;
+  padding: clamp(1.15rem, 2.5vw, 1.8rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-md);
+}
+
+.detail-orb {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  margin-bottom: 0.3rem;
+  border: 1px solid var(--accent-line);
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-size: 1.15rem;
+}
+
+.evidence h3 {
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+}
+
+.evidence-note {
+  max-width: 46ch;
+  color: var(--muted-strong);
+  font-size: 0.93rem;
 }
 
 .proof {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem;
+  margin-top: 0.5rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+
+.proof ul,
+.sheet-proof {
+  display: grid;
+  gap: 0.4rem;
   margin-top: 0.5rem;
 }
 
-.proof-label {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+.proof li,
+.sheet-proof li {
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.5rem 0.7rem;
+  border-inline-start: 2px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--surface-2);
+}
+
+.proof strong,
+.sheet-proof strong {
+  font-size: 0.9rem;
+  color: var(--text-strong);
+}
+
+.proof small,
+.sheet-proof small {
+  font-size: 0.78rem;
   color: var(--muted);
 }
 
-html[lang="ar"] .proof-label {
-  font-family: var(--font-sans);
-  letter-spacing: 0;
-  text-transform: none;
-  font-size: 0.78rem;
+/* ============================================================ full index == */
+
+.skill-index {
+  margin-top: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-2);
 }
 
-.proof-item {
-  padding: 0.12rem 0.5rem;
-  border: 1px solid var(--accent-line);
-  border-radius: 999px;
-  background: var(--accent-soft);
-  font-size: 0.76rem;
+.skill-index summary {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--muted-strong);
+}
+
+.skill-index summary:hover {
+  color: var(--text-strong);
+}
+
+.index-grid {
+  display: grid;
+  gap: 1.35rem;
+  padding: 0 1rem 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+
+.index-grid h3 {
+  font-size: 0.98rem;
+  margin-bottom: 0.2rem;
+}
+
+.index-grid > section > p {
+  margin-bottom: 0.55rem;
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.index-grid ul {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.index-grid li {
+  display: grid;
+  font-size: 0.85rem;
+}
+
+.index-grid li strong {
+  color: var(--text);
+}
+
+.index-grid li span {
+  color: var(--muted);
+}
+
+/* ================================================================ sheet == */
+
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(4, 6, 10, 0.62);
+}
+
+.skill-sheet {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 101;
+  display: grid;
+  gap: 0.5rem;
+  max-height: 82dvh;
+  overflow-y: auto;
+  padding: 0.6rem 1.15rem calc(1.6rem + env(safe-area-inset-bottom));
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-top: 1px solid var(--line-strong);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-lg);
+}
+
+.sheet-handle {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 32px;
+  margin-bottom: 0.3rem;
+}
+
+.sheet-handle span {
+  width: 3rem;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--line-strong);
 }

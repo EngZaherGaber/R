@@ -7,7 +7,7 @@
     </div>
 
     <div class="mindset-layout reveal">
-      <div class="topic-list" role="tablist" aria-orientation="vertical">
+      <div class="topic-list" role="tablist" aria-orientation="vertical" (keydown)="onKeydown($event)">
         @for (topic of topics; track topic.id) {
           <button
             type="button"

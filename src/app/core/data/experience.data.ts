@@ -140,49 +140,52 @@ export const experience: ExperienceEntry[] = [
 ];
 
 /**
- * Genuine feedback from colleagues and clients, edited for clarity and reviewed
- * and approved by each person before publication.
+ * Approved testimonials.
+ *
+ * The English text is the exact wording each person reviewed and approved and
+ * must not be paraphrased. The Arabic is a translation of that approved text,
+ * labelled as such in the UI.
  */
 export const recommendations: Recommendation[] = [
   {
     id: 'motaz-halabi',
     name: { en: 'Motaz Al-Halabi', ar: 'معتز الحلبي' },
-    position: { en: 'Project Manager, IDS', ar: 'مدير مشاريع، IDS' },
+    position: { en: 'Project Manager (IDS)', ar: 'مدير مشاريع (IDS)' },
     context: {
-      en: 'Direct manager on Tower Load Inventory and the Workflow Automation System',
-      ar: 'المدير المباشر في Tower Load Inventory ونظام أتمتة سير العمل',
+      en: 'Leadership across TLIS and workflow systems',
+      ar: 'القيادة في نظام TLIS وأنظمة سير العمل',
     },
     message: {
-      en: 'As Zaher’s direct manager at IDS, I saw his growth as a front-end Angular lead. He played a key role in delivering critical projects such as the TLIS system for Syriatel and our Workflow Automation System. Zaher consistently demonstrates strong Angular expertise, dependable leadership, and the ability to translate complex requirements into clean, maintainable code. He leads with integrity and raises the standard of the people around him.',
-      ar: 'بصفتي مديره المباشر في IDS، رأيت تطوّر زاهر كقائد لواجهات Angular. أدّى دوراً أساسياً في تسليم مشاريع حرجة مثل نظام TLIS لسيرياتل ونظام أتمتة سير العمل لدينا. يُظهر زاهر باستمرار خبرة قوية في Angular، وقيادة يُعتمد عليها، وقدرة على تحويل متطلبات معقّدة إلى كود نظيف وقابل للصيانة. يقود بنزاهة ويرفع مستوى من حوله.',
+      en: "As Zaher's direct manager at IDS, I had the pleasure of seeing his growth as a Front-End Angular Team Leader. He played a key role in delivering critical projects such as the TLIS system for Syriatel and our Workflow Automation System. Zaher consistently demonstrates technical mastery in Angular, strong leadership, and the ability to translate complex requirements into clean, maintainable code. He leads with integrity and inspires his team to exceed expectations.",
+      ar: 'بصفتي مديره المباشر في IDS، سعدت بمتابعة تطوّره كقائد فريق واجهات أمامية في Angular. أدّى دوراً أساسياً في تسليم مشاريع حرجة مثل نظام TLIS لسيرياتل ونظام أتمتة سير العمل لدينا. يُظهر زاهر باستمرار تمكّناً تقنياً في Angular، وقيادة قوية، وقدرة على تحويل المتطلبات المعقّدة إلى كود نظيف وقابل للصيانة. يقود بنزاهة ويلهم فريقه لتجاوز التوقعات.',
     },
     projectIds: ['tli', 'workflow'],
   },
   {
     id: 'omar-fallouh',
     name: { en: 'Omar Fallouh', ar: 'عمر فلوح' },
-    position: { en: 'CEO, IC&I', ar: 'الرئيس التنفيذي، IC&I' },
+    position: { en: 'CEO (IC&I)', ar: 'الرئيس التنفيذي (IC&I)' },
     context: {
-      en: 'Enterprise Angular delivery on the UN project',
-      ar: 'تسليم واجهة Angular مؤسسية في مشروع الأمم المتحدة',
+      en: 'Enterprise Angular and multilingual delivery',
+      ar: 'تسليم Angular مؤسسي متعدد اللغات',
     },
     message: {
-      en: 'Eng. Zaher was instrumental in our UN project, delivering a secure Angular solution with a well-structured frontend architecture. His work on reactive data flow and state management produced high-performance multilingual interfaces. He works well across cultures and handles enterprise-scale requirements with clarity.',
-      ar: 'كان المهندس زاهر عنصراً أساسياً في مشروع الأمم المتحدة لدينا، إذ سلّم حلاً آمناً بـ Angular ببنية واجهة محكمة التنظيم. أنتج عمله على تدفق البيانات التفاعلي وإدارة الحالة واجهات متعددة اللغات عالية الأداء. يعمل بكفاءة عبر ثقافات مختلفة ويتعامل مع متطلبات بحجم مؤسسي بوضوح.',
+      en: 'Eng. Zaher was instrumental in our UN project, delivering a secure Angular solution with micro-frontend architecture. His expertise in RxJS optimization and NgRx state management enabled high-performance multilingual interfaces. A strategic thinker who excels in cross-cultural environments and enterprise-scale challenges.',
+      ar: 'كان المهندس زاهر عنصراً أساسياً في مشروع الأمم المتحدة لدينا، إذ سلّم حلاً آمناً بـ Angular ببنية micro-frontend. مكّنت خبرته في تحسين RxJS وإدارة الحالة بـ NgRx من بناء واجهات متعددة اللغات عالية الأداء. مفكّر استراتيجي يتفوّق في البيئات متعددة الثقافات وفي التحديات بحجم المؤسسات.',
     },
     projectIds: ['undp'],
   },
   {
     id: 'mohanad-halabi',
     name: { en: 'Mohanad Al-Halabi', ar: 'مهند الحلبي' },
-    position: { en: 'Executive Manager, IC&I', ar: 'المدير التنفيذي، IC&I' },
+    position: { en: 'Executive Manager (IC&I)', ar: 'المدير التنفيذي (IC&I)' },
     context: {
-      en: 'Collaboration and delivery under pressure',
-      ar: 'التعاون والتسليم تحت الضغط',
+      en: 'Communication, mentoring, and delivery under pressure',
+      ar: 'التواصل والإرشاد والتسليم تحت الضغط',
     },
     message: {
-      en: 'Eng. Zaher combines technical strength with steady collaboration. He communicates clearly, supports the people he works with, and keeps his professionalism when timelines get tight. He delivers results without letting team morale pay for it.',
-      ar: 'يجمع المهندس زاهر بين القوة التقنية والتعاون الثابت. يتواصل بوضوح، ويدعم من يعمل معهم، ويحافظ على مهنيته حين تضيق المواعيد. يحقق النتائج دون أن تدفع معنويات الفريق ثمنها.',
+      en: 'Eng. Zaher combines technical excellence with outstanding leadership skills. His ability to communicate clearly, mentor team members, and maintain professionalism under pressure makes him invaluable. Zaher fosters collaboration and consistently delivers results while keeping team morale high.',
+      ar: 'يجمع المهندس زاهر بين التميّز التقني ومهارات قيادية بارزة. قدرته على التواصل بوضوح، وإرشاد أعضاء الفريق، والحفاظ على مهنيته تحت الضغط تجعله عنصراً لا يُعوَّض. يعزّز زاهر التعاون ويحقق النتائج باستمرار مع الحفاظ على معنويات الفريق عالية.',
     },
     image: 'Mohanad.webp',
     projectIds: ['undp'],
@@ -190,14 +193,14 @@ export const recommendations: Recommendation[] = [
   {
     id: 'jamal-halabi',
     name: { en: 'Jamal Al-Halabi', ar: 'جمال الحلبي' },
-    position: { en: 'Founder & Owner, 2GO Group', ar: 'المؤسس والمالك، مجموعة 2GO' },
+    position: { en: 'Founder & Owner (2GO Group)', ar: 'المؤسس والمالك (مجموعة 2GO)' },
     context: {
-      en: 'Commerce work across the 2GO storefronts',
-      ar: 'العمل التجاري عبر متاجر 2GO',
+      en: 'Shopify ecosystem growth across 2GO brands',
+      ar: 'نمو منظومة Shopify عبر علامات 2GO',
     },
     message: {
-      en: 'Eng. Zaher has been the backbone of our e-commerce work across the 2GO brands. His knowledge of Shopify development, attention to detail, and ability to deliver customized solutions have clearly improved our online performance. He understands both the technology and the business behind it.',
-      ar: 'كان المهندس زاهر العمود الفقري لعملنا في التجارة الإلكترونية عبر علامات 2GO. معرفته بتطوير Shopify، ودقته في التفاصيل، وقدرته على تسليم حلول مخصّصة، حسّنت أداءنا على الإنترنت بوضوح. يفهم التقنية والعمل التجاري خلفها معاً.',
+      en: 'Eng. Zaher has been the backbone of our e-commerce ecosystem across all 2GO brands, including Phone Parts 2GO, Hulle 2GO, and ReiseKoffer 2GO. His deep knowledge of Shopify development, attention to detail, and ability to deliver scalable, customized solutions have significantly boosted our online performance. Zaher understands both technology and business needs, making him an essential part of our growth journey.',
+      ar: 'كان المهندس زاهر العمود الفقري لمنظومتنا في التجارة الإلكترونية عبر جميع علامات 2GO، بما فيها Phone Parts 2GO وHulle 2GO وReiseKoffer 2GO. معرفته العميقة بتطوير Shopify، ودقته في التفاصيل، وقدرته على تسليم حلول مخصّصة وقابلة للتوسّع، عزّزت أداءنا على الإنترنت بشكل ملحوظ. يفهم زاهر التقنية واحتياجات العمل معاً، ما يجعله جزءاً أساسياً من رحلة نمونا.',
     },
     image: 'jamal.webp',
     projectIds: ['huelle', 'phoneparts', 'reisekoffer'],

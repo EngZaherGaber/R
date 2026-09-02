@@ -2,72 +2,200 @@
   display: block;
   position: relative;
   min-height: 100dvh;
+
+  /* Driven by MotionService from scroll position and velocity. */
+  --grid-warp: 0px;
+  --wash-shift: 0px;
+  --star-near-y: 0px;
+  --star-mid-y: 0px;
+  --star-far-y: 0px;
+  --star-drift-x: 0px;
+  --star-stretch: 1;
 }
 
-/* A single, static gradient wash. No looping starfield, no blend modes, no
-   continuous animation - it costs one paint and nothing else. */
-.ambient {
+/* ================================================================ cosmic == */
+
+.cosmic-field {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
+  overflow: hidden;
   pointer-events: none;
+  perspective: 1200px;
   background:
     radial-gradient(
-      68rem 42rem at 78% -8%,
+      circle at 18% 8%,
+      color-mix(in srgb, var(--accent), transparent 84%),
+      transparent 32rem
+    ),
+    radial-gradient(circle at 84% 26%, rgba(96, 165, 250, 0.1), transparent 30rem),
+    linear-gradient(180deg, var(--bg), var(--bg-deep) 48%, var(--bg));
+}
+
+.star-layer,
+.nebula-wash,
+.tech-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.star-layer {
+  transform-origin: 50% 50%;
+  background-repeat: repeat;
+}
+
+.star-layer.far {
+  opacity: 0.6;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 0 1px, transparent 1.4px),
+    radial-gradient(circle, color-mix(in srgb, var(--accent), white 30%) 0 1px, transparent 1.5px);
+  background-size: 150px 150px, 310px 310px;
+  transform: translate3d(calc(var(--star-drift-x) * 0.3), var(--star-far-y), -380px) scale(1.25);
+}
+
+.star-layer.mid {
+  opacity: 0.5;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.66) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle, rgba(125, 211, 252, 0.6) 0 1px, transparent 1.8px);
+  background-size: 96px 96px, 220px 220px;
+  transform: translate3d(calc(var(--star-drift-x) * 0.7), var(--star-mid-y), -120px)
+    scaleY(var(--star-stretch));
+}
+
+.star-layer.near {
+  opacity: 0.2;
+  background-image:
+    radial-gradient(ellipse, rgba(255, 255, 255, 0.85) 0 1px, transparent 1.8px),
+    radial-gradient(ellipse, color-mix(in srgb, var(--accent), white 20%) 0 1px, transparent 2px);
+  background-size: 64px 120px, 180px 260px;
+  transform: translate3d(var(--star-drift-x), var(--star-near-y), 180px) scaleY(var(--star-stretch));
+}
+
+.nebula-wash {
+  opacity: 0.24;
+  mix-blend-mode: plus-lighter;
+  background:
+    radial-gradient(
+      circle at 20% 16%,
+      color-mix(in srgb, var(--accent), transparent 66%),
+      transparent 30rem
+    ),
+    radial-gradient(circle at 78% 34%, rgba(96, 165, 250, 0.16), transparent 34rem),
+    radial-gradient(circle at 52% 82%, rgba(34, 211, 238, 0.1), transparent 30rem);
+  transform: translate3d(0, var(--wash-shift), 0);
+}
+
+/* Workspace geometry: the grid that makes the field feel technical, not spacey. */
+.tech-grid {
+  opacity: 0.2;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--line), transparent 62%) 1px, transparent 1px),
+    linear-gradient(180deg, color-mix(in srgb, var(--line), transparent 70%) 1px, transparent 1px);
+  background-size: 84px 84px;
+  transform: translate3d(0, calc(var(--grid-warp) * -0.35), 0)
+    scaleY(calc(1 + var(--grid-warp) / 260));
+  transform-origin: 50% 0%;
+  mask-image: radial-gradient(circle at 50% 24%, black, transparent 70%);
+  animation: grid-drift 24s linear infinite;
+}
+
+@keyframes grid-drift {
+  to {
+    background-position: -84px 84px;
+  }
+}
+
+/* The light theme reads the same geometry as a quiet technical plan, not space. */
+body.light .star-layer {
+  opacity: 0.14;
+}
+
+body.light .star-layer.near {
+  display: none;
+}
+
+body.light .nebula-wash {
+  mix-blend-mode: normal;
+  opacity: 0.5;
+  background:
+    radial-gradient(
+      circle at 18% 12%,
       color-mix(in srgb, var(--accent), transparent 88%),
-      transparent 70%
+      transparent 32rem
     ),
-    radial-gradient(50rem 34rem at 4% 12%, rgba(120, 140, 255, 0.06), transparent 72%);
+    radial-gradient(circle at 80% 30%, rgba(120, 150, 220, 0.07), transparent 32rem);
 }
 
-body.light .ambient {
-  background:
-    radial-gradient(
-      68rem 42rem at 78% -8%,
-      color-mix(in srgb, var(--accent), transparent 90%),
-      transparent 70%
-    ),
-    radial-gradient(50rem 34rem at 4% 12%, rgba(90, 120, 220, 0.05), transparent 72%);
+body.light .tech-grid {
+  opacity: 0.5;
 }
 
-/* ------------------------------------------------------------------ header */
+/* Lean devices: keep the atmosphere, drop the expensive parts. */
+:host-context(html[data-lean-motion]) .star-layer.near {
+  display: none;
+}
 
-.site-header {
+:host-context(html[data-lean-motion]) .nebula-wash {
+  mix-blend-mode: normal;
+  opacity: 0.18;
+}
+
+:host-context(html[data-lean-motion]) .tech-grid {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-grid {
+    animation: none;
+  }
+}
+
+/* ================================================================ header == */
+
+.story-header {
   position: sticky;
   top: 0;
   z-index: 60;
-  border-bottom: 1px solid transparent;
-  background: color-mix(in srgb, var(--bg), transparent 20%);
-  backdrop-filter: blur(10px);
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-
-.site-header.is-scrolled {
-  border-bottom-color: var(--line);
-  background: color-mix(in srgb, var(--bg), transparent 8%);
+  padding-top: 0.6rem;
 }
 
 .header-inner {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  width: 100%;
+  gap: 0.75rem;
+  width: calc(100% - var(--gutter));
   max-width: var(--content-width);
   margin-inline: auto;
-  padding: 0.7rem var(--gutter);
+  padding: 0.45rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface), transparent 14%);
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(18px);
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.brand {
+.story-header.is-scrolled .header-inner {
+  border-color: var(--line-strong);
+  background: color-mix(in srgb, var(--surface), transparent 4%);
+}
+
+.brand-mark {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  text-decoration: none;
+  gap: 0.55rem;
   min-height: 44px;
+  padding-inline: 0.35rem 0.6rem;
+  border-radius: 999px;
+  text-decoration: none;
+  min-width: 0;
 }
 
-.brand img {
-  width: 36px;
-  height: 36px;
+.brand-mark img {
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 1px solid var(--line-strong);
   object-fit: cover;
@@ -75,44 +203,36 @@ body.light .ambient {
 
 .brand-text {
   display: grid;
-  line-height: 1.25;
+  line-height: 1.2;
+  min-width: 0;
 }
 
 .brand-text strong {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: var(--text-strong);
+  white-space: nowrap;
 }
 
 .brand-text small {
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   color: var(--muted);
-}
-
-/* On narrow screens the role would wrap the header to three lines. */
-@media (max-width: 30rem) {
-  .brand-text small {
-    display: none;
-  }
-
-  .brand-text strong {
-    white-space: nowrap;
-  }
+  white-space: nowrap;
 }
 
 .primary-nav {
   display: none;
-  margin-inline-start: auto;
-  gap: 0.15rem;
+  margin-inline: auto;
+  gap: 0.1rem;
 }
 
 .primary-nav a {
   position: relative;
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
+  min-height: 38px;
   padding: 0 0.75rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
   color: var(--muted-strong);
   text-decoration: none;
   transition: color 0.15s ease, background 0.15s ease;
@@ -125,23 +245,14 @@ body.light .ambient {
 
 .primary-nav a.active {
   color: var(--text-strong);
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px var(--accent-line);
 }
 
-/* Active state is a visible underline, not colour alone. */
-.primary-nav a.active::after {
-  content: "";
-  position: absolute;
-  inset-inline: 0.75rem;
-  bottom: 4px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--accent);
-}
-
-.header-controls {
+.rail-controls {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.3rem;
   margin-inline-start: auto;
 }
 
@@ -152,17 +263,23 @@ body.light .ambient {
   width: 44px;
   height: 44px;
   border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
+  border-radius: 999px;
   background: var(--surface-2);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
 .mobile-menu {
   display: grid;
   gap: 0.2rem;
-  padding: 0.5rem var(--gutter) 1rem;
-  border-top: 1px solid var(--line);
-  background: var(--bg-elevated);
+  width: calc(100% - var(--gutter));
+  max-width: var(--content-width);
+  margin: 0.4rem auto 0;
+  padding: 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--bg-elevated), transparent 4%);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(18px);
 }
 
 .mobile-menu a {
@@ -174,7 +291,6 @@ body.light .ambient {
   border-radius: var(--radius-sm);
   color: var(--muted-strong);
   text-decoration: none;
-  font-size: 1rem;
 }
 
 .mobile-menu a.active {
@@ -189,27 +305,103 @@ html[dir="rtl"] .mobile-menu a.active {
 
 .mobile-menu i {
   color: var(--accent-text);
-  font-size: 1.05rem;
 }
 
-@media (min-width: 62rem) {
+/* ============================================================== star map == */
+
+.star-map {
+  display: none;
+}
+
+@media (min-width: 68rem) {
   .primary-nav {
     display: flex;
-  }
-
-  .header-controls {
-    margin-inline-start: 0.75rem;
   }
 
   .menu-button,
   .mobile-menu {
     display: none;
   }
+
+  .star-map {
+    position: fixed;
+    inset-inline-end: 1.15rem;
+    top: 50%;
+    z-index: 55;
+    display: grid;
+    gap: 0.15rem;
+    transform: translateY(-50%);
+  }
+
+  .star-map a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    min-height: 26px;
+    padding-inline: 0.4rem;
+    text-decoration: none;
+  }
+
+  html[dir="rtl"] .star-map a {
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+  }
+
+  .star-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--muted);
+    opacity: 0.45;
+    transition: transform 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
+  }
+
+  .star-label {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0;
+    transform: translateX(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  html[lang="ar"] .star-label {
+    font-family: var(--font-sans);
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 0.74rem;
+  }
+
+  .star-map a:hover .star-label,
+  .star-map a:focus-visible .star-label,
+  .star-map a.active .star-label {
+    opacity: 1;
+    transform: none;
+  }
+
+  .star-map a.active .star-dot {
+    background: var(--accent);
+    opacity: 1;
+    transform: scale(1.45);
+    box-shadow: 0 0 14px var(--accent);
+  }
 }
 
-/* ------------------------------------------------------------------ footer */
+/* ================================================================ scenes == */
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================================================ footer == */
 
 .site-footer {
+  position: relative;
+  z-index: 1;
   border-top: 1px solid var(--line);
   padding-block: 1.75rem;
   margin-top: 2rem;
@@ -232,7 +424,7 @@ html[dir="rtl"] .mobile-menu a.active {
   min-height: 44px;
   padding: 0 0.9rem;
   border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
+  border-radius: 999px;
   color: var(--muted-strong);
   font-size: 0.88rem;
 }
@@ -242,6 +434,20 @@ html[dir="rtl"] .mobile-menu a.active {
   color: var(--text-strong);
 }
 
-html[dir="rtl"] .to-top i {
-  transform: none;
+@media (max-width: 30rem) {
+  .brand-text small {
+    display: none;
+  }
+
+  .brand-text strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* On the narrowest phones the accent picker gives up its space to the name. */
+@media (max-width: 26rem) {
+  .rail-controls accent-picker {
+    display: none;
+  }
 }

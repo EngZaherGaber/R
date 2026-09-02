@@ -1,4 +1,7 @@
-<section class="portfolio-section" aria-labelledby="expertise-title">
+@let activeCategory = category();
+@let activeSkill = skill();
+
+<section class="portfolio-section expertise" aria-labelledby="expertise-title">
   <div class="section-inner">
     <div class="section-heading reveal">
       <p class="section-kicker">{{ workspace.t(ui.expertise.kicker) }}</p>
@@ -6,35 +9,122 @@
       <p>{{ workspace.t(ui.expertise.description) }}</p>
     </div>
 
-    <div class="category-grid">
-      @for (category of categories; track category.id) {
-        <section class="category card reveal" [attr.aria-labelledby]="'category-' + category.id">
-          <header>
-            <i [class]="category.icon" aria-hidden="true"></i>
-            <div>
-              <h3 [id]="'category-' + category.id">{{ workspace.t(category.title) }}</h3>
-              <p>{{ workspace.t(category.description) }}</p>
-            </div>
-          </header>
+    <!-- Category selector: the five orbits of the constellation. -->
+    <div class="category-rail reveal" role="tablist" [attr.aria-label]="workspace.t(ui.expertise.categoriesLabel)">
+      @for (item of categories; track item.id) {
+        <button
+          type="button"
+          role="tab"
+          [id]="'category-tab-' + item.id"
+          [attr.aria-selected]="categoryId() === item.id"
+          [attr.aria-controls]="'category-panel-' + item.id"
+          [attr.tabindex]="categoryId() === item.id ? 0 : -1"
+          [class.active]="categoryId() === item.id"
+          (click)="selectCategory(item.id)"
+        >
+          <i [class]="item.icon" aria-hidden="true"></i>
+          <span>{{ workspace.t(item.title) }}</span>
+        </button>
+      }
+    </div>
 
-          <ul class="skill-list">
-            @for (skill of category.skills; track skill.id) {
-              <li class="skill">
-                <strong>{{ skill.name }}</strong>
-                <p>{{ workspace.t(skill.note) }}</p>
-                @if (proofNames(skill.projectIds).length) {
-                  <p class="proof">
-                    <span class="proof-label">{{ workspace.t(ui.expertise.proofLabel) }}</span>
-                    @for (name of proofNames(skill.projectIds); track name) {
-                      <span class="proof-item">{{ name }}</span>
-                    }
-                  </p>
-                }
+    <div
+      class="constellation reveal"
+      role="tabpanel"
+      [id]="'category-panel-' + activeCategory.id"
+      [attr.aria-labelledby]="'category-tab-' + activeCategory.id"
+    >
+      <div class="orbit" [attr.aria-label]="workspace.t(activeCategory.title)">
+        <span class="orbit-ring" aria-hidden="true"></span>
+        <span class="orbit-ring inner" aria-hidden="true"></span>
+
+        <span class="orbit-core" aria-hidden="true">
+          <i [class]="activeCategory.icon"></i>
+        </span>
+
+        @for (item of activeCategory.skills; track item.id; let i = $index) {
+          <button
+            #node
+            type="button"
+            class="constellation-node"
+            [class.active]="activeSkill.id === item.id"
+            [style]="nodeStyle(i, activeCategory.skills.length)"
+            [attr.aria-pressed]="activeSkill.id === item.id"
+            (click)="selectSkill(item.id, node)"
+          >
+            <span>{{ item.name }}</span>
+          </button>
+        }
+      </div>
+
+      <!--
+        Evidence panel. Always rendered with the full text of the selected
+        skill; every skill in the category is also listed below so the
+        prerendered HTML carries the whole map.
+      -->
+      <aside class="evidence" aria-live="polite">
+        <div class="detail-orb" aria-hidden="true">
+          <i [class]="activeCategory.icon"></i>
+        </div>
+
+        <p class="evidence-swap mono-label">{{ workspace.t(activeCategory.title) }}</p>
+        <h3 class="evidence-swap">{{ activeSkill.name }}</h3>
+        <p class="evidence-swap evidence-note">{{ workspace.t(activeSkill.note) }}</p>
+
+        <div class="evidence-swap proof">
+          <p class="mono-label">{{ workspace.t(ui.expertise.proofLabel) }}</p>
+          <ul>
+            @for (project of proofProjects(); track project.id) {
+              <li>
+                <strong>{{ workspace.t(project.name) }}</strong>
+                <small>{{ workspace.t(project.descriptor) }}</small>
               </li>
             }
           </ul>
-        </section>
-      }
+        </div>
+      </aside>
     </div>
+
+    <!-- Full, crawlable map of every category and skill. -->
+    <details class="skill-index reveal">
+      <summary>{{ workspace.t(ui.expertise.indexLabel) }}</summary>
+      <div class="index-grid">
+        @for (item of categories; track item.id) {
+          <section>
+            <h3>{{ workspace.t(item.title) }}</h3>
+            <p>{{ workspace.t(item.description) }}</p>
+            <ul>
+              @for (entry of item.skills; track entry.id) {
+                <li>
+                  <strong>{{ entry.name }}</strong>
+                  <span>{{ workspace.t(entry.note) }}</span>
+                </li>
+              }
+            </ul>
+          </section>
+        }
+      </div>
+    </details>
   </div>
+
+  @if (sheetOpen()) {
+    <div class="sheet-backdrop" (click)="closeSheet()" aria-hidden="true"></div>
+    <aside #sheet class="skill-sheet" role="dialog" aria-modal="true" aria-labelledby="skill-sheet-title">
+      <button type="button" class="sheet-handle" [attr.aria-label]="workspace.t(ui.expertise.closeDetails)" (click)="closeSheet()">
+        <span></span>
+      </button>
+      <p class="mono-label">{{ workspace.t(activeCategory.title) }}</p>
+      <h3 id="skill-sheet-title">{{ activeSkill.name }}</h3>
+      <p class="evidence-note">{{ workspace.t(activeSkill.note) }}</p>
+      <p class="mono-label">{{ workspace.t(ui.expertise.proofLabel) }}</p>
+      <ul class="sheet-proof">
+        @for (project of proofProjects(); track project.id) {
+          <li>
+            <strong>{{ workspace.t(project.name) }}</strong>
+            <small>{{ workspace.t(project.descriptor) }}</small>
+          </li>
+        }
+      </ul>
+    </aside>
+  }
 </section>

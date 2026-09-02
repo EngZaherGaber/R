@@ -1,14 +1,17 @@
 <section class="hero portfolio-section" aria-labelledby="hero-name">
   <div class="section-inner hero-inner">
     <div class="hero-copy">
-      <p class="section-kicker hero-token">{{ workspace.t(ui.hero.eyebrow) }}</p>
+      <p class="hero-eyebrow hero-token">
+        <span class="eyebrow-dot" aria-hidden="true"></span>
+        {{ workspace.t(ui.hero.eyebrow) }}
+      </p>
 
       <h1 id="hero-name" class="hero-token">{{ name() }}</h1>
       <p class="hero-role hero-token">{{ role() }}</p>
       <p class="hero-tagline hero-token">{{ tagline() }}</p>
 
       <p class="hero-employment hero-token">
-        <span class="employment-label">{{ workspace.t(ui.hero.employmentLabel) }}</span>
+        <span class="employment-label mono-label">{{ workspace.t(ui.hero.employmentLabel) }}</span>
         <strong>{{ workspace.t(employment.title) }}</strong>
         <span aria-hidden="true">·</span>
         <span>{{ workspace.t(employment.company) }}</span>
@@ -28,13 +31,13 @@
         </button>
       </div>
 
-      <div class="hero-stack">
-        <p class="stack-label">{{ workspace.t(ui.hero.stackLabel) }}</p>
+      <div class="hero-stack hero-token">
+        <p class="stack-label mono-label">{{ workspace.t(ui.hero.stackLabel) }}</p>
         <ul class="stack-list">
           @for (item of coreStack; track item.id) {
-            <li class="stack-node">
+            <li class="stack-chip">
               @if (item.icon) {
-                <img [src]="item.icon" width="20" height="20" alt="" aria-hidden="true" />
+                <img [src]="item.icon" width="18" height="18" alt="" aria-hidden="true" />
               }
               <span class="stack-name">{{ item.label }}</span>
               <span class="stack-role">{{ workspace.t(item.role) }}</span>
@@ -44,31 +47,48 @@
       </div>
     </div>
 
-    <!-- How the stack fits together. Structural, not decorative: four clients,
-         one API, one database, inside a single Nx workspace. -->
-    <figure class="hero-diagram hero-token">
-      <figcaption class="diagram-caption">{{ workspace.t(ui.hero.diagramLabel) }}</figcaption>
+    <!--
+      The Nx workspace map. It is the architecture I actually build, drawn as a
+      system: four clients over one API over one database, inside one workspace.
+      MotionService assembles the nodes and draws the links on entrance.
+    -->
+    <figure class="hero-map">
+      <figcaption class="map-caption hero-token">{{ workspace.t(ui.hero.diagramLabel) }}</figcaption>
 
-      <div class="workspace-frame" aria-hidden="true">
-        <span class="frame-label">Nx workspace</span>
+      <div class="workspace-frame">
+        <span class="frame-tag mono-label">Nx workspace</span>
 
-        <div class="frame-row clients">
-          <span class="node"><img src="icons/angular.svg" width="16" height="16" alt="" />Web</span>
-          <span class="node"><img src="icons/ionic.svg" width="16" height="16" alt="" />Mobile</span>
-          <span class="node"><img src="icons/angular.svg" width="16" height="16" alt="" />Admin</span>
+        <svg class="map-links" viewBox="0 0 320 210" preserveAspectRatio="none" aria-hidden="true">
+          <path class="map-link" pathLength="1" d="M52 46 C52 90, 160 84, 160 108" />
+          <path class="map-link" pathLength="1" d="M124 46 C124 88, 160 88, 160 108" />
+          <path class="map-link" pathLength="1" d="M196 46 C196 88, 160 88, 160 108" />
+          <path class="map-link" pathLength="1" d="M268 46 C268 90, 160 84, 160 108" />
+          <path class="map-link trunk" pathLength="1" d="M160 132 L160 166" />
+        </svg>
+
+        <div class="map-row clients">
+          @for (client of clients; track client.id) {
+            <span class="map-node">
+              <img [src]="client.icon" width="16" height="16" alt="" aria-hidden="true" />
+              <b>{{ workspace.t(client.label) }}</b>
+              <small>{{ client.tech }}</small>
+            </span>
+          }
         </div>
 
-        <span class="connector"></span>
-
-        <div class="frame-row">
-          <span class="node api"><img src="icons/nestjs.svg" width="16" height="16" alt="" />NestJS API</span>
+        <div class="map-row">
+          <span class="map-node core">
+            <img src="icons/nestjs.svg" width="16" height="16" alt="" aria-hidden="true" />
+            <b>{{ workspace.t(apiNode.label) }}</b>
+            <small>{{ apiNode.tech }}</small>
+          </span>
         </div>
 
-        <span class="connector"></span>
-
-        <div class="frame-row">
-          <span class="node data">
-            <img src="icons/postgresql.svg" width="16" height="16" alt="" />PostgreSQL
+        <div class="map-row">
+          <span class="map-node core">
+            <img src="icons/postgresql.svg" width="16" height="16" alt="" aria-hidden="true" />
+            <b>{{ workspace.t(dataNode.label) }}</b>
+            <small>{{ dataNode.tech }}</small>
           </span>
         </div>
       </div>

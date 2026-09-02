@@ -28,14 +28,14 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
   readonly socials = computed(() => this.profile.socials.filter((social) => social.url));
   readonly copiedId = signal<string | null>(null);
 
-  private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly motion = inject(MotionService);
   private copyTimer?: number;
 
   constructor(@Inject(PLATFORM_ID) private readonly platformId: object) {}
 
   ngAfterViewInit(): void {
-    void this.motion.revealOnScroll(this.elementRef.nativeElement, '.reveal');
+    void this.motion.sectionReveal(this.elementRef.nativeElement);
   }
 
   ngOnDestroy(): void {

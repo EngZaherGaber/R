@@ -31,6 +31,22 @@ export const ui = {
     clientLabel: { en: 'Client', ar: 'العميل' },
     stackLabel: { en: 'Stack', ar: 'التقنيات' },
     statusLabel: { en: 'Status', ar: 'الحالة' },
+    indexLabel: { en: 'Project index', ar: 'فهرس المشاريع' },
+    panelLabels: {
+      overview: { en: 'Overview', ar: 'نظرة عامة' },
+      system: { en: 'Architecture', ar: 'البنية' },
+      evidence: { en: 'Evidence', ar: 'الدليل' },
+    },
+    problemLabel: { en: 'Problem', ar: 'المشكلة' },
+    referencesLabel: { en: 'Reference', ar: 'شهادة' },
+    translatedNote: {
+      en: 'Approved testimonial',
+      ar: 'شهادة معتمَدة (ترجمة عن النص الأصلي)',
+    },
+    assetsPending: {
+      en: 'Screenshots for this project are not published yet.',
+      ar: 'لقطات هذا المشروع لم تُنشر بعد.',
+    },
     capabilitiesLabel: { en: 'Key capabilities', ar: 'أبرز القدرات' },
     architectureLabel: { en: 'Architecture', ar: 'البنية' },
     galleryLabel: { en: 'From the system', ar: 'من داخل النظام' },
@@ -60,6 +76,9 @@ export const ui = {
       ar: 'كل تقنية مرتبطة بالمشاريع التي استُخدمت فيها فعلاً.',
     },
     proofLabel: { en: 'Used in', ar: 'مستخدمة في' },
+    categoriesLabel: { en: 'Skill areas', ar: 'مجالات المهارات' },
+    indexLabel: { en: 'See the full skill map', ar: 'عرض خريطة المهارات كاملة' },
+    closeDetails: { en: 'Close skill details', ar: 'إغلاق تفاصيل المهارة' },
   },
 
   experience: {
@@ -91,6 +110,34 @@ export const ui = {
       ar: 'مواقف أتبنّاها، بكلماتي، ومسنودة بالأعمال أعلاه.',
     },
     evidenceLabel: { en: 'In practice', ar: 'عملياً' },
+  },
+
+  services: {
+    kicker: { en: 'What I do', ar: 'ما أقدّمه' },
+    title: { en: 'How I usually get brought in', ar: 'كيف أُستدعى إلى العمل عادةً' },
+    description: {
+      en: 'Four kinds of work, each backed by projects on this page.',
+      ar: 'أربعة أنواع من العمل، كل منها مسنود بمشاريع في هذه الصفحة.',
+    },
+    deliverables: { en: 'Deliverables', ar: 'ما يُسلَّم' },
+    proof: { en: 'Proof', ar: 'الدليل' },
+    commerceLabel: { en: 'Also', ar: 'إضافةً إلى ذلك' },
+    closeDetails: { en: 'Close service details', ar: 'إغلاق تفاصيل الخدمة' },
+  },
+
+  trust: {
+    kicker: { en: 'Trust signals', ar: 'إشارات الثقة' },
+    title: { en: 'What people I worked with said', ar: 'ما قاله من عملت معهم' },
+    description: {
+      en: 'Approved testimonials from managers and clients, each tied to real work.',
+      ar: 'شهادات معتمَدة من مديرين وعملاء، كل منها مرتبط بعمل حقيقي.',
+    },
+    relatedWork: { en: 'Related work', ar: 'العمل المرتبط' },
+    translated: { en: 'Translated from the approved English text', ar: 'مترجمة عن النص الإنكليزي المعتمَد' },
+    pause: { en: 'Pause', ar: 'إيقاف' },
+    play: { en: 'Play', ar: 'تشغيل' },
+    previous: { en: 'Previous testimonial', ar: 'الشهادة السابقة' },
+    next: { en: 'Next testimonial', ar: 'الشهادة التالية' },
   },
 
   contact: {

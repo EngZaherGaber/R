@@ -12,7 +12,7 @@ export class AccentPickerComponent {
   readonly workspace = inject(WorkspacePreferencesService);
   readonly isOpen = signal(false);
 
-  private readonly elementRef = inject(ElementRef<HTMLElement>);
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
   toggleMenu(): void {
     this.isOpen.update((open) => !open);

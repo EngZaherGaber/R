@@ -3,7 +3,6 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Inject,
   OnDestroy,
   PLATFORM_ID,
   computed,
@@ -20,7 +19,9 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 import { HeroComponent } from '../hero/hero.component';
 import { WorkComponent } from '../work/work.component';
 import { ExpertiseComponent } from '../expertise/expertise.component';
+import { ServicesComponent } from '../services/services.component';
 import { ExperienceComponent } from '../experience/experience.component';
+import { TrustComponent } from '../trust/trust.component';
 import { MindsetComponent } from '../mindset/mindset.component';
 import { ContactComponent } from '../contact/contact.component';
 
@@ -34,7 +35,9 @@ import { ContactComponent } from '../contact/contact.component';
     HeroComponent,
     WorkComponent,
     ExpertiseComponent,
+    ServicesComponent,
     ExperienceComponent,
+    TrustComponent,
     MindsetComponent,
     ContactComponent,
   ],
@@ -55,17 +58,14 @@ export class ShellComponent implements AfterViewInit, OnDestroy {
   readonly brandName = computed(() => this.workspace.t(this.workspace.profile.name));
   readonly brandRole = computed(() => this.workspace.t(this.workspace.profile.role));
 
+  private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private observer?: IntersectionObserver;
-  private readonly isBrowser: boolean;
 
   constructor(
-    private readonly elementRef: ElementRef<HTMLElement>,
-    @Inject(PLATFORM_ID) platformId: object,
     // Instantiating the SEO service wires up title, meta, canonical and JSON-LD.
     private readonly seo: SeoService,
-  ) {
-    this.isBrowser = isPlatformBrowser(platformId);
-  }
+  ) {}
 
   ngAfterViewInit(): void {
     if (!this.isBrowser) {
@@ -75,6 +75,7 @@ export class ShellComponent implements AfterViewInit, OnDestroy {
     window.addEventListener('scroll', this.onScroll, { passive: true });
     this.onScroll();
     this.observeSections();
+    void this.motion.setupAmbientScroll();
   }
 
   ngOnDestroy(): void {
@@ -94,23 +95,16 @@ export class ShellComponent implements AfterViewInit, OnDestroy {
     this.menuOpen.update((open) => !open);
   }
 
-  backToTop(): void {
-    this.goTo('home');
-  }
-
   private readonly onScroll = (): void => {
     this.scrolled.set(window.scrollY > 12);
   };
 
-  /**
-   * Section tracking via IntersectionObserver rather than a scroll handler that
-   * measures every section on every frame.
-   */
+  /** Section tracking via IntersectionObserver rather than per-frame measurement. */
   private observeSections(): void {
     const sections = Array.from(
       this.elementRef.nativeElement.querySelectorAll<HTMLElement>('[data-section]'),
     );
-    if (sections.length === 0) {
+    if (!sections.length) {
       return;
     }
 
@@ -128,6 +122,6 @@ export class ShellComponent implements AfterViewInit, OnDestroy {
       { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5] },
     );
 
-    sections.forEach((section) => this.observer!.observe(section));
+    sections.forEach((section: HTMLElement) => this.observer!.observe(section));
   }
 }

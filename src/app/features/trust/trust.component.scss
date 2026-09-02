@@ -1,0 +1,310 @@
+:host {
+  display: block;
+}
+
+/* ================================================================ ribbon == */
+
+.ribbon {
+  margin-bottom: 1.25rem;
+  padding-block: 0.55rem;
+  border-block: 1px solid var(--line);
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.ribbon-track {
+  display: flex;
+  width: max-content;
+  gap: 2.5rem;
+  animation: ribbon-drift 68s linear infinite;
+}
+
+html[dir="rtl"] .ribbon-track {
+  animation-direction: reverse;
+}
+
+.ribbon:hover .ribbon-track,
+.ribbon:focus-within .ribbon-track,
+.ribbon.paused .ribbon-track {
+  animation-play-state: paused;
+}
+
+.ribbon-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.ribbon-item b {
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+@keyframes ribbon-drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ribbon-track {
+    animation: none;
+  }
+}
+
+:host-context(html[data-lean-motion]) .ribbon-track {
+  animation-duration: 110s;
+}
+
+/* ================================================================ layout == */
+
+.trust-layout {
+  display: grid;
+  gap: 1.15rem;
+}
+
+@media (min-width: 62rem) {
+  .trust-layout {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    grid-template-areas:
+      "senders letter"
+      "senders controls";
+    align-items: start;
+  }
+
+  .senders {
+    grid-area: senders;
+  }
+
+  .trust-letter {
+    grid-area: letter;
+  }
+
+  .letter-controls {
+    grid-area: controls;
+  }
+}
+
+/* =============================================================== senders == */
+
+.senders {
+  display: grid;
+  gap: 0.4rem;
+  align-content: start;
+}
+
+.senders button {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 56px;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  text-align: start;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+
+.senders button:hover {
+  border-color: var(--accent-line);
+  transform: translateY(-1px);
+}
+
+.senders button.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--accent), transparent 78%);
+}
+
+.senders img,
+.sender-initial {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.sender-initial {
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+.sender-initial.large {
+  width: 52px;
+  height: 52px;
+  font-size: 1.2rem;
+}
+
+.sender-text {
+  display: grid;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.sender-text strong {
+  font-size: 0.88rem;
+  color: var(--text-strong);
+}
+
+.sender-text small {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+/* ================================================================ letter == */
+
+.trust-letter {
+  position: relative;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1.35rem, 3vw, 2.25rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.letter-mark {
+  position: absolute;
+  top: -1.4rem;
+  inset-inline-end: 1.2rem;
+  font-size: 7rem;
+  line-height: 1;
+  color: var(--accent);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.trust-letter blockquote {
+  margin: 0;
+  max-width: 66ch;
+  font-size: clamp(0.98rem, 1.6vw, 1.1rem);
+  line-height: 1.75;
+  color: var(--muted-strong);
+}
+
+.trust-letter figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.trust-letter figcaption > span {
+  display: grid;
+  min-width: 0;
+}
+
+.trust-letter figcaption strong {
+  font-size: 0.95rem;
+  color: var(--text-strong);
+}
+
+.trust-letter figcaption small {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.trust-letter figcaption em {
+  font-style: normal;
+  font-size: 0.78rem;
+  color: var(--accent-text);
+}
+
+.letter-footer {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.related {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.related-item {
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  color: var(--muted-strong);
+}
+
+.translated-note {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ============================================================== controls == */
+
+.letter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.step-button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--accent-line);
+  border-radius: 999px;
+  color: var(--accent-text);
+  background: var(--surface-2);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.step-button:hover {
+  background: var(--accent-soft);
+  transform: translateY(-1px);
+}
+
+.step-button i {
+  transform: scaleX(-1);
+}
+
+.step-button.next i {
+  transform: none;
+}
+
+html[dir="rtl"] .step-button i {
+  transform: none;
+}
+
+html[dir="rtl"] .step-button.next i {
+  transform: scaleX(-1);
+}
+
+.ribbon-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  margin-inline-start: auto;
+  padding: 0 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.ribbon-toggle:hover {
+  border-color: var(--accent-line);
+  color: var(--text-strong);
+}

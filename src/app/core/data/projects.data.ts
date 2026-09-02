@@ -145,8 +145,8 @@ export const projects: Project[] = [
         id: 'result',
         heading: { en: 'Current state', ar: 'الوضع الحالي' },
         body: {
-          en: 'The MVP is deployed and usable end to end: a clinic can be created, staffed, and run through real patient, appointment, encounter, prescription and payment flows. Work continues on reporting depth and the mobile experience.',
-          ar: 'النسخة الأولى منشورة وقابلة للاستخدام من طرف إلى طرف: يمكن إنشاء عيادة وتزويدها بالطاقم وتشغيل مسارات حقيقية للمرضى والمواعيد والزيارات والوصفات والمدفوعات. والعمل مستمر على عمق التقارير وتجربة الموبايل.',
+          en: 'The MVP is ready and deployed, with the platform supporting its implemented core clinic workflows: patients, appointments, encounters, prescriptions, documents and payments.',
+          ar: 'النسخة الأولى جاهزة ومنشورة، وتدعم المنصة مسارات العيادة الأساسية المنفَّذة فيها: المرضى والمواعيد والزيارات والوصفات والوثائق والمدفوعات.',
         },
       },
     ],
@@ -392,8 +392,8 @@ export const projects: Project[] = [
         id: 'problem',
         heading: { en: 'What I inherited', ar: 'ما استلمته' },
         body: {
-          en: 'The frontend was in very poor structural condition. Responsibilities were tangled, flows were hard to follow, and changing one screen tended to break another. The system itself was needed in production, so a rewrite from zero was not on the table.',
-          ar: 'كانت الواجهة الأمامية بحالة بنيوية سيئة جداً. المسؤوليات متشابكة، والمسارات يصعب تتبعها، وتعديل شاشة يكسر أخرى غالباً. وكان النظام مطلوباً في الإنتاج، فلم تكن إعادة الكتابة من الصفر خياراً مطروحاً.',
+          en: 'The inherited frontend had accumulated significant structural and maintainability problems. The system itself was needed in production, so a rewrite from zero was not on the table — it had to be analysed and re-architected in place.',
+          ar: 'كانت الواجهة الموروثة قد تراكمت فيها مشكلات بنيوية ومشكلات في قابلية الصيانة. وكان النظام مطلوباً في الإنتاج، فلم تكن إعادة الكتابة من الصفر خياراً مطروحاً — كان لا بد من تحليلها وإعادة هندستها في مكانها.',
         },
       },
       {
@@ -426,14 +426,14 @@ export const projects: Project[] = [
       before: {
         en: [
           'Structural problems throughout the frontend',
-          'Flows that were hard to follow or change',
-          'Duplicated screen logic with no reusable layer',
+          'Structure that resisted change and review',
+          'Screen logic without a reusable layer',
           'Maintenance cost rising with every feature',
         ],
         ar: [
           'مشكلات بنيوية في عموم الواجهة الأمامية',
-          'مسارات يصعب تتبعها أو تعديلها',
-          'منطق شاشات مكرّر بلا طبقة قابلة لإعادة الاستخدام',
+          'بنية تقاوم التعديل والمراجعة',
+          'منطق شاشات بلا طبقة قابلة لإعادة الاستخدام',
           'كلفة صيانة ترتفع مع كل ميزة',
         ],
       },
@@ -529,8 +529,8 @@ export const projects: Project[] = [
         id: 'approach',
         heading: { en: 'What I did', ar: 'ما فعلته' },
         body: {
-          en: 'I started by understanding the engine’s model — templates, phases, actions, transitions — then restructured the frontend around that model instead of around individual screens. Requests, actions and workflow configuration became driven by data, so a new process is a configuration change rather than a release.',
-          ar: 'بدأت بفهم نموذج المحرك — القوالب والمراحل والإجراءات والانتقالات — ثم أعدت هيكلة الواجهة حول هذا النموذج بدل بنائها حول شاشات منفصلة. فصارت الطلبات والإجراءات وإعدادات سير العمل مقادة بالبيانات، وأصبح المسار الجديد تعديل إعداد لا إصداراً جديداً.',
+          en: 'I started by understanding the engine’s model — templates, phases, actions, transitions — then restructured the frontend around that model instead of around individual screens. Requests, actions and workflow configuration became data-driven, with a template designer and an action/form builder administrators work in directly.',
+          ar: 'بدأت بفهم نموذج المحرك — القوالب والمراحل والإجراءات والانتقالات — ثم أعدت هيكلة الواجهة حول هذا النموذج بدل بنائها حول شاشات منفصلة. فصارت الطلبات والإجراءات وإعدادات سير العمل مقادة بالبيانات، عبر مصمّم قوالب ومنشئ إجراءات ونماذج يعمل فيهما المسؤولون مباشرة.',
         },
       },
       {
@@ -563,13 +563,13 @@ export const projects: Project[] = [
         en: [
           'Frontend restructured around the workflow model',
           'Data-driven requests, actions and forms',
-          'New processes configured, not coded',
+          'A template designer and form builder for administrators',
           'A maintainable base the team could extend',
         ],
         ar: [
           'واجهة أُعيدت هيكلتها حول نموذج سير العمل',
           'طلبات وإجراءات ونماذج مقادة بالبيانات',
-          'مسارات جديدة تُعَدّ لا تُبرمَج',
+          'مصمّم قوالب ومنشئ نماذج للمسؤولين',
           'أساس قابل للصيانة يستطيع الفريق توسيعه',
         ],
       },

@@ -34,6 +34,7 @@
 }
 
 .topic-list button {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -43,11 +44,32 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   background: var(--surface);
+  backdrop-filter: blur(12px);
   color: var(--muted-strong);
   font-size: 0.9rem;
   text-align: start;
   scroll-snap-align: start;
   transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+/* A branch stub, so the list reads as a tree of positions, not a menu. */
+@media (min-width: 56rem) {
+  .topic-list button::after {
+    content: "";
+    position: absolute;
+    inset-inline-end: -0.75rem;
+    top: 50%;
+    width: 0.75rem;
+    height: 1px;
+    background: var(--line);
+    opacity: 0;
+    transition: opacity 0.18s ease;
+  }
+
+  .topic-list button.active::after {
+    background: var(--accent);
+    opacity: 1;
+  }
 }
 
 .topic-list button:hover {
@@ -70,9 +92,38 @@
 /* ------------------------------------------------------------- topic body */
 
 .topic-detail {
+  position: relative;
   display: grid;
   gap: 1rem;
-  padding: clamp(1.25rem, 3vw, 2rem);
+  padding: clamp(1.35rem, 3vw, 2.1rem);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Corner ticks: the workspace/blueprint cue used across the site. */
+.topic-detail::before,
+.topic-detail::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--accent-line);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.topic-detail::before {
+  top: 10px;
+  inset-inline-start: 10px;
+  border-width: 1px 0 0 1px;
+}
+
+.topic-detail::after {
+  bottom: 10px;
+  inset-inline-end: 10px;
+  border-width: 0 1px 1px 0;
 }
 
 .topic-detail h3 {
