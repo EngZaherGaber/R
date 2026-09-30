@@ -129,6 +129,28 @@
   line-height: 1;
 }
 
+.stage-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  height: 4.7rem;
+  margin-block: 0.35rem;
+  padding: 0.45rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.75rem;
+  background: #101e31;
+}
+
+.stage-brand img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
 html[lang="ar"] .stage-title {
   letter-spacing: 0;
   line-height: 1.28;

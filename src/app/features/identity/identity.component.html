@@ -28,7 +28,7 @@
       <button type="button" class="btn btn-primary" (click)="navigate.emit('work')">
         {{ workspace.t(ui.identity.primaryCta) }}
       </button>
-      <a class="btn" [href]="profile.cvPath" download target="_blank" rel="noopener">
+      <a class="btn" [href]="profile.cvPath" download="Zaher-Gaber-CV.pdf">
         {{ workspace.t(ui.identity.secondaryCta) }}
       </a>
       <button type="button" class="btn btn-quiet" (click)="navigate.emit('contact')">

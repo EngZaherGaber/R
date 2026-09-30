@@ -43,6 +43,7 @@
             "production": {
               "optimization": {
                 "scripts": true,
+                "fonts": false,
                 "styles": {
                   "minify": true,
                   "inlineCritical": true

@@ -20,7 +20,7 @@ import { TechnicalGraphFieldComponent } from '../../shared/components/technical-
 import { ZgLogoComponent } from '../../shared/brand/zg-logo/zg-logo.component';
 import { IdentityComponent } from '../identity/identity.component';
 import { SystemsComponent } from '../systems/systems.component';
-import { EngineeringGraphComponent } from '../engineering-graph/engineering-graph.component';
+import { OfferingsComponent } from '../offerings/offerings.component';
 import { JourneyComponent } from '../journey/journey.component';
 import { ContactComponent } from '../contact/contact.component';
 
@@ -35,7 +35,7 @@ import { ContactComponent } from '../contact/contact.component';
     ZgLogoComponent,
     IdentityComponent,
     SystemsComponent,
-    EngineeringGraphComponent,
+    OfferingsComponent,
     JourneyComponent,
     ContactComponent,
   ],

@@ -45,6 +45,7 @@ export const projects: Project[] = [
   /* ------------------------------------------------------------- flagship */
   {
     id: 'nasaq',
+    logo: 'project-brands/nasaq-logo-dark.svg',
     group: 'primary',
     visual: 'platform',
     headline: {
@@ -195,6 +196,7 @@ export const projects: Project[] = [
   /* ------------------------------------------------------------- featured */
   {
     id: 'mandoob',
+    logo: 'project-brands/mandoob-icon-white.svg',
     group: 'primary',
     visual: 'distribution',
     headline: {
@@ -202,8 +204,8 @@ export const projects: Project[] = [
       ar: 'منصة توزيع تربط الشركات بالمندوبين الميدانيين وبالمتاجر التي يزورونها. الطلبات والعروض والمرتجعات والتحصيلات في قناة واحدة.',
     },
     outcome: {
-      en: 'Web platform and Android app built, in launch stage.',
-      ar: 'منصة الويب وتطبيق أندرويد جاهزان وفي مرحلة الإطلاق.',
+      en: 'Web platform published and in launch stage; Android app built.',
+      ar: 'منصة الويب منشورة وفي مرحلة الإطلاق، وتطبيق أندرويد مبني.',
     },
     tier: 'featured',
     order: 2,
@@ -224,10 +226,9 @@ export const projects: Project[] = [
     },
     stack: ['Angular', 'Ionic', 'Capacitor', 'SSR', 'PrimeNG', 'RxJS', 'SignalR', 'Leaflet'],
     deployment: {
-      kind: 'unreleased',
-      // Configuration placeholder: set this to the public URL once it is confirmed.
-      url: null,
-      label: { en: 'Live link coming soon', ar: 'الرابط المباشر قريباً' },
+      kind: 'public',
+      url: 'https://mmapp.ici-sy.com/',
+      label: { en: 'Visit platform', ar: 'زيارة المنصة' },
     },
     actorFlow: [
       {
@@ -303,8 +304,8 @@ export const projects: Project[] = [
         id: 'result',
         heading: { en: 'Current state', ar: 'الوضع الحالي' },
         body: {
-          en: 'The web platform and the Android application are built and in launch stage with the client.',
-          ar: 'منصة الويب وتطبيق أندرويد جاهزان وفي مرحلة الإطلاق مع العميل.',
+          en: 'The web platform is published at mmapp.ici-sy.com and in launch stage. The Android application is built.',
+          ar: 'منصة الويب منشورة على mmapp.ici-sy.com وفي مرحلة الإطلاق، وتطبيق أندرويد مبني.',
         },
       },
     ],

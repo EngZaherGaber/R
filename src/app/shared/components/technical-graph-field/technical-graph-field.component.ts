@@ -53,7 +53,7 @@ export class TechnicalGraphFieldComponent implements AfterViewInit, OnDestroy {
     'hero-logo',
     'hero-system',
     'active-project',
-    'expertise-graph',
+    'offerings',
     'journey',
     'contact',
   ];

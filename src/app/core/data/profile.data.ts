@@ -19,7 +19,7 @@ export const profile: Profile = {
   phone: '+963 993 258 672',
   github: 'EngZaherGaber',
   siteUrl: 'https://zahergaber.vercel.app',
-  cvPath: 'newCv.pdf',
+  cvPath: 'Zaher-Gaber-CV.pdf',
   ogImage: 'og-image.png',
 
   contacts: [
@@ -100,7 +100,7 @@ export const accentColors: AccentColor[] = [
 export const navigation: NavItem[] = [
   { id: 'home', label: { en: 'Home', ar: 'البداية' }, icon: 'bi bi-house' },
   { id: 'work', label: { en: 'Work', ar: 'الأعمال' }, icon: 'bi bi-collection' },
-  { id: 'expertise', label: { en: 'Expertise', ar: 'الخبرات' }, icon: 'bi bi-diagram-3' },
+  { id: 'expertise', label: { en: 'Services', ar: 'الخدمات' }, icon: 'bi bi-grid' },
   { id: 'journey', label: { en: 'Journey', ar: 'المسار' }, icon: 'bi bi-briefcase' },
   { id: 'contact', label: { en: 'Contact', ar: 'التواصل' }, icon: 'bi bi-send' },
 ];

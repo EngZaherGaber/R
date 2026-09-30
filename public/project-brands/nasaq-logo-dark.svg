@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 96" role="img" aria-labelledby="title desc">
+  <title id="title">نَسَق — NASAQ</title>
+  <desc id="desc">NASAQ horizontal logo for dark backgrounds</desc>
+  <g transform="translate(8 5) scale(.67)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 25v78h84V25H84v49L48 35v42" stroke="#FFFFFF" stroke-width="10"/>
+    <circle cx="22" cy="25" r="10" fill="#062B57" stroke="#FFFFFF" stroke-width="8"/>
+    <circle cx="48" cy="77" r="9" fill="#062B57" stroke="#14B8A6" stroke-width="8"/>
+    <circle cx="106" cy="103" r="10" fill="#062B57" stroke="#60A5FA" stroke-width="8"/>
+  </g>
+  <g text-anchor="middle">
+    <text x="165" y="49" fill="#FFFFFF" font-family="'Noto Sans Arabic','IBM Plex Sans Arabic','Segoe UI',Arial,sans-serif" font-size="38" font-weight="750">نَسَق</text>
+    <text x="165" y="76" fill="#60A5FA" font-family="Inter,'Segoe UI',Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="6">NASAQ</text>
+  </g>
+</svg>

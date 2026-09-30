@@ -60,6 +60,11 @@
                 </span>
               </p>
 
+              @if (project.logo) {
+                <span class="stage-brand" aria-hidden="true">
+                  <img [src]="project.logo" alt="" width="160" height="68" loading="lazy" decoding="async" />
+                </span>
+              }
               <h3 class="stage-title">{{ workspace.t(project.name) }}</h3>
               <p class="stage-descriptor">{{ workspace.t(project.descriptor) }}</p>
               <p class="stage-story">{{ workspace.t(project.headline) }}</p>

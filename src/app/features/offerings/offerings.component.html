@@ -1,0 +1,42 @@
+<section class="portfolio-section offerings" aria-labelledby="offerings-title" data-network-anchor="offerings">
+  <div class="section-inner">
+    <div class="scene-head reveal">
+      <p class="scene-kicker mono-label">
+        <span class="scene-number">03</span>{{ workspace.t(copy.kicker) }}
+      </p>
+      <h2 id="offerings-title">{{ workspace.t(copy.title) }}</h2>
+      <p class="section-intro">{{ workspace.t(copy.intro) }}</p>
+    </div>
+
+    <ol class="offering-grid">
+      @for (offering of offerings; track offering.number) {
+        <li class="offering-card reveal">
+          <div class="card-top">
+            <span class="card-number mono-label">{{ offering.number }}</span>
+            <span class="card-rule" aria-hidden="true"></span>
+          </div>
+          <h3>{{ workspace.t(offering.title) }}</h3>
+          <p class="description">{{ workspace.t(offering.description) }}</p>
+          <div class="deliverable">
+            <span class="mono-label">{{ workspace.t(copy.deliverable) }}</span>
+            <p>{{ workspace.t(offering.deliverable) }}</p>
+          </div>
+          <ul class="technologies" [attr.aria-label]="workspace.t(copy.technologies)">
+            @for (technology of offering.technologies; track technology) {
+              <li>{{ technology }}</li>
+            }
+          </ul>
+          <p class="proof">
+            <span class="mono-label">{{ workspace.t(copy.proof) }}</span>
+            <span>{{ projectNames(offering.projectIds).join(' · ') }}</span>
+          </p>
+        </li>
+      }
+    </ol>
+
+    <a class="work-link" href="#section-work">
+      {{ workspace.t(copy.viewWork) }}
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</section>

@@ -53,22 +53,6 @@ export const ui = {
     readFull: { en: 'Read full recommendation', ar: 'اقرأ التوصية كاملة' },
   },
 
-  graph: {
-    kicker: { en: 'Engineering graph', ar: 'الخريطة الهندسية' },
-    title: { en: 'Capabilities, and the work that proves them', ar: 'القدرات، والعمل الذي يثبتها' },
-    capabilitiesLabel: { en: 'Capabilities', ar: 'القدرات' },
-    evidenceLabel: { en: 'Evidence', ar: 'الدليل' },
-    usedIn: { en: 'Used in', ar: 'مستخدمة في' },
-    builtWith: { en: 'Built with', ar: 'مبني بـ' },
-    commandsLabel: { en: 'What I can help with', ar: 'ما يمكنني المساعدة به' },
-    reset: { en: 'Show everything', ar: 'إظهار الكل' },
-    selectHint: {
-      en: 'Select a capability or a project to trace the connections.',
-      ar: 'اختر قدرة أو مشروعاً لتتبّع الروابط.',
-    },
-    lanesLabel: { en: 'Capabilities by area', ar: 'القدرات حسب المجال' },
-  },
-
   journey: {
     kicker: { en: 'Journey', ar: 'المسار' },
     title: { en: 'From Angular frontend to product ownership', ar: 'من واجهات Angular إلى امتلاك المنتج' },

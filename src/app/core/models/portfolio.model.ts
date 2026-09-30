@@ -145,6 +145,8 @@ export type SystemVisual =
 
 export interface Project {
   id: string;
+  /** Optional supplied brand mark, displayed alongside the project name. */
+  logo?: string;
   tier: ProjectTier;
   group: ProjectGroup;
   /** Visual grammar for the project stage. */

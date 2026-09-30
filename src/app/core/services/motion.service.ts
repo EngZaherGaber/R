@@ -394,69 +394,6 @@ export class MotionService {
     });
   }
 
-  /**
-   * The engineering graph arriving: domain labels, then capability nodes, then
-   * a small number of important routes drawing. Not fifty lines at once.
-   */
-  async graphEntrance(scope: Element): Promise<void> {
-    if (!(await this.ready())) {
-      return;
-    }
-
-    const gsap = this.gsap!;
-    const domains = gsap.utils.toArray<HTMLElement>('.domain-label', scope);
-    const capabilities = gsap.utils.toArray<HTMLElement>('.cap-node', scope);
-    const evidence = gsap.utils.toArray<HTMLElement>('.evidence-node', scope);
-    const edges = gsap.utils.toArray<SVGPathElement>('.graph-edge.is-lead', scope);
-
-    const timeline = gsap.timeline({
-      defaults: { ease: 'power3.out' },
-      scrollTrigger: { trigger: scope, start: 'top 78%', once: true },
-    });
-
-    timeline
-      .from(domains, { autoAlpha: 0, x: -14, duration: 0.4, stagger: 0.05 })
-      .from(capabilities, { autoAlpha: 0, y: 12, scale: 0.92, duration: 0.42, stagger: 0.03 }, 0.08)
-      .from(evidence, { autoAlpha: 0, x: 16, duration: 0.42, stagger: 0.04 }, 0.2);
-
-    if (edges.length) {
-      timeline.fromTo(
-        edges,
-        { strokeDasharray: 1, strokeDashoffset: 1 },
-        { strokeDashoffset: 0, duration: 0.7, stagger: 0.06, ease: 'power2.inOut' },
-        0.3,
-      );
-    }
-  }
-
-  /** One short pulse along the routes that just became relevant. */
-  async graphPulse(scope: Element): Promise<void> {
-    if (!(await this.ready())) {
-      return;
-    }
-
-    const gsap = this.gsap!;
-    const active = gsap.utils.toArray<SVGPathElement>('.graph-edge.is-active', scope);
-    const context = scope.querySelector<HTMLElement>('.graph-context');
-
-    if (active.length) {
-      gsap.fromTo(
-        active,
-        { strokeDasharray: 1, strokeDashoffset: 1 },
-        { strokeDashoffset: 0, duration: 0.45, stagger: 0.03, ease: 'power2.inOut', overwrite: true },
-      );
-    }
-
-    if (context) {
-      gsap.killTweensOf(context);
-      gsap.fromTo(
-        context,
-        { autoAlpha: 0, y: 8 },
-        { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' },
-      );
-    }
-  }
-
   /** The journey branch drawing itself as the visitor moves down it. */
   async journeyLine(scope: Element): Promise<void> {
     if (!(await this.ready())) {
