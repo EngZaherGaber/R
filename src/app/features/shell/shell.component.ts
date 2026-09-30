@@ -16,13 +16,12 @@ import { SectionId } from '../../core/models/portfolio.model';
 import { AccentPickerComponent } from '../../shared/components/accent-picker/accent-picker.component';
 import { LanguageToggleComponent } from '../../shared/components/language-toggle/language-toggle.component';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
-import { HeroComponent } from '../hero/hero.component';
-import { WorkComponent } from '../work/work.component';
-import { ExpertiseComponent } from '../expertise/expertise.component';
-import { ServicesComponent } from '../services/services.component';
-import { ExperienceComponent } from '../experience/experience.component';
-import { TrustComponent } from '../trust/trust.component';
-import { MindsetComponent } from '../mindset/mindset.component';
+import { TechnicalGraphFieldComponent } from '../../shared/components/technical-graph-field/technical-graph-field.component';
+import { ZgLogoComponent } from '../../shared/brand/zg-logo/zg-logo.component';
+import { IdentityComponent } from '../identity/identity.component';
+import { SystemsComponent } from '../systems/systems.component';
+import { EngineeringGraphComponent } from '../engineering-graph/engineering-graph.component';
+import { JourneyComponent } from '../journey/journey.component';
 import { ContactComponent } from '../contact/contact.component';
 
 @Component({
@@ -32,13 +31,12 @@ import { ContactComponent } from '../contact/contact.component';
     AccentPickerComponent,
     LanguageToggleComponent,
     ThemeToggleComponent,
-    HeroComponent,
-    WorkComponent,
-    ExpertiseComponent,
-    ServicesComponent,
-    ExperienceComponent,
-    TrustComponent,
-    MindsetComponent,
+    TechnicalGraphFieldComponent,
+    ZgLogoComponent,
+    IdentityComponent,
+    SystemsComponent,
+    EngineeringGraphComponent,
+    JourneyComponent,
     ContactComponent,
   ],
   templateUrl: './shell.component.html',
@@ -56,7 +54,6 @@ export class ShellComponent implements AfterViewInit, OnDestroy {
   readonly ui = this.workspace.ui;
   readonly navItems = this.workspace.navigation;
   readonly brandName = computed(() => this.workspace.t(this.workspace.profile.name));
-  readonly brandRole = computed(() => this.workspace.t(this.workspace.profile.role));
 
   private readonly elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
@@ -95,11 +92,14 @@ export class ShellComponent implements AfterViewInit, OnDestroy {
     this.menuOpen.update((open) => !open);
   }
 
+  sceneNumber(index: number): string {
+    return String(index + 1).padStart(2, '0');
+  }
+
   private readonly onScroll = (): void => {
     this.scrolled.set(window.scrollY > 12);
   };
 
-  /** Section tracking via IntersectionObserver rather than per-frame measurement. */
   private observeSections(): void {
     const sections = Array.from(
       this.elementRef.nativeElement.querySelectorAll<HTMLElement>('[data-section]'),

@@ -1,0 +1,139 @@
+:host {
+  --zg-main: var(--text, #f8fafc);
+  --zg-accent: var(--accent, #0687fd);
+  --zg-accent-highlight:
+    color-mix(in srgb, var(--zg-accent) 52%, white);
+
+  --zg-pointer-x: 50%;
+  --zg-pointer-y: 50%;
+
+  display: inline-flex;
+  line-height: 0;
+  color: var(--zg-main);
+}
+
+.zg-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  transform-origin: center;
+}
+
+.zg-main {
+  fill: var(--zg-main);
+  stroke: var(--zg-main);
+}
+
+.zg-accent-primary {
+  fill: var(--zg-accent);
+  stroke: var(--zg-accent);
+}
+
+.zg-accent-highlight {
+  fill: var(--zg-accent-highlight);
+  stroke: var(--zg-accent-highlight);
+}
+
+.zg-part {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.zg-sheen {
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+:host(.is-animated) .zg-main {
+  animation: zg-main-enter 720ms cubic-bezier(.16,1,.3,1) both;
+}
+
+:host(.is-animated) .zg-accent-primary {
+  animation: zg-accent-enter 340ms 390ms cubic-bezier(.34,1.56,.64,1) both;
+}
+
+:host(.is-animated) .zg-accent-highlight {
+  animation: zg-accent-highlight-enter 300ms 455ms cubic-bezier(.34,1.56,.64,1) both;
+}
+
+:host(.is-animated.has-sheen) .zg-sheen {
+  animation: zg-sheen-pass 900ms 560ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :host(.is-interactive) .zg-logo {
+    transition: transform 160ms ease-out;
+  }
+
+  :host(.is-interactive:hover) .zg-logo {
+    transform:
+      perspective(900px)
+      rotateX(calc((50 - var(--zg-pointer-y)) * .01deg))
+      rotateY(calc((var(--zg-pointer-x) - 50) * .01deg));
+  }
+
+  :host(.is-interactive:hover) .zg-accent-primary,
+  :host(.is-interactive:hover) .zg-accent-highlight {
+    filter: drop-shadow(
+      0 0 9px
+      color-mix(in srgb, var(--zg-accent), transparent 38%)
+    );
+  }
+}
+
+@keyframes zg-main-enter {
+  from {
+    opacity: 0;
+    clip-path: polygon(0 0, 12% 0, 0 14%);
+    transform: translate3d(-10px, 7px, 0) scale(.992);
+  }
+  to {
+    opacity: 1;
+    clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+    transform: none;
+  }
+}
+
+@keyframes zg-accent-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(-13px, 6px, 0) scale(.5);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes zg-accent-highlight-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(6px, -3px, 0) scale(.7);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes zg-sheen-pass {
+  0%   { opacity: 0; transform: translateX(0); }
+  20%  { opacity: .55; }
+  78%  { opacity: .4; }
+  100% { opacity: 0; transform: translateX(2100px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host(.is-animated) .zg-main,
+  :host(.is-animated) .zg-accent-primary,
+  :host(.is-animated) .zg-accent-highlight,
+  :host(.is-animated.has-sheen) .zg-sheen {
+    animation: none;
+  }
+
+  :host(.is-interactive:hover) .zg-logo {
+    transform: none;
+  }
+}

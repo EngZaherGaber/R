@@ -1,0 +1,9 @@
+<div class="field-grid"></div>
+<div class="field-depth"></div>
+<div class="field-pointer"></div>
+
+<svg class="field-routes" [attr.viewBox]="viewBox()" preserveAspectRatio="none" focusable="false">
+  @for (route of routes(); track route.id) {
+    <path class="field-route" [class.quiet]="route.weight === 'quiet'" [attr.d]="route.d" />
+  }
+</svg>

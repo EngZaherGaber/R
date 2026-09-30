@@ -1,0 +1,119 @@
+<section class="portfolio-section journey" aria-labelledby="journey-title" data-network-anchor="journey">
+  <div class="section-inner">
+    <div class="scene-head reveal">
+      <p class="scene-kicker mono-label">
+        <span class="scene-number">04</span>{{ workspace.t(ui.journey.kicker) }}
+      </p>
+      <h2 id="journey-title">{{ workspace.t(ui.journey.title) }}</h2>
+    </div>
+
+    <!-- One branch line. The lit segment grows as the visitor moves down it. -->
+    <ol class="journey-line">
+      @for (entry of milestones; track entry.id) {
+        <li class="milestone" [attr.data-kind]="entry.kind">
+          <span class="milestone-node" aria-hidden="true"></span>
+
+          <p class="milestone-meta">
+            <span class="period">{{ workspace.t(entry.period) }}</span>
+            @if (entry.current) {
+              <span class="now">{{ workspace.t(ui.journey.currentLabel) }}</span>
+            }
+          </p>
+
+          <h3>{{ workspace.t(entry.title) }}</h3>
+          <p class="organization">{{ workspace.t(entry.organization) }}</p>
+          <p class="milestone-line">{{ workspace.t(entry.summary) }}</p>
+
+          <ul class="highlights">
+            @for (highlight of workspace.t(entry.highlights).slice(0, 2); track highlight) {
+              <li>{{ highlight }}</li>
+            }
+          </ul>
+
+          @if (relatedProjectNames(entry).length) {
+            <p class="related">
+              @for (name of relatedProjectNames(entry); track name) {
+                <span class="chip">{{ name }}</span>
+              }
+            </p>
+          }
+        </li>
+      }
+    </ol>
+
+    <!-- Trust, as one compact moment rather than a wall. -->
+    <div class="trust reveal">
+      <p class="trust-line">{{ workspace.t(ui.journey.trustTitle) }}</p>
+
+      <ul class="recommenders">
+        @for (person of recommenders; track person.id) {
+          <li class="recommender">
+            <div class="recommender-head">
+              @if (person.image) {
+                <img [src]="person.image" width="40" height="40" alt="" aria-hidden="true" loading="lazy" />
+              } @else {
+                <span class="initial" aria-hidden="true">{{ workspace.t(person.name).charAt(0) }}</span>
+              }
+              <span class="recommender-id">
+                <strong>{{ workspace.t(person.name) }}</strong>
+                <small>{{ workspace.t(person.position) }}</small>
+              </span>
+              <span class="recommender-context mono-label">{{ contextFor(person) }}</span>
+            </div>
+
+            <!--
+              The full approved recommendation is always rendered. Collapsing is
+              purely visual, so crawlers and screen readers get the whole text
+              and the wording is never paraphrased.
+            -->
+            <blockquote [class.is-clamped]="!isOpen(person.id)">
+              {{ workspace.t(person.message) }}
+            </blockquote>
+
+            <div class="recommender-foot">
+              <button
+                type="button"
+                class="link"
+                [attr.aria-expanded]="isOpen(person.id)"
+                (click)="toggle(person.id)"
+              >
+                {{ workspace.t(isOpen(person.id) ? ui.systems.close : ui.systems.readFull) }}
+              </button>
+
+              <span class="related">
+                @for (name of proofNames(person.projectIds); track name) {
+                  <span class="chip">{{ name }}</span>
+                }
+              </span>
+            </div>
+
+            @if (workspace.isArabic()) {
+              <p class="translated">{{ workspace.t(ui.journey.translated) }}</p>
+            }
+          </li>
+        }
+      </ul>
+    </div>
+
+    <!-- Three principles: the conclusion drawn from the work above. -->
+    <div class="principles reveal">
+      <p class="mono-label">{{ workspace.t(ui.journey.principlesTitle) }}</p>
+
+      <ol class="principle-row">
+        @for (principle of principles; track principle.id) {
+          <li class="principle">
+            <span class="principle-node" aria-hidden="true"></span>
+            <h3>{{ workspace.t(principle.title) }}</h3>
+            <p>{{ workspace.t(principle.line) }}</p>
+            <p class="proof">
+              <span class="mono-label">{{ workspace.t(ui.journey.proofLabel) }}</span>
+              @for (name of proofNames(principle.projectIds); track name) {
+                <span class="chip">{{ name }}</span>
+              }
+            </p>
+          </li>
+        }
+      </ol>
+    </div>
+  </div>
+</section>

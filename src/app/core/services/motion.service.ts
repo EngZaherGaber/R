@@ -1,12 +1,10 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
 import type { gsap as GsapType } from 'gsap';
-import type { Draggable as DraggableType } from 'gsap/Draggable';
 import type { ScrollTrigger as ScrollTriggerType } from 'gsap/ScrollTrigger';
 
 type Gsap = typeof GsapType;
 type ScrollTriggerCtor = typeof ScrollTriggerType;
-type DraggableCtor = typeof DraggableType;
 
 /**
  * The scene engine behind the portfolio's spatial identity.
@@ -28,7 +26,6 @@ export class MotionService {
   private readonly documentRef = inject(DOCUMENT);
   private gsap?: Gsap;
   private ScrollTrigger?: ScrollTriggerCtor;
-  private Draggable?: DraggableCtor;
   private loading?: Promise<void>;
   private reducedMotionQuery?: MediaQueryList;
   private ambientReady = false;
@@ -60,8 +57,9 @@ export class MotionService {
   /* ------------------------------------------------------------- ambient -- */
 
   /**
-   * Drives the cosmic field: parallax star layers, nebula drift and the grid
-   * warp that reacts to scroll velocity. Skipped entirely on lean devices.
+   * Feeds the technical field one number: how energetically the visitor is
+   * moving. The field's grid and routes read it as `--field-energy`; nothing
+   * here paints, and nothing runs per frame while the page is still.
    */
   async setupAmbientScroll(): Promise<void> {
     if (this.ambientReady || !(await this.ready())) {
@@ -81,20 +79,13 @@ export class MotionService {
       start: 0,
       end: 'max',
       onUpdate: (self) => {
-        const velocity = Math.min(Math.abs(self.getVelocity()), 4200);
-        const target = gsap.utils.mapRange(0, 4200, 0, 1, velocity);
-        this.dampedWarp += (target - this.dampedWarp) * 0.12;
+        const velocity = Math.min(Math.abs(self.getVelocity()), 3800);
+        const target = gsap.utils.mapRange(0, 3800, 0, 1, velocity);
+        this.dampedWarp += (target - this.dampedWarp) * 0.14;
 
-        const scrollY = self.scroll();
         gsap.to(root, {
-          '--grid-warp': `${gsap.utils.clamp(0, 30, this.dampedWarp * 30)}px`,
-          '--wash-shift': `${gsap.utils.clamp(0, 36, this.dampedWarp * 36)}px`,
-          '--star-near-y': `${scrollY * -0.12}px`,
-          '--star-mid-y': `${scrollY * -0.065}px`,
-          '--star-far-y': `${scrollY * -0.028}px`,
-          '--star-drift-x': `${Math.sin(scrollY * 0.001) * 18}px`,
-          '--star-stretch': gsap.utils.clamp(1, 4.2, 1 + this.dampedWarp * 3.2),
-          duration: 0.28,
+          '--field-energy': this.dampedWarp.toFixed(3),
+          duration: 0.3,
           overwrite: true,
           ease: 'power2.out',
         });
@@ -114,7 +105,7 @@ export class MotionService {
     const tokens = gsap.utils.toArray<HTMLElement>('.hero-token', scope);
     const nodes = gsap.utils.toArray<HTMLElement>('.map-node', scope);
     const links = gsap.utils.toArray<SVGPathElement>('.map-link', scope);
-    const frame = scope.querySelector<HTMLElement>('.workspace-frame');
+    const frame = scope.querySelector<HTMLElement>('.identity-mark');
 
     const timeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
@@ -403,31 +394,137 @@ export class MotionService {
     });
   }
 
-  /* ------------------------------------------------------------- sheets --- */
-
-  /** Drag-to-dismiss bottom sheet, used for skill and service details on mobile. */
-  async createDismissSheet(sheet: HTMLElement, onDismiss: () => void): Promise<() => void> {
+  /**
+   * The engineering graph arriving: domain labels, then capability nodes, then
+   * a small number of important routes drawing. Not fifty lines at once.
+   */
+  async graphEntrance(scope: Element): Promise<void> {
     if (!(await this.ready())) {
-      return () => undefined;
+      return;
     }
 
     const gsap = this.gsap!;
-    gsap.fromTo(sheet, { yPercent: 100 }, { yPercent: 0, duration: 0.32, ease: 'power3.out' });
+    const domains = gsap.utils.toArray<HTMLElement>('.domain-label', scope);
+    const capabilities = gsap.utils.toArray<HTMLElement>('.cap-node', scope);
+    const evidence = gsap.utils.toArray<HTMLElement>('.evidence-node', scope);
+    const edges = gsap.utils.toArray<SVGPathElement>('.graph-edge.is-lead', scope);
 
-    const instances = this.Draggable!.create(sheet, {
-      type: 'y',
-      bounds: { minY: 0, maxY: window.innerHeight },
-      inertia: false,
-      onDragEnd(this: DraggableType) {
-        if (this.y > sheet.offsetHeight * 0.24) {
-          gsap.to(sheet, { yPercent: 100, duration: 0.22, ease: 'power2.in', onComplete: onDismiss });
-        } else {
-          gsap.to(sheet, { y: 0, duration: 0.25, ease: 'power2.out' });
-        }
-      },
+    const timeline = gsap.timeline({
+      defaults: { ease: 'power3.out' },
+      scrollTrigger: { trigger: scope, start: 'top 78%', once: true },
     });
 
-    return () => instances.forEach((instance) => instance.kill());
+    timeline
+      .from(domains, { autoAlpha: 0, x: -14, duration: 0.4, stagger: 0.05 })
+      .from(capabilities, { autoAlpha: 0, y: 12, scale: 0.92, duration: 0.42, stagger: 0.03 }, 0.08)
+      .from(evidence, { autoAlpha: 0, x: 16, duration: 0.42, stagger: 0.04 }, 0.2);
+
+    if (edges.length) {
+      timeline.fromTo(
+        edges,
+        { strokeDasharray: 1, strokeDashoffset: 1 },
+        { strokeDashoffset: 0, duration: 0.7, stagger: 0.06, ease: 'power2.inOut' },
+        0.3,
+      );
+    }
+  }
+
+  /** One short pulse along the routes that just became relevant. */
+  async graphPulse(scope: Element): Promise<void> {
+    if (!(await this.ready())) {
+      return;
+    }
+
+    const gsap = this.gsap!;
+    const active = gsap.utils.toArray<SVGPathElement>('.graph-edge.is-active', scope);
+    const context = scope.querySelector<HTMLElement>('.graph-context');
+
+    if (active.length) {
+      gsap.fromTo(
+        active,
+        { strokeDasharray: 1, strokeDashoffset: 1 },
+        { strokeDashoffset: 0, duration: 0.45, stagger: 0.03, ease: 'power2.inOut', overwrite: true },
+      );
+    }
+
+    if (context) {
+      gsap.killTweensOf(context);
+      gsap.fromTo(
+        context,
+        { autoAlpha: 0, y: 8 },
+        { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' },
+      );
+    }
+  }
+
+  /** The journey branch drawing itself as the visitor moves down it. */
+  async journeyLine(scope: Element): Promise<void> {
+    if (!(await this.ready())) {
+      return;
+    }
+
+    const gsap = this.gsap!;
+    const line = scope.querySelector<HTMLElement>('.journey-line');
+    const milestones = gsap.utils.toArray<HTMLElement>('.milestone', scope);
+
+    if (line) {
+      gsap.fromTo(
+        line,
+        { '--journey-progress': '0%' },
+        {
+          '--journey-progress': '100%',
+          ease: 'none',
+          scrollTrigger: { trigger: line, start: 'top 74%', end: 'bottom 58%', scrub: true },
+        },
+      );
+    }
+
+    milestones.forEach((milestone) => {
+      gsap.fromTo(
+        milestone,
+        { autoAlpha: 0.4, x: -14 },
+        {
+          autoAlpha: 1,
+          x: 0,
+          duration: 0.4,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: milestone,
+            start: 'top 82%',
+            once: true,
+            toggleClass: { targets: milestone, className: 'is-reached' },
+          },
+        },
+      );
+    });
+  }
+
+  /** Contact: the field's routes resolve into the ZG mark and the final CTA. */
+  async contactConverge(scope: Element): Promise<void> {
+    if (!(await this.ready())) {
+      return;
+    }
+
+    const gsap = this.gsap!;
+    const routes = gsap.utils.toArray<SVGPathElement>('.converge-route', scope);
+    const mark = scope.querySelector<HTMLElement>('.contact-mark');
+
+    const timeline = gsap.timeline({
+      scrollTrigger: { trigger: scope, start: 'top 72%', once: true },
+      defaults: { ease: 'power3.out' },
+    });
+
+    if (routes.length) {
+      timeline.fromTo(
+        routes,
+        { strokeDasharray: 1, strokeDashoffset: 1 },
+        { strokeDashoffset: 0, duration: 0.8, stagger: 0.07, ease: 'power2.inOut' },
+      );
+    }
+
+    if (mark) {
+      timeline.from(mark, { autoAlpha: 0, scale: 0.88, duration: 0.5 }, 0.35);
+    }
   }
 
   /* ------------------------------------------------------------ plumbing -- */
@@ -481,15 +578,13 @@ export class MotionService {
     }
 
     this.loading ??= (async () => {
-      const [{ gsap }, { ScrollTrigger }, { Draggable }] = await Promise.all([
+      const [{ gsap }, { ScrollTrigger }] = await Promise.all([
         import('gsap'),
         import('gsap/ScrollTrigger'),
-        import('gsap/Draggable'),
       ]);
-      gsap.registerPlugin(ScrollTrigger, Draggable);
+      gsap.registerPlugin(ScrollTrigger);
       this.gsap = gsap;
       this.ScrollTrigger = ScrollTrigger;
-      this.Draggable = Draggable;
     })();
 
     await this.loading;

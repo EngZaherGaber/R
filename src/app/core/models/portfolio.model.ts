@@ -60,16 +60,6 @@ export interface Profile {
   siteUrl: string;
   cvPath: string;
   ogImage: string;
-  avatar: string;
-  /** Core ecosystem shown in the hero. */
-  coreStack: StackBadge[];
-}
-
-export interface StackBadge {
-  id: string;
-  label: string;
-  role: LocalizedText;
-  icon?: string;
 }
 
 /* ----------------------------------------------------------------- projects */
@@ -135,9 +125,36 @@ export interface ActorFlowStep {
 
 export type ProjectTier = 'flagship' | 'featured' | 'archive';
 
+/**
+ * How prominently a project is staged.
+ * `primary` systems get the full interactive stage and their own system visual;
+ * `secondary` work is delivered proof shown compactly.
+ */
+export type ProjectGroup = 'primary' | 'secondary' | 'archive';
+
+/**
+ * The visual grammar a project's stage uses. Each primary system reads
+ * differently so switching projects changes the scene, not just the text.
+ */
+export type SystemVisual =
+  | 'platform'        // multi-tenant architecture (Nasaq)
+  | 'distribution'    // company -> representative -> store (Mandoob)
+  | 'transformation'  // inherited -> re-architected -> delivered (TLI)
+  | 'workflow'        // template -> phase -> action -> transition (Workflow)
+  | 'none';
+
 export interface Project {
   id: string;
   tier: ProjectTier;
+  group: ProjectGroup;
+  /** Visual grammar for the project stage. */
+  visual: SystemVisual;
+  /**
+   * The scannable default state: a two-line story (<= ~35 words) and one short
+   * outcome. The full `summary` and `caseStudy` stay for the deep dive.
+   */
+  headline: LocalizedText;
+  outcome: LocalizedText;
   /** Storytelling order inside its tier. */
   order: number;
   name: LocalizedText;
@@ -151,7 +168,6 @@ export interface Project {
   summary: LocalizedText;
   stack: string[];
   deployment: ProjectDeployment;
-  logo?: string;
   /** Lead visual for the case study; falls back to the first screenshot. */
   cover?: ProjectScreenshot;
   screenshots?: ProjectScreenshot[];
@@ -233,13 +249,7 @@ export interface MindsetTopic {
 
 /* --------------------------------------------------------------- navigation */
 
-export type SectionId =
-  | 'home'
-  | 'work'
-  | 'expertise'
-  | 'experience'
-  | 'mindset'
-  | 'contact';
+export type SectionId = 'home' | 'work' | 'expertise' | 'journey' | 'contact';
 
 export interface NavItem {
   id: SectionId;

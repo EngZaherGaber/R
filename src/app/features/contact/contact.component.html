@@ -1,76 +1,60 @@
-<section class="portfolio-section" aria-labelledby="contact-title">
-  <div class="section-inner">
-    <div class="section-heading reveal">
-      <p class="section-kicker">{{ workspace.t(ui.contact.kicker) }}</p>
-      <h2 id="contact-title">{{ workspace.t(ui.contact.title) }}</h2>
-      <p>{{ workspace.t(ui.contact.description) }}</p>
+<section class="portfolio-section contact" aria-labelledby="contact-title" data-network-anchor="contact">
+  <div class="section-inner contact-inner">
+    <!-- The routes that started at the hero mark resolve here. -->
+    <svg class="converge" viewBox="0 0 320 160" preserveAspectRatio="none" aria-hidden="true">
+      <path class="converge-route" pathLength="1" d="M0 12 C110 12, 130 80, 160 80" />
+      <path class="converge-route" pathLength="1" d="M0 56 C110 56, 135 80, 160 80" />
+      <path class="converge-route" pathLength="1" d="M0 104 C110 104, 135 80, 160 80" />
+      <path class="converge-route" pathLength="1" d="M0 148 C110 148, 130 80, 160 80" />
+    </svg>
+
+    <div class="contact-mark">
+      <zg-logo [label]="workspace.t(profile.name)" [interactive]="false" />
     </div>
 
-    <div class="contact-layout reveal">
-      <ul class="contact-list">
-        @for (contact of profile.contacts; track contact.id) {
-          <li class="contact-row">
-            <i [class]="contact.icon" aria-hidden="true"></i>
+    <p class="scene-kicker mono-label">
+      <span class="scene-number">05</span>{{ workspace.t(ui.contact.kicker) }}
+    </p>
 
-            <span class="contact-text">
-              <span class="contact-label">{{ workspace.t(contact.label) }}</span>
-              @if (contact.href) {
-                <a [href]="contact.href" dir="ltr">{{ contact.value }}</a>
-              } @else {
-                <span dir="auto">{{
-                  contact.display ? workspace.t(contact.display) : contact.value
-                }}</span>
-              }
-            </span>
+    <h2 id="contact-title">{{ workspace.t(ui.contact.line) }}</h2>
 
-            @if (contact.copyable) {
-              <button
-                type="button"
-                class="copy-button"
-                [attr.aria-label]="workspace.t(ui.contact.copy) + ' ' + workspace.t(contact.label)"
-                (click)="copy(contact.id, contact.value)"
-              >
-                <i
-                  [class]="copiedId() === contact.id ? 'bi bi-check2' : 'bi bi-clipboard'"
-                  aria-hidden="true"
-                ></i>
-                <span>{{
-                  workspace.t(copiedId() === contact.id ? ui.contact.copied : ui.contact.copy)
-                }}</span>
-              </button>
-            }
-          </li>
-        }
-      </ul>
-
-      <div class="contact-actions">
-        <a class="btn btn-primary" [href]="'mailto:' + profile.email">
-          <i class="bi bi-envelope" aria-hidden="true"></i>
-          {{ workspace.t(ui.hero.tertiaryCta) }}
-        </a>
-        <a class="btn" [href]="profile.cvPath" download target="_blank" rel="noopener">
-          <i class="bi bi-download" aria-hidden="true"></i>
-          {{ workspace.t(ui.contact.downloadCv) }}
-        </a>
-      </div>
-
-      @if (socials().length) {
-        <div class="socials">
-          <p class="socials-label">{{ workspace.t(ui.contact.socialsLabel) }}</p>
-          <ul>
-            @for (social of socials(); track social.id) {
-              <li>
-                <a [href]="social.url" target="_blank" rel="noopener noreferrer">
-                  <i [class]="social.icon" aria-hidden="true"></i>
-                  <span>{{ workspace.t(social.label) }}</span>
-                  <small dir="ltr">{{ social.handle }}</small>
-                </a>
-              </li>
-            }
-          </ul>
-        </div>
+    <div class="primary-actions">
+      @for (contact of primaryContacts(); track contact.id) {
+        <a class="btn btn-primary" [href]="contact.href" dir="ltr">{{ contact.value }}</a>
+        <button
+          type="button"
+          class="copy"
+          [attr.aria-label]="workspace.t(ui.contact.copy) + ' ' + workspace.t(contact.label)"
+          (click)="copy(contact.id, contact.value)"
+        >
+          {{ workspace.t(copiedId() === contact.id ? ui.contact.copied : ui.contact.copy) }}
+        </button>
       }
+
+      @for (social of socials(); track social.id) {
+        <a class="btn" [href]="social.url" target="_blank" rel="noopener noreferrer">
+          <i [class]="social.icon" aria-hidden="true"></i>
+          {{ workspace.t(social.label) }}
+        </a>
+      }
+
+      <a class="btn btn-quiet" [href]="profile.cvPath" download target="_blank" rel="noopener">
+        {{ workspace.t(ui.contact.downloadCv) }}
+      </a>
     </div>
+
+    <ul class="secondary">
+      @for (contact of secondaryContacts(); track contact.id) {
+        <li>
+          <span class="mono-label">{{ workspace.t(contact.label) }}</span>
+          @if (contact.href) {
+            <a [href]="contact.href" dir="ltr">{{ contact.value }}</a>
+          } @else {
+            <span dir="auto">{{ contact.display ? workspace.t(contact.display) : contact.value }}</span>
+          }
+        </li>
+      }
+    </ul>
   </div>
 </section>
 

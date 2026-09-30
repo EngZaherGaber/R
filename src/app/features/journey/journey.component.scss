@@ -1,0 +1,337 @@
+:host {
+  display: block;
+}
+
+/* ============================================================ branch line = */
+
+.journey-line {
+  --journey-progress: 100%;
+  position: relative;
+  display: grid;
+  gap: clamp(1.75rem, 3.5vw, 2.75rem);
+  padding-inline-start: 1.85rem;
+}
+
+.journey-line::before,
+.journey-line::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 5px;
+  top: 0.55rem;
+  width: 1px;
+}
+
+.journey-line::before {
+  bottom: 0.55rem;
+  background: var(--line-strong);
+}
+
+.journey-line::after {
+  height: var(--journey-progress);
+  max-height: calc(100% - 1.1rem);
+  background: var(--accent);
+}
+
+.milestone {
+  position: relative;
+}
+
+.milestone-node {
+  position: absolute;
+  inset-inline-start: -1.85rem;
+  top: 0.4rem;
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--bg);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.milestone.is-reached .milestone-node {
+  border-color: var(--accent);
+}
+
+/* Education reads as a branch off the main line. */
+.milestone[data-kind="education"] .milestone-node {
+  border-style: dashed;
+}
+
+.milestone-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.15rem;
+}
+
+.period {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+html[lang="ar"] .period {
+  font-family: var(--font-sans);
+  letter-spacing: 0;
+  font-size: 0.82rem;
+}
+
+.now {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.05rem 0.45rem;
+  border: 1px solid var(--accent-line);
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent-text);
+}
+
+.milestone h3 {
+  font-size: 1.1rem;
+}
+
+.organization {
+  margin-top: 0.1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent-text);
+}
+
+.milestone-line {
+  max-width: 62ch;
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--muted-strong);
+}
+
+.highlights {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.highlights li {
+  position: relative;
+  padding-inline-start: 0.95rem;
+  max-width: 66ch;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.highlights li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.6em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.related {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.6rem;
+}
+
+.chip {
+  padding: 0.08rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  font-size: 0.74rem;
+  color: var(--muted-strong);
+}
+
+/* ================================================================== trust = */
+
+.trust {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--line);
+}
+
+.trust-line {
+  max-width: 46ch;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-weight: 600;
+  color: var(--text-strong);
+}
+
+.recommenders {
+  display: grid;
+  gap: 1.15rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 62rem) {
+  .recommenders {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 2.5rem;
+  }
+}
+
+.recommender {
+  display: grid;
+  gap: 0.55rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.recommender-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.recommender img,
+.initial {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.initial {
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+.recommender-id {
+  display: grid;
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.recommender-id strong {
+  font-size: 0.9rem;
+  color: var(--text-strong);
+}
+
+.recommender-id small {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.recommender-context {
+  flex-basis: 100%;
+  color: var(--accent-text);
+}
+
+.recommender blockquote {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 0.89rem;
+  line-height: 1.7;
+  color: var(--muted-strong);
+}
+
+/*
+ * The approved wording is always in the DOM - collapsing is visual only, so
+ * crawlers and assistive tech get the complete recommendation either way.
+ */
+.recommender blockquote.is-clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.recommender-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.recommender-foot .related {
+  margin-top: 0;
+}
+
+.link {
+  color: var(--accent-text);
+  font-size: 0.82rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.translated {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ============================================================= principles = */
+
+.principles {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  border-top: 1px solid var(--line);
+}
+
+.principle-row {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.15rem;
+}
+
+@media (min-width: 56rem) {
+  .principle-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+}
+
+/* Three connected decisions, drawn as nodes on one line. */
+.principle {
+  position: relative;
+  padding-top: 1.35rem;
+}
+
+.principle::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  inset-inline: 0;
+  height: 1px;
+  background: var(--line-strong);
+}
+
+.principle-node {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 11px;
+  height: 11px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.principle h3 {
+  font-size: 1.02rem;
+}
+
+.principle p {
+  max-width: 40ch;
+  margin-top: 0.3rem;
+  font-size: 0.89rem;
+  color: var(--muted-strong);
+}
+
+.proof {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.6rem;
+}

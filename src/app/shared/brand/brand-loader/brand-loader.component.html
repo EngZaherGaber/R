@@ -1,0 +1,30 @@
+<div
+  class="brand-loader"
+  [class.is-visible]="visible()"
+  [class.is-leaving]="leaving()"
+  aria-hidden="true"
+>
+  <div class="loader-grid"></div>
+  <div class="loader-route route-a"></div>
+  <div class="loader-route route-b"></div>
+
+  <div class="loader-core">
+    <zg-logo
+      class="loader-logo"
+      [animated]="visible()"
+      [sheen]="true"
+      [interactive]="false"
+    />
+
+    <div class="loader-copy">
+      <strong>{{ name() }}</strong>
+      <span>{{ role() }}</span>
+    </div>
+
+    <div class="loader-status">
+      <i></i>
+      <span>{{ status() }}</span>
+      <i></i>
+    </div>
+  </div>
+</div>

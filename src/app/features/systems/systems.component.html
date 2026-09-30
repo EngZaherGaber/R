@@ -1,0 +1,391 @@
+<section class="portfolio-section systems" aria-labelledby="systems-title">
+  <div class="section-inner">
+    <div class="scene-head reveal">
+      <p class="scene-kicker mono-label">
+        <span class="scene-number">02</span>{{ workspace.t(ui.systems.kicker) }}
+      </p>
+      <h2 id="systems-title">{{ workspace.t(ui.systems.title) }}</h2>
+    </div>
+
+    <!-- Project index: click, arrow keys, Home/End, swipe. -->
+    <div
+      class="project-rail reveal"
+      role="tablist"
+      [attr.aria-label]="workspace.t(ui.systems.indexLabel)"
+      (keydown)="onRailKeydown($event)"
+    >
+      @for (project of projects; track project.id; let i = $index) {
+        <button
+          type="button"
+          class="rail-card"
+          role="tab"
+          [id]="'sys-tab-' + project.id"
+          [attr.aria-selected]="selectedId() === project.id"
+          [attr.aria-controls]="'sys-panel-' + project.id"
+          [attr.tabindex]="selectedId() === project.id ? 0 : -1"
+          [class.active]="selectedId() === project.id"
+          (click)="select(project.id)"
+        >
+          <span class="rail-index mono-label">{{ projectNumber(i) }}</span>
+          <span class="rail-name">{{ workspace.t(project.name) }}</span>
+        </button>
+      }
+    </div>
+
+    <div
+      class="stage"
+      data-network-anchor="active-project"
+      (touchstart)="onTouchStart($event)"
+      (touchend)="onTouchEnd($event)"
+    >
+      @for (project of projects; track project.id; let i = $index) {
+        <article
+          class="stage-body"
+          role="tabpanel"
+          [id]="'sys-panel-' + project.id"
+          [attr.aria-labelledby]="'sys-tab-' + project.id"
+          [attr.data-visual]="project.visual"
+          [hidden]="selectedId() !== project.id"
+          [attr.inert]="selectedId() !== project.id ? '' : null"
+        >
+          <!-- ------------------------------------------------ default state -->
+          <div class="stage-head">
+            <div class="stage-identity">
+              <p class="stage-kicker mono-label">
+                <span class="stage-number">{{ projectNumber(i) }}</span>
+                <span>{{ workspace.t(project.category) }}</span>
+                <span class="status" [attr.data-tone]="project.status.tone">
+                  <span class="status-dot" aria-hidden="true"></span>
+                  {{ workspace.t(project.status.label) }}
+                </span>
+              </p>
+
+              <h3 class="stage-title">{{ workspace.t(project.name) }}</h3>
+              <p class="stage-descriptor">{{ workspace.t(project.descriptor) }}</p>
+              <p class="stage-story">{{ workspace.t(project.headline) }}</p>
+
+              <p class="stage-role">
+                <span class="mono-label">{{ workspace.t(ui.systems.roleLabel) }}</span>
+                {{ workspace.t(project.role) }}
+                @if (project.client) {
+                  <span class="stage-client">{{ workspace.t(project.client) }}</span>
+                }
+              </p>
+
+              <ul class="stage-stack">
+                @for (tech of project.stack.slice(0, 6); track tech) {
+                  <li>{{ tech }}</li>
+                }
+              </ul>
+
+              <p class="stage-outcome">
+                <span class="outcome-tick" aria-hidden="true"></span>
+                {{ workspace.t(project.outcome) }}
+              </p>
+            </div>
+
+            <!-- ------------------------------------- per-project system visual -->
+            <div class="stage-visual" aria-hidden="true">
+              @switch (project.visual) {
+                @case ('platform') {
+                  <div class="viz viz-platform">
+                    <svg class="viz-links" viewBox="0 0 300 210" preserveAspectRatio="none">
+                      <path class="arch-link" pathLength="1" d="M42 32 C42 84, 150 78, 150 108" />
+                      <path class="arch-link" pathLength="1" d="M114 32 C114 82, 150 82, 150 108" />
+                      <path class="arch-link" pathLength="1" d="M186 32 C186 82, 150 82, 150 108" />
+                      <path class="arch-link" pathLength="1" d="M258 32 C258 84, 150 78, 150 108" />
+                      <path class="arch-link trunk" pathLength="1" d="M150 132 L150 172" />
+                    </svg>
+                    <div class="viz-row">
+                      @for (client of project.architecture?.clients ?? []; track client.id) {
+                        <span class="arch-node">
+                          <b>{{ workspace.t(client.label) }}</b>
+                          <small>{{ client.tech }}</small>
+                        </span>
+                      }
+                    </div>
+                    <div class="viz-row">
+                      <span class="arch-node core">
+                        <b>{{ workspace.t(project.architecture!.api.label) }}</b>
+                        <small>{{ project.architecture!.api.tech }}</small>
+                      </span>
+                    </div>
+                    <div class="viz-row">
+                      <span class="arch-node core">
+                        <b>{{ workspace.t(project.architecture!.data.label) }}</b>
+                        <small>{{ project.architecture!.data.tech }}</small>
+                      </span>
+                    </div>
+                  </div>
+                }
+
+                @case ('distribution') {
+                  <div class="viz viz-distribution">
+                    @for (actor of project.actorFlow ?? []; track actor.id; let last = $last) {
+                      <span class="flow-node">
+                        <i [class]="actor.icon"></i>
+                        <b>{{ workspace.t(actor.label) }}</b>
+                        <small>{{ workspace.t(actor.role) }}</small>
+                      </span>
+                      @if (!last) {
+                        <span class="flow-run"><span class="flow-pulse"></span></span>
+                      }
+                    }
+                  </div>
+                }
+
+                @case ('transformation') {
+                  <div class="viz viz-transformation">
+                    <span class="stage-step before">
+                      <b>{{ workspace.t(project.transformation!.beforeHeading) }}</b>
+                      <span class="bars"><i></i><i></i><i></i><i></i></span>
+                    </span>
+                    <span class="stage-arrow"></span>
+                    <span class="stage-step work">
+                      <b>{{ workspace.t(ui.systems.roleLabel) }}</b>
+                      <span class="grid-mark"></span>
+                    </span>
+                    <span class="stage-arrow"></span>
+                    <span class="stage-step after">
+                      <b>{{ workspace.t(project.transformation!.afterHeading) }}</b>
+                      <span class="bars ordered"><i></i><i></i><i></i><i></i></span>
+                    </span>
+                  </div>
+                }
+
+                @case ('workflow') {
+                  <div class="viz viz-workflow">
+                    <svg viewBox="0 0 280 200" preserveAspectRatio="xMidYMid meet">
+                      <path class="arch-link" pathLength="1" d="M140 30 L140 62" />
+                      <path class="arch-link" pathLength="1" d="M140 86 L140 118" />
+                      <path class="arch-link" pathLength="1" d="M118 142 L70 168" />
+                      <path class="arch-link" pathLength="1" d="M162 142 L210 168" />
+                      <rect class="wf-node" x="96" y="10" width="88" height="24" rx="4" />
+                      <rect class="wf-node" x="96" y="62" width="88" height="24" rx="4" />
+                      <rect class="wf-node accent" x="96" y="118" width="88" height="24" rx="4" />
+                      <rect class="wf-node" x="26" y="166" width="88" height="24" rx="4" />
+                      <rect class="wf-node" x="166" y="166" width="88" height="24" rx="4" />
+                      <text class="wf-text" x="140" y="26">Template</text>
+                      <text class="wf-text" x="140" y="78">Phase</text>
+                      <text class="wf-text" x="140" y="134">Action</text>
+                      <text class="wf-text" x="70" y="182">Form</text>
+                      <text class="wf-text" x="210" y="182">Transition</text>
+                    </svg>
+                  </div>
+                }
+              }
+            </div>
+          </div>
+
+          <!-- --------------------------------------------------- mode nodes -->
+          <div class="stage-controls">
+            <div class="mode-nodes" role="group" [attr.aria-label]="workspace.t(ui.systems.title)">
+              @for (item of modes(); track item) {
+                <button
+                  type="button"
+                  class="mode-node"
+                  [class.active]="mode() === item"
+                  [attr.aria-expanded]="mode() === item"
+                  [attr.aria-controls]="'drawer-' + project.id"
+                  (click)="toggleMode(item)"
+                >
+                  <span class="node-dot" aria-hidden="true"></span>
+                  {{ modeLabel(item) }}
+                </button>
+              }
+
+              @if (liveUrl(project); as url) {
+                <a class="mode-node live" [href]="url" target="_blank" rel="noopener noreferrer">
+                  {{ workspace.t(project.deployment.label) }}
+                  <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+                </a>
+              } @else {
+                <span class="mode-node private">{{ workspace.t(ui.systems.privateLabel) }}</span>
+              }
+            </div>
+
+            <div class="stage-step-controls">
+              <span class="mono-label">{{ projectNumber(i) }} / {{ projectNumber(projects.length - 1) }}</span>
+              <button type="button" class="step" [attr.aria-label]="workspace.t(ui.systems.previous)" (click)="step(-1)">
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="step next" [attr.aria-label]="workspace.t(ui.systems.next)" (click)="step(1)">
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <!--
+            Deep content stays in the DOM for crawlers and expands on intent.
+            `hidden` only applies to the currently selected project.
+          -->
+          <div class="drawer" [id]="'drawer-' + project.id" [attr.data-open]="selectedId() === project.id && mode() !== null">
+            <section class="drawer-panel" [hidden]="selectedId() === project.id && mode() !== 'system'">
+              @if (project.transformation; as change) {
+                <div class="change">
+                  <div>
+                    <h4>{{ workspace.t(change.beforeHeading) }}</h4>
+                    <ul class="before">
+                      @for (item of workspace.t(change.before); track item) {
+                        <li>{{ item }}</li>
+                      }
+                    </ul>
+                  </div>
+                  <div>
+                    <h4>{{ workspace.t(change.afterHeading) }}</h4>
+                    <ul class="after">
+                      @for (item of workspace.t(change.after); track item) {
+                        <li>{{ item }}</li>
+                      }
+                    </ul>
+                  </div>
+                </div>
+              }
+
+              @if (project.capabilities; as capabilities) {
+                <div class="capabilities">
+                  <h4>{{ workspace.t(ui.systems.capabilitiesLabel) }}</h4>
+                  <ul>
+                    @for (capability of workspace.t(capabilities); track capability) {
+                      <li>{{ capability }}</li>
+                    }
+                  </ul>
+                </div>
+              }
+            </section>
+
+            <section class="drawer-panel" [hidden]="selectedId() === project.id && mode() !== 'screens'">
+              @if (screensFor(project).length) {
+                <div class="screens">
+                  @for (shot of screensFor(project); track shot.src) {
+                    <figure>
+                      <button
+                        type="button"
+                        #shotButton
+                        [attr.aria-label]="workspace.t(ui.systems.openImage) + ': ' + workspace.t(shot.alt)"
+                        (click)="openLightbox(shot, shotButton)"
+                      >
+                        <img
+                          [src]="shot.src"
+                          [width]="shot.width"
+                          [height]="shot.height"
+                          [alt]="workspace.t(shot.alt)"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </button>
+                      @if (shot.caption) {
+                        <figcaption>{{ workspace.t(shot.caption) }}</figcaption>
+                      }
+                    </figure>
+                  }
+                </div>
+              } @else {
+                <p class="pending">{{ workspace.t(ui.systems.noScreens) }}</p>
+              }
+            </section>
+
+            <section class="drawer-panel" [hidden]="selectedId() === project.id && mode() !== 'deep'">
+              <div class="case">
+                @for (block of project.caseStudy; track block.id) {
+                  <div class="case-block">
+                    <h4>{{ workspace.t(block.heading) }}</h4>
+                    <p>{{ workspace.t(block.body) }}</p>
+                    @if (block.points) {
+                      <ul>
+                        @for (point of workspace.t(block.points); track point) {
+                          <li>{{ point }}</li>
+                        }
+                      </ul>
+                    }
+                  </div>
+                }
+              </div>
+
+              @for (reference of referencesFor(project); track reference.id) {
+                <blockquote class="reference">
+                  <p class="mono-label">
+                    {{ workspace.t(ui.systems.referenceLabel) }} · {{ workspace.t(ui.journey.excerptLabel) }}
+                  </p>
+                  <p
+                    class="reference-text"
+                    [class.is-clamped]="openRecommendation() !== project.id + reference.id"
+                  >
+                    {{ workspace.t(reference.message) }}
+                  </p>
+                  <footer>
+                    <strong>{{ workspace.t(reference.name) }}</strong>
+                    <span>{{ workspace.t(reference.position) }}</span>
+                    <button type="button" class="link" (click)="toggleRecommendation(project.id + reference.id)">
+                      {{ workspace.t(openRecommendation() === project.id + reference.id ? ui.systems.close : ui.systems.readFull) }}
+                    </button>
+                  </footer>
+                  @if (workspace.isArabic()) {
+                    <p class="translated">{{ workspace.t(ui.journey.translated) }}</p>
+                  }
+                </blockquote>
+              }
+            </section>
+          </div>
+        </article>
+      }
+    </div>
+
+    <!-- Delivered work: compact, low scroll cost. -->
+    <div class="rule reveal">
+      <span class="mono-label">{{ workspace.t(ui.systems.deliveredTitle) }}</span>
+    </div>
+
+    <ul class="delivered reveal">
+      @for (project of delivered; track project.id) {
+        <li>
+          <strong>{{ workspace.t(project.name) }}</strong>
+          <span class="delivered-descriptor">{{ workspace.t(project.descriptor) }}</span>
+          <span class="delivered-story">{{ workspace.t(project.headline) }}</span>
+          <span class="delivered-meta mono-label">
+            {{ workspace.t(project.status.label) }}
+            @if (liveUrl(project); as url) {
+              · <a [href]="url" target="_blank" rel="noopener noreferrer">{{ workspace.t(project.deployment.label) }}</a>
+            }
+          </span>
+        </li>
+      }
+    </ul>
+
+    <div class="rule reveal">
+      <span class="mono-label">{{ workspace.t(ui.systems.archiveTitle) }}</span>
+    </div>
+
+    <ul class="archive reveal">
+      @for (project of archive; track project.id) {
+        <li>
+          <strong>{{ workspace.t(project.name) }}</strong>
+          <span>{{ workspace.t(project.headline) }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+@if (lightbox(); as shot) {
+  <div
+    class="lightbox"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="workspace.t(shot.alt)"
+    (click)="closeLightbox()"
+  >
+    <button
+      type="button"
+      class="lightbox-close"
+      [attr.aria-label]="workspace.t(ui.systems.closeImage)"
+      (click)="closeLightbox()"
+    >
+      <i class="bi bi-x-lg" aria-hidden="true"></i>
+    </button>
+    <img [src]="shot.src" [alt]="workspace.t(shot.alt)" [width]="shot.width" [height]="shot.height" />
+    @if (shot.caption) {
+      <p class="lightbox-caption">{{ workspace.t(shot.caption) }}</p>
+    }
+  </div>
+}

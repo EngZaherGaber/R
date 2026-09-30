@@ -45,6 +45,16 @@ export const projects: Project[] = [
   /* ------------------------------------------------------------- flagship */
   {
     id: 'nasaq',
+    group: 'primary',
+    visual: 'platform',
+    headline: {
+      en: 'A clinic platform where every tenant runs an isolated practice. One Nx workspace: Angular web, Ionic mobile, admin console and landing over one NestJS API.',
+      ar: 'منصة عيادات يعمل فيها كل مستأجر ضمن مساحة معزولة. مساحة عمل Nx واحدة: ويب بـ Angular، وموبايل بـ Ionic، ولوحة إدارة وموقع تعريفي فوق واجهة NestJS واحدة.',
+    },
+    outcome: {
+      en: 'MVP deployed and running the core clinic workflows.',
+      ar: 'النسخة الأولى منشورة وتشغّل مسارات العيادة الأساسية.',
+    },
     tier: 'flagship',
     order: 1,
     name: { en: 'Nasaq', ar: 'نَسَق' },
@@ -185,6 +195,16 @@ export const projects: Project[] = [
   /* ------------------------------------------------------------- featured */
   {
     id: 'mandoob',
+    group: 'primary',
+    visual: 'distribution',
+    headline: {
+      en: 'A distribution platform connecting companies to field representatives and the retail stores they visit. Orders, offers, returns and collections in one channel.',
+      ar: 'منصة توزيع تربط الشركات بالمندوبين الميدانيين وبالمتاجر التي يزورونها. الطلبات والعروض والمرتجعات والتحصيلات في قناة واحدة.',
+    },
+    outcome: {
+      en: 'Web platform and Android app built, in launch stage.',
+      ar: 'منصة الويب وتطبيق أندرويد جاهزان وفي مرحلة الإطلاق.',
+    },
     tier: 'featured',
     order: 2,
     name: { en: 'Mandoob', ar: 'مندوب' },
@@ -312,6 +332,16 @@ export const projects: Project[] = [
 
   {
     id: 'tli',
+    group: 'primary',
+    visual: 'transformation',
+    headline: {
+      en: 'A telecom operations system for tower capacity. I inherited a frontend with serious structural problems, re-architected it in place, and delivered it.',
+      ar: 'نظام تشغيلي لسعة أبراج الاتصالات. استلمت واجهة بمشكلات بنيوية جدّية، فأعدت هندستها في مكانها وسلّمتها.',
+    },
+    outcome: {
+      en: 'Delivered to Syriatel with strong positive feedback.',
+      ar: 'سُلّم إلى سيرياتل ولاقى تقييماً إيجابياً قوياً.',
+    },
     tier: 'featured',
     order: 3,
     name: {
@@ -332,7 +362,6 @@ export const projects: Project[] = [
     },
     stack: ['Angular', 'TypeScript', 'RxJS', 'PrimeNG', 'Reactive Forms', 'Charts'],
     deployment: privateDeployment,
-    logo: 'syriatel.webp',
     cover: {
       src: 'TLI/home.webp',
       alt: {
@@ -458,6 +487,16 @@ export const projects: Project[] = [
 
   {
     id: 'workflow',
+    group: 'primary',
+    visual: 'workflow',
+    headline: {
+      en: 'A configurable request and approval engine. Administrators design workflow templates, the actions inside them, and the form each action collects.',
+      ar: 'محرك طلبات وموافقات قابل للإعداد. يصمّم المسؤولون قوالب سير العمل والإجراءات داخلها والنموذج الذي يجمعه كل إجراء.',
+    },
+    outcome: {
+      en: 'Delivered as a usable enterprise system.',
+      ar: 'سُلّم كنظام مؤسسي قابل للاستخدام.',
+    },
     tier: 'featured',
     order: 4,
     name: { en: 'Workflow Automation System', ar: 'نظام أتمتة سير العمل' },
@@ -474,7 +513,6 @@ export const projects: Project[] = [
     },
     stack: ['Angular', 'TypeScript', 'RxJS', 'Dynamic Forms', 'Graph Editor'],
     deployment: privateDeployment,
-    logo: 'wf-logo.webp',
     cover: {
       src: 'WF/graphtemplate.webp',
       alt: {
@@ -579,6 +617,16 @@ export const projects: Project[] = [
 
   {
     id: 'school',
+    group: 'secondary',
+    visual: 'none',
+    headline: {
+      en: 'An Nx workspace holding a platform admin console and the school application over a large academic domain.',
+      ar: 'مساحة عمل Nx تضم لوحة إدارة المنصة وتطبيق المدرسة فوق نطاق أكاديمي واسع.',
+    },
+    outcome: {
+      en: 'Finished. Web only — no Ionic application.',
+      ar: 'منجز. ويب فقط — بلا تطبيق Ionic.',
+    },
     tier: 'featured',
     order: 5,
     name: { en: 'School Management Platform', ar: 'منصة إدارة المدارس' },
@@ -655,6 +703,16 @@ export const projects: Project[] = [
 
   {
     id: 'undp',
+    group: 'secondary',
+    visual: 'none',
+    headline: {
+      en: 'An HR system for employees, contracts and salary workflows, built for a multilingual organisation.',
+      ar: 'نظام موارد بشرية للموظفين والعقود ومسارات الرواتب، مبني لمنظمة متعددة اللغات.',
+    },
+    outcome: {
+      en: 'Delivered. Frontend architecture and implementation were mine.',
+      ar: 'مُسلَّم. بنية الواجهة الأمامية وتنفيذها كانا من عملي.',
+    },
     tier: 'featured',
     order: 6,
     name: { en: 'UNDP Employee Management', ar: 'إدارة موظفي UNDP' },
@@ -668,7 +726,6 @@ export const projects: Project[] = [
     },
     stack: ['Angular', 'TypeScript', 'Reactive Forms', 'Angular Material', 'RxJS'],
     deployment: privateDeployment,
-    logo: 'un-logo.webp',
     cover: {
       src: 'UN/employee.webp',
       alt: {
@@ -728,6 +785,16 @@ export const projects: Project[] = [
 
   {
     id: 'huelle',
+    group: 'secondary',
+    visual: 'none',
+    headline: {
+      en: 'A finished Shopify storefront for the German mobile-accessory market.',
+      ar: 'متجر Shopify منجز للسوق الألمانية في إكسسوارات الهاتف.',
+    },
+    outcome: {
+      en: 'Finished and live.',
+      ar: 'منجز ومنشور.',
+    },
     tier: 'featured',
     order: 7,
     name: { en: 'Hülle 2GO', ar: 'Hülle 2GO' },
@@ -745,7 +812,6 @@ export const projects: Project[] = [
       url: 'https://huelle2go.de',
       label: { en: 'Visit store', ar: 'زيارة المتجر' },
     },
-    logo: 'Handy.webp',
     caseStudy: [
       {
         id: 'problem',
@@ -770,6 +836,16 @@ export const projects: Project[] = [
   /* -------------------------------------------------------------- archive */
   {
     id: 'phoneparts',
+    group: 'archive',
+    visual: 'none',
+    headline: {
+      en: 'B2B catalog and order workflows for the German market.',
+      ar: 'كتالوج للأعمال ومسارات طلب للسوق الألمانية.',
+    },
+    outcome: {
+      en: 'No longer active.',
+      ar: 'لم يعد نشطاً.',
+    },
     tier: 'archive',
     order: 8,
     name: { en: 'Phone Parts 2GO', ar: 'Phone Parts 2GO' },
@@ -792,6 +868,16 @@ export const projects: Project[] = [
   },
   {
     id: 'reisekoffer',
+    group: 'archive',
+    visual: 'none',
+    headline: {
+      en: 'Luggage catalog and product pages for the German market.',
+      ar: 'كتالوج حقائب وصفحات منتجات للسوق الألمانية.',
+    },
+    outcome: {
+      en: 'No longer active.',
+      ar: 'لم يعد نشطاً.',
+    },
     tier: 'archive',
     order: 9,
     name: { en: 'ReiseKoffer 2GO', ar: 'ReiseKoffer 2GO' },
@@ -813,6 +899,16 @@ export const projects: Project[] = [
     testimonialIds: ['jamal-halabi'],
   },
 ];
+
+/** The four systems that get the full interactive stage. */
+export const primaryProjects = projects
+  .filter((project) => project.group === 'primary')
+  .sort((a, b) => a.order - b.order);
+
+/** Delivered work shown compactly. */
+export const secondaryProjects = projects
+  .filter((project) => project.group === 'secondary')
+  .sort((a, b) => a.order - b.order);
 
 export const flagshipProject = projects.find((project) => project.tier === 'flagship')!;
 

@@ -1,0 +1,383 @@
+:host {
+  display: block;
+}
+
+/* =============================================================== commands = */
+
+.commands {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.command-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Commands read as small technical actions, not marketing cards. */
+.command {
+  display: grid;
+  gap: 0.1rem;
+  min-height: 48px;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  text-align: start;
+  transition: border-color 0.16s ease, background 0.16s ease;
+}
+
+.command:hover {
+  border-color: var(--accent-line);
+}
+
+.command.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.command strong {
+  font-size: 0.88rem;
+  color: var(--text-strong);
+}
+
+.command small {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ================================================================ surface = */
+
+.graph-surface {
+  display: none;
+}
+
+@media (min-width: 62rem) {
+  .graph-surface {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 18rem);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: start;
+    padding-block: 0.5rem;
+  }
+}
+
+.graph-edges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.graph-edge {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  /* At rest the mesh is barely there; only the lead routes read. */
+  opacity: 0.09;
+  transition: opacity 0.28s ease, stroke 0.28s ease;
+}
+
+.graph-edge.is-lead {
+  opacity: 0.28;
+}
+
+.graph-surface.has-selection .graph-edge,
+.graph-surface.has-selection .graph-edge.is-lead {
+  opacity: 0.05;
+}
+
+.graph-edge.is-active,
+.graph-surface.has-selection .graph-edge.is-active {
+  stroke: var(--accent);
+  stroke-width: 1.3;
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------ capabilities */
+
+.capability-column {
+  display: grid;
+  gap: 1.35rem;
+  position: relative;
+  z-index: 1;
+}
+
+.domain-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--muted);
+}
+
+.domain-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.cap-node {
+  min-height: 40px;
+  padding: 0 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--muted-strong);
+  font-size: 0.82rem;
+  transition:
+    border-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.24s ease,
+    background 0.2s ease;
+}
+
+/* The five technologies the positioning rests on read louder. */
+.cap-node.primary {
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+
+.cap-node:hover {
+  border-color: var(--accent-line);
+  color: var(--text-strong);
+}
+
+.cap-node.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text-strong);
+}
+
+.cap-node.dimmed {
+  opacity: 0.32;
+}
+
+/* ---------------------------------------------------------------- evidence */
+
+.evidence-column {
+  display: grid;
+  gap: 0.3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.evidence-node {
+  display: grid;
+  gap: 0.05rem;
+  min-height: 46px;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--line);
+  border-inline-start-width: 2px;
+  border-radius: 4px;
+  background: var(--bg);
+  text-align: start;
+  transition: border-color 0.2s ease, opacity 0.24s ease, background 0.2s ease;
+}
+
+.evidence-node strong {
+  font-size: 0.86rem;
+  color: var(--text);
+}
+
+.evidence-node small {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.evidence-node:hover {
+  border-color: var(--accent-line);
+}
+
+.evidence-node.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.evidence-node.dimmed {
+  opacity: 0.32;
+}
+
+/* ================================================================ context = */
+
+.graph-context {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem 1.25rem;
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  min-height: 3.5rem;
+}
+
+.context-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.context-line strong {
+  font-size: 1rem;
+  color: var(--text-strong);
+}
+
+.context-line span {
+  font-size: 0.88rem;
+  color: var(--muted-strong);
+  max-width: 46ch;
+}
+
+.context-items {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.context-chip {
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--accent-line);
+  border-radius: 3px;
+  font-size: 0.76rem;
+  color: var(--muted-strong);
+}
+
+.context-hint {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.reset {
+  margin-inline-start: auto;
+  min-height: 36px;
+  padding: 0 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.reset:hover {
+  border-color: var(--accent-line);
+  color: var(--text-strong);
+}
+
+/* ================================================================== lanes = */
+
+.lanes {
+  display: grid;
+  gap: 1.1rem;
+}
+
+@media (min-width: 62rem) {
+  .lanes {
+    display: none;
+  }
+}
+
+.lane-projects {
+  display: flex;
+  gap: 0.35rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+  overscroll-behavior-x: contain;
+}
+
+.lane-project {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 0 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--muted-strong);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.lane-project.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text-strong);
+}
+
+.lane {
+  display: grid;
+  gap: 0.4rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.lane-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+/* Short inline routes instead of SVG spaghetti on a phone. */
+.lane-node {
+  position: relative;
+  min-height: 44px;
+  padding: 0 0.75rem 0 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--muted-strong);
+  font-size: 0.83rem;
+}
+
+html[dir="rtl"] .lane-node {
+  padding: 0 1.15rem 0 0.75rem;
+}
+
+.lane-node::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.5rem;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--line-strong);
+  transform: translateY(-50%);
+}
+
+.lane-node.primary {
+  font-weight: 650;
+  color: var(--text);
+}
+
+.lane-node.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text-strong);
+}
+
+.lane-node.active::before {
+  background: var(--accent);
+}
+
+/* ================================================================ commerce */
+
+.commerce-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .graph-edge,
+  .cap-node,
+  .evidence-node {
+    transition: none;
+  }
+}

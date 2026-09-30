@@ -1,0 +1,13 @@
+/* Optional brand helper tokens.
+   Runtime Angular component primarily inherits the portfolio's existing --text/--accent. */
+
+:root {
+  --zg-accent-blue: #0687fd;
+  --zg-accent-blue-highlight: #73bdfc;
+}
+
+.zg-brand-surface {
+  --zg-main: var(--text);
+  --zg-accent: var(--accent);
+  --zg-accent-highlight: color-mix(in srgb, var(--accent) 52%, white);
+}

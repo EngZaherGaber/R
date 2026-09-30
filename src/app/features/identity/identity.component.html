@@ -1,0 +1,77 @@
+<section class="identity portfolio-section" aria-labelledby="identity-name">
+  <div class="section-inner identity-inner">
+    <!--
+      The ZG mark opens the scene: large, centred, and the root the workspace
+      topology below is drawn from.
+    -->
+    <div class="identity-mark hero-token" data-network-anchor="hero-logo">
+      <span class="mark-ring" aria-hidden="true"></span>
+      <zg-logo [label]="name()" [animated]="true" [sheen]="true" />
+    </div>
+
+    <p class="identity-eyebrow hero-token mono-label">{{ workspace.t(ui.identity.eyebrow) }}</p>
+
+    <h1 id="identity-name" class="hero-token">{{ name() }}</h1>
+    <p class="identity-role hero-token">{{ role() }}</p>
+    <p class="identity-line hero-token">{{ workspace.t(ui.identity.statement) }}</p>
+
+    <ul class="signals hero-token">
+      @for (signal of signals(); track signal.id) {
+        <li class="signal">
+          <strong>{{ signal.label }}</strong>
+          <span>{{ signal.value }}</span>
+        </li>
+      }
+    </ul>
+
+    <div class="identity-actions hero-token">
+      <button type="button" class="btn btn-primary" (click)="navigate.emit('work')">
+        {{ workspace.t(ui.identity.primaryCta) }}
+      </button>
+      <a class="btn" [href]="profile.cvPath" download target="_blank" rel="noopener">
+        {{ workspace.t(ui.identity.secondaryCta) }}
+      </a>
+      <button type="button" class="btn btn-quiet" (click)="navigate.emit('contact')">
+        {{ workspace.t(ui.identity.tertiaryCta) }}
+      </button>
+    </div>
+
+    <!--
+      The system I build, drawn as one wide band: four clients over one API
+      over one database, inside one Nx workspace.
+    -->
+    <figure class="identity-system hero-token" data-network-anchor="hero-system">
+      <figcaption class="system-tag mono-label">Nx workspace</figcaption>
+
+      <div class="system-row clients">
+        @for (client of clients; track client.id) {
+          <span class="map-node">
+            <b>{{ workspace.t(client.label) }}</b>
+            <small>{{ client.tech }}</small>
+          </span>
+        }
+      </div>
+
+      <span class="system-bus" aria-hidden="true">
+        <span class="bus-line"></span>
+        <span class="bus-drop"></span>
+      </span>
+
+      <div class="system-row">
+        <span class="map-node core">
+          <b>NestJS</b>
+          <small>{{ workspace.t(ui.identity.apiLabel) }}</small>
+        </span>
+      </div>
+
+      <span class="system-link" aria-hidden="true"></span>
+
+      <div class="system-row">
+        <span class="map-node core">
+          <b>PostgreSQL</b>
+          <small>Prisma</small>
+        </span>
+      </div>
+    </figure>
+  </div>
+</section>

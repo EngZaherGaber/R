@@ -13,8 +13,8 @@ export const experience: ExperienceEntry[] = [
     organization: { en: 'IC&I', ar: 'IC&I' },
     period: { en: 'June 15, 2023 — Present', ar: '15 حزيران 2023 — حتى الآن' },
     summary: {
-      en: 'Enterprise Angular systems: frontend architecture, modernization of inherited applications, and complex business workflows. The role has widened over time from implementation into system and product architecture, including Nx-based platforms that span web, mobile and backend.',
-      ar: 'أنظمة Angular مؤسسية: بنية الواجهات، وتحديث تطبيقات موروثة، ومسارات عمل معقّدة. اتسع الدور مع الوقت من التنفيذ إلى هندسة الأنظمة والمنتجات، بما يشمل منصات على Nx تمتد من الويب إلى الموبايل إلى الواجهة الخلفية.',
+      en: 'Enterprise Angular systems: frontend architecture, modernization of inherited applications, and complex business workflows.',
+      ar: 'أنظمة Angular مؤسسية: بنية الواجهات، وتحديث تطبيقات موروثة، ومسارات عمل معقّدة.',
     },
     highlights: {
       en: [
@@ -42,8 +42,8 @@ export const experience: ExperienceEntry[] = [
     organization: { en: 'Nasaq — in collaboration with IC&I', ar: 'نَسَق — بالتعاون مع IC&I' },
     period: { en: 'Ongoing', ar: 'عمل مستمر' },
     summary: {
-      en: 'Building a multi-tenant medical SaaS end to end: domain model, NestJS API, PostgreSQL schema, Nx workspace boundaries, and the Angular and Ionic applications on top of them.',
-      ar: 'بناء منصة SaaS طبية متعددة المستأجرين من طرف إلى طرف: نموذج النطاق، وواجهة NestJS، ومخطط PostgreSQL، وحدود مساحة عمل Nx، وتطبيقات Angular وIonic فوقها.',
+      en: 'Building a multi-tenant medical SaaS end to end, from the domain model to the Angular and Ionic clients.',
+      ar: 'بناء منصة SaaS طبية متعددة المستأجرين من طرف إلى طرف، من نموذج النطاق إلى تطبيقات Angular وIonic.',
     },
     highlights: {
       en: [
@@ -68,8 +68,8 @@ export const experience: ExperienceEntry[] = [
     organization: { en: 'Independent', ar: 'عمل مستقل' },
     period: { en: 'Apr 2021 — Present', ar: 'نيسان 2021 — حتى الآن' },
     summary: {
-      en: 'Angular applications for independent clients: translating requirements into responsive, maintainable interfaces.',
-      ar: 'تطبيقات Angular لعملاء مستقلين: تحويل المتطلبات إلى واجهات متجاوبة وقابلة للصيانة.',
+      en: 'Angular applications for independent clients, from requirements through delivery.',
+      ar: 'تطبيقات Angular لعملاء مستقلين، من المتطلبات حتى التسليم.',
     },
     highlights: {
       en: [
@@ -91,8 +91,8 @@ export const experience: ExperienceEntry[] = [
     organization: { en: '2GO Group & independent clients', ar: 'مجموعة 2GO وعملاء مستقلون' },
     period: { en: 'May 2024 — Present', ar: 'أيار 2024 — حتى الآن' },
     summary: {
-      en: 'Custom Shopify themes and storefront work for German-market brands, including performance and buying-flow improvements.',
-      ar: 'قوالب Shopify مخصّصة وعمل على المتاجر لعلامات في السوق الألمانية، مع تحسينات للأداء ومسار الشراء.',
+      en: 'Custom Shopify themes and storefront work for German-market brands.',
+      ar: 'قوالب Shopify مخصّصة وعمل على المتاجر لعلامات في السوق الألمانية.',
     },
     highlights: {
       en: ['Theme customization and storefront UX.', 'Catalog presentation and responsive buying flows.'],

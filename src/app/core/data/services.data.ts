@@ -1,89 +1,51 @@
-import { LocalizedList, LocalizedText } from '../models/portfolio.model';
-
-export interface ServiceOffer {
-  id: string;
-  icon: string;
-  title: LocalizedText;
-  description: LocalizedText;
-  deliverables: LocalizedList;
-  /** Proof, not promises: projects where this was actually delivered. */
-  projectIds: string[];
-  skillIds: string[];
-}
+import { LocalizedText } from '../models/portfolio.model';
 
 /**
- * Kept deliberately short. Employment is the primary goal of this portfolio,
- * so this reads as a capability summary rather than a services catalogue.
+ * What used to be a full Services section is now four commands attached to the
+ * engineering graph: selecting one highlights the projects that prove it.
  */
-export const serviceOffers: ServiceOffer[] = [
+export interface CapabilityCommand {
+  id: string;
+  /** Short verb. This is the label the visitor scans. */
+  label: LocalizedText;
+  /** One short line, never a paragraph. */
+  line: LocalizedText;
+  projectIds: string[];
+}
+
+export const capabilityCommands: CapabilityCommand[] = [
   {
-    id: 'enterprise-angular',
-    icon: 'bi bi-window-stack',
-    title: { en: 'Enterprise Angular Development', ar: 'تطوير Angular المؤسسي' },
-    description: {
-      en: 'Complex Angular applications: frontend architecture, dense data screens, long forms, predictable state and enterprise UI.',
-      ar: 'تطبيقات Angular معقّدة: بنية الواجهات، وشاشات بيانات كثيفة، ونماذج طويلة، وحالة يمكن التنبؤ بها، وواجهات مؤسسية.',
-    },
-    deliverables: {
-      en: ['Feature and module architecture', 'Reusable data & form layers', 'Accessible enterprise UI'],
-      ar: ['بنية الميزات والوحدات', 'طبقات بيانات ونماذج قابلة لإعادة الاستخدام', 'واجهة مؤسسية ميسورة الوصول'],
-    },
-    projectIds: ['tli', 'workflow', 'undp'],
-    skillIds: ['angular', 'forms', 'primeng'],
+    id: 'architect',
+    label: { en: 'Architect', ar: 'أُصمّم' },
+    line: { en: 'System and frontend architecture', ar: 'هندسة الأنظمة والواجهات' },
+    projectIds: ['nasaq', 'tli', 'workflow', 'school'],
   },
   {
-    id: 'nx-platform',
-    icon: 'bi bi-hdd-network',
-    title: { en: 'Full-Stack Nx Product Development', ar: 'بناء منتجات Full-Stack على Nx' },
-    description: {
-      en: 'Whole platforms in one workspace: domain model, NestJS API, PostgreSQL schema, and the web and mobile clients over them.',
-      ar: 'منصات كاملة في مساحة عمل واحدة: نموذج النطاق، وواجهة NestJS، ومخطط PostgreSQL، وعملاء الويب والموبايل فوقها.',
-    },
-    deliverables: {
-      en: ['Nx workspace & domain boundaries', 'API contracts and data model', 'Shared UI infrastructure'],
-      ar: ['مساحة عمل Nx وحدود النطاقات', 'عقود الـ API ونموذج البيانات', 'بنية واجهات مشتركة'],
-    },
-    projectIds: ['nasaq', 'school'],
-    skillIds: ['nx', 'nestjs', 'postgres'],
+    id: 'build',
+    label: { en: 'Build', ar: 'أبني' },
+    line: { en: 'Angular + Nx platforms', ar: 'منصات Angular وNx' },
+    projectIds: ['nasaq', 'mandoob'],
   },
   {
-    id: 'angular-ionic',
-    icon: 'bi bi-phone',
-    title: { en: 'Angular & Ionic Product Delivery', ar: 'تسليم منتجات Angular وIonic' },
-    description: {
-      en: 'Responsive web plus a real Android application, sharing one domain layer so a business rule is written once.',
-      ar: 'ويب متجاوب مع تطبيق أندرويد حقيقي، يتشاركان طبقة نطاق واحدة فتُكتب قاعدة العمل مرة واحدة.',
-    },
-    deliverables: {
-      en: ['Shared web/mobile domain layer', 'Ionic + Capacitor Android build', 'Field-ready mobile UX'],
-      ar: ['طبقة نطاق مشتركة بين الويب والموبايل', 'نسخة أندرويد بـ Ionic وCapacitor', 'تجربة موبايل جاهزة للميدان'],
-    },
-    projectIds: ['mandoob', 'nasaq'],
-    skillIds: ['ionic', 'capacitor', 'android'],
-  },
-  {
-    id: 'modernization',
-    icon: 'bi bi-arrow-repeat',
-    title: { en: 'Frontend Modernization', ar: 'تحديث الواجهات الأمامية' },
-    description: {
-      en: 'Taking over an inherited Angular application: analysing it, re-architecting it, and delivering it without stopping the business.',
-      ar: 'استلام تطبيق Angular موروث: تحليله، وإعادة هندسته، وتسليمه دون إيقاف العمل.',
-    },
-    deliverables: {
-      en: ['Architecture assessment', 'Incremental re-architecture', 'Delivered, maintainable frontend'],
-      ar: ['تقييم البنية', 'إعادة هندسة تدريجية', 'واجهة مُسلَّمة وقابلة للصيانة'],
-    },
+    id: 'modernize',
+    label: { en: 'Modernize', ar: 'أُحدّث' },
+    line: { en: 'Inherited Angular systems', ar: 'أنظمة Angular موروثة' },
     projectIds: ['tli', 'workflow'],
-    skillIds: ['angular', 'components', 'state'],
+  },
+  {
+    id: 'mobile',
+    label: { en: 'Mobile', ar: 'الموبايل' },
+    line: { en: 'Angular + Ionic delivery', ar: 'تسليم بـ Angular وIonic' },
+    projectIds: ['nasaq', 'mandoob'],
   },
 ];
 
-/** Commerce sits below the platform work rather than beside it. */
+/** Commerce stays a quiet supporting capability, not a fifth command. */
 export const commerceCapability = {
-  title: { en: 'Commerce', ar: 'التجارة الإلكترونية' },
-  description: {
-    en: 'Shopify storefront customization and e-commerce UX for client brands.',
-    ar: 'تخصيص متاجر Shopify وتجربة تسوّق إلكتروني لعلامات العملاء.',
+  label: { en: 'Commerce', ar: 'التجارة الإلكترونية' },
+  line: {
+    en: 'Shopify storefronts for client brands',
+    ar: 'متاجر Shopify لعلامات العملاء',
   },
   projectIds: ['huelle'],
 };

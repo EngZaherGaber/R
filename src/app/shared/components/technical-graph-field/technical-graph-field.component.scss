@@ -1,0 +1,87 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  --pointer-x: 50vw;
+  --pointer-y: 30vh;
+  /* MotionService writes this from scroll velocity. */
+  --field-energy: 0;
+}
+
+/* Blueprint geometry: the base language of the whole site. */
+.field-grid {
+  position: absolute;
+  inset: -2px;
+  background:
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 88px 88px,
+    linear-gradient(180deg, var(--grid-line) 1px, transparent 1px) 0 0 / 88px 88px,
+    linear-gradient(90deg, var(--grid-line-fine) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(180deg, var(--grid-line-fine) 1px, transparent 1px) 0 0 / 22px 22px;
+  mask-image: radial-gradient(120% 90% at 50% 0%, black 10%, transparent 78%);
+  opacity: calc(0.5 + var(--field-energy) * 0.35);
+  transition: opacity 0.4s ease;
+}
+
+/* A very quiet atmospheric depth - not a starfield. */
+.field-depth {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60rem 34rem at 16% -6%, var(--field-wash-a), transparent 70%),
+    radial-gradient(52rem 30rem at 88% 14%, var(--field-wash-b), transparent 72%);
+}
+
+/* Local illumination that follows a fine pointer. Desktop only. */
+.field-pointer {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    16rem 16rem at var(--pointer-x) var(--pointer-y),
+    color-mix(in srgb, var(--accent), transparent 90%),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .field-pointer {
+    opacity: 1;
+  }
+}
+
+.field-routes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.field-route {
+  fill: none;
+  stroke: color-mix(in srgb, var(--accent), transparent 78%);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  opacity: calc(0.55 + var(--field-energy) * 0.45);
+  transition: opacity 0.4s ease;
+}
+
+.field-route.quiet {
+  stroke: var(--line);
+  stroke-dasharray: 3 9;
+}
+
+:host-context(html[data-lean-motion]) .field-pointer,
+:host-context(html[data-lean-motion]) .field-routes {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field-grid,
+  .field-route {
+    transition: none;
+  }
+}

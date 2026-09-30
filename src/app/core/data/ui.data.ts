@@ -1,156 +1,102 @@
 import { LocalizedText } from '../models/portfolio.model';
 
-/** Every chrome / label string in the app, in both languages. */
+/**
+ * Every chrome / label string, in both languages.
+ *
+ * The copy budget is part of the design: scene intros are one line, never a
+ * paragraph. Depth lives in the project and skill data, behind intent.
+ */
 export const ui = {
-  hero: {
-    eyebrow: {
-      en: 'Full-Stack Angular Engineer',
-      ar: 'مهندس Full-Stack بخبرة أساسية في Angular',
+  identity: {
+    eyebrow: { en: 'Damascus, Syria · Open to work', ar: 'دمشق، سوريا · متاح للعمل' },
+    statement: {
+      en: 'I design and build Angular platforms across web, mobile and backend systems.',
+      ar: 'أصمّم وأبني منصات Angular تمتد من الويب إلى الموبايل إلى الأنظمة الخلفية.',
     },
-    employmentLabel: { en: 'Currently', ar: 'حالياً' },
-    stackLabel: { en: 'Core ecosystem', ar: 'المنظومة الأساسية' },
-    primaryCta: { en: 'View selected work', ar: 'شاهد الأعمال المختارة' },
-    secondaryCta: { en: 'Download CV', ar: 'تحميل السيرة الذاتية' },
-    tertiaryCta: { en: 'Contact me', ar: 'تواصل معي' },
-    diagramLabel: {
-      en: 'How I build: one Nx workspace holding web, mobile and API over a shared database.',
-      ar: 'كيف أبني: مساحة عمل Nx واحدة تضم الويب والموبايل والـ API فوق قاعدة بيانات مشتركة.',
-    },
+    founderLabel: { en: 'Founder', ar: 'مؤسس' },
+    founderValue: { en: 'Nasaq — medical SaaS', ar: 'نَسَق — منصة طبية' },
+    enterpriseLabel: { en: 'Enterprise delivery', ar: 'تسليم مؤسسي' },
+    enterpriseValue: { en: 'Syriatel · UN', ar: 'سيرياتل · الأمم المتحدة' },
+    apiLabel: { en: 'Domain API', ar: 'واجهة النطاق' },
+    primaryCta: { en: 'View systems', ar: 'شاهد الأنظمة' },
+    secondaryCta: { en: 'Download CV', ar: 'تحميل السيرة' },
+    tertiaryCta: { en: 'Contact', ar: 'تواصل' },
   },
 
-  work: {
-    kicker: { en: 'Selected work', ar: 'أعمال مختارة' },
-    title: { en: 'Systems I designed, rebuilt, or shipped', ar: 'أنظمة صمّمتها أو أعدت بناءها أو سلّمتها' },
-    description: {
-      en: 'Ordered by what they say about my engineering, not by date.',
-      ar: 'مرتّبة بحسب ما تقوله عن هندستي، لا بحسب التاريخ.',
-    },
-    flagshipBadge: { en: 'Flagship project', ar: 'المشروع الأبرز' },
-    selectLabel: { en: 'Choose a project', ar: 'اختر مشروعاً' },
-    roleLabel: { en: 'My role', ar: 'دوري' },
-    clientLabel: { en: 'Client', ar: 'العميل' },
-    stackLabel: { en: 'Stack', ar: 'التقنيات' },
-    statusLabel: { en: 'Status', ar: 'الحالة' },
+  systems: {
+    kicker: { en: 'Systems', ar: 'الأنظمة' },
+    title: { en: 'What I have built and rebuilt', ar: 'ما بنيته وما أعدت بناءه' },
     indexLabel: { en: 'Project index', ar: 'فهرس المشاريع' },
-    panelLabels: {
-      overview: { en: 'Overview', ar: 'نظرة عامة' },
-      system: { en: 'Architecture', ar: 'البنية' },
-      evidence: { en: 'Evidence', ar: 'الدليل' },
+    roleLabel: { en: 'Role', ar: 'الدور' },
+    statusLabel: { en: 'Status', ar: 'الحالة' },
+    stackLabel: { en: 'Stack', ar: 'التقنيات' },
+    outcomeLabel: { en: 'Outcome', ar: 'النتيجة' },
+    modes: {
+      system: { en: 'Explore system', ar: 'استكشف النظام' },
+      screens: { en: 'Screens', ar: 'اللقطات' },
+      deep: { en: 'Deep dive', ar: 'تفاصيل' },
     },
-    problemLabel: { en: 'Problem', ar: 'المشكلة' },
-    referencesLabel: { en: 'Reference', ar: 'شهادة' },
-    translatedNote: {
-      en: 'Approved testimonial',
-      ar: 'شهادة معتمَدة (ترجمة عن النص الأصلي)',
+    close: { en: 'Close', ar: 'إغلاق' },
+    next: { en: 'Next project', ar: 'المشروع التالي' },
+    previous: { en: 'Previous project', ar: 'المشروع السابق' },
+    openImage: { en: 'Open image', ar: 'فتح الصورة' },
+    closeImage: { en: 'Close image', ar: 'إغلاق الصورة' },
+    noScreens: {
+      en: 'Screens for this system are not published yet.',
+      ar: 'لقطات هذا النظام لم تُنشر بعد.',
     },
-    assetsPending: {
-      en: 'Screenshots for this project are not published yet.',
-      ar: 'لقطات هذا المشروع لم تُنشر بعد.',
-    },
-    capabilitiesLabel: { en: 'Key capabilities', ar: 'أبرز القدرات' },
-    architectureLabel: { en: 'Architecture', ar: 'البنية' },
-    galleryLabel: { en: 'From the system', ar: 'من داخل النظام' },
-    flowLabel: { en: 'Who it connects', ar: 'من تربطه' },
-    testimonialLabel: { en: 'Reference', ar: 'شهادة' },
+    deliveredTitle: { en: 'Also delivered', ar: 'أعمال مُسلَّمة أخرى' },
     archiveTitle: { en: 'Previous work', ar: 'أعمال سابقة' },
-    archiveNote: {
-      en: 'Earlier commerce projects, kept for completeness.',
-      ar: 'مشاريع تجارية أقدم، مدرجة للاكتمال.',
-    },
-    labTitle: { en: 'Lab', ar: 'المختبر' },
-    labNote: {
-      en: 'An experimental prototype, not a production system.',
-      ar: 'نموذج تجريبي، ليس نظاماً إنتاجياً.',
-    },
-    nextProject: { en: 'Next project', ar: 'المشروع التالي' },
-    previousProject: { en: 'Previous project', ar: 'المشروع السابق' },
-    openGallery: { en: 'Open image', ar: 'فتح الصورة' },
-    closeGallery: { en: 'Close image', ar: 'إغلاق الصورة' },
+    privateLabel: { en: 'Private deployment', ar: 'نشر خاص' },
+    capabilitiesLabel: { en: 'Key capabilities', ar: 'أبرز القدرات' },
+    referenceLabel: { en: 'Reference', ar: 'شهادة' },
+    readFull: { en: 'Read full recommendation', ar: 'اقرأ التوصية كاملة' },
   },
 
-  expertise: {
-    kicker: { en: 'Expertise', ar: 'الخبرات التقنية' },
-    title: { en: 'What I work with, and where I used it', ar: 'ما أعمل به، وأين استخدمته' },
-    description: {
-      en: 'Each technology links to the projects it was actually used in.',
-      ar: 'كل تقنية مرتبطة بالمشاريع التي استُخدمت فيها فعلاً.',
+  graph: {
+    kicker: { en: 'Engineering graph', ar: 'الخريطة الهندسية' },
+    title: { en: 'Capabilities, and the work that proves them', ar: 'القدرات، والعمل الذي يثبتها' },
+    capabilitiesLabel: { en: 'Capabilities', ar: 'القدرات' },
+    evidenceLabel: { en: 'Evidence', ar: 'الدليل' },
+    usedIn: { en: 'Used in', ar: 'مستخدمة في' },
+    builtWith: { en: 'Built with', ar: 'مبني بـ' },
+    commandsLabel: { en: 'What I can help with', ar: 'ما يمكنني المساعدة به' },
+    reset: { en: 'Show everything', ar: 'إظهار الكل' },
+    selectHint: {
+      en: 'Select a capability or a project to trace the connections.',
+      ar: 'اختر قدرة أو مشروعاً لتتبّع الروابط.',
     },
-    proofLabel: { en: 'Used in', ar: 'مستخدمة في' },
-    categoriesLabel: { en: 'Skill areas', ar: 'مجالات المهارات' },
-    indexLabel: { en: 'See the full skill map', ar: 'عرض خريطة المهارات كاملة' },
-    closeDetails: { en: 'Close skill details', ar: 'إغلاق تفاصيل المهارة' },
+    lanesLabel: { en: 'Capabilities by area', ar: 'القدرات حسب المجال' },
   },
 
-  experience: {
-    kicker: { en: 'Experience', ar: 'المسار المهني' },
-    title: { en: 'Where the work happened', ar: 'أين جرى العمل' },
-    description: {
-      en: 'Employment, independent work and education.',
-      ar: 'العمل الوظيفي والمستقل والتعليم.',
+  journey: {
+    kicker: { en: 'Journey', ar: 'المسار' },
+    title: { en: 'From Angular frontend to product ownership', ar: 'من واجهات Angular إلى امتلاك المنتج' },
+    currentLabel: { en: 'Now', ar: 'الآن' },
+    relatedWork: { en: 'Work', ar: 'الأعمال' },
+    trustTitle: {
+      en: 'Trusted across enterprise and commercial delivery.',
+      ar: 'موثوق به في التسليم المؤسسي والتجاري.',
     },
-    currentLabel: { en: 'Current', ar: 'حالي' },
-    relatedWork: { en: 'Related work', ar: 'أعمال مرتبطة' },
-    kinds: {
-      work: { en: 'Employment', ar: 'عمل' },
-      freelance: { en: 'Independent', ar: 'عمل مستقل' },
-      education: { en: 'Education', ar: 'تعليم' },
+    principlesTitle: { en: 'What the work taught me', ar: 'ما علّمني إياه العمل' },
+    proofLabel: { en: 'Proof', ar: 'الدليل' },
+    translated: {
+      en: 'Translated from the approved English text',
+      ar: 'مترجمة عن النص الإنكليزي المعتمَد',
     },
-    referencesTitle: { en: 'References', ar: 'شهادات' },
-    referencesNote: {
-      en: 'Feedback from managers and clients I worked with directly, reviewed and approved by each of them.',
-      ar: 'ملاحظات من مديرين وعملاء عملت معهم مباشرة، راجعها كل منهم وأقرّها.',
-    },
-  },
-
-  mindset: {
-    kicker: { en: 'How I think about engineering', ar: 'كيف أفكّر هندسياً' },
-    title: { en: 'Engineering mindset', ar: 'العقلية الهندسية' },
-    description: {
-      en: 'Positions I hold, written in my own words and grounded in the work above.',
-      ar: 'مواقف أتبنّاها، بكلماتي، ومسنودة بالأعمال أعلاه.',
-    },
-    evidenceLabel: { en: 'In practice', ar: 'عملياً' },
-  },
-
-  services: {
-    kicker: { en: 'What I do', ar: 'ما أقدّمه' },
-    title: { en: 'How I usually get brought in', ar: 'كيف أُستدعى إلى العمل عادةً' },
-    description: {
-      en: 'Four kinds of work, each backed by projects on this page.',
-      ar: 'أربعة أنواع من العمل، كل منها مسنود بمشاريع في هذه الصفحة.',
-    },
-    deliverables: { en: 'Deliverables', ar: 'ما يُسلَّم' },
-    proof: { en: 'Proof', ar: 'الدليل' },
-    commerceLabel: { en: 'Also', ar: 'إضافةً إلى ذلك' },
-    closeDetails: { en: 'Close service details', ar: 'إغلاق تفاصيل الخدمة' },
-  },
-
-  trust: {
-    kicker: { en: 'Trust signals', ar: 'إشارات الثقة' },
-    title: { en: 'What people I worked with said', ar: 'ما قاله من عملت معهم' },
-    description: {
-      en: 'Approved testimonials from managers and clients, each tied to real work.',
-      ar: 'شهادات معتمَدة من مديرين وعملاء، كل منها مرتبط بعمل حقيقي.',
-    },
-    relatedWork: { en: 'Related work', ar: 'العمل المرتبط' },
-    translated: { en: 'Translated from the approved English text', ar: 'مترجمة عن النص الإنكليزي المعتمَد' },
-    pause: { en: 'Pause', ar: 'إيقاف' },
-    play: { en: 'Play', ar: 'تشغيل' },
-    previous: { en: 'Previous testimonial', ar: 'الشهادة السابقة' },
-    next: { en: 'Next testimonial', ar: 'الشهادة التالية' },
+    excerptLabel: { en: 'Excerpt', ar: 'مقتطف' },
   },
 
   contact: {
     kicker: { en: 'Contact', ar: 'التواصل' },
-    title: { en: 'Let’s talk', ar: 'لنتحدّث' },
-    description: {
-      en: 'Open to senior engineering roles, and to selected freelance and product work.',
-      ar: 'منفتح على أدوار هندسية متقدّمة، وعلى أعمال حرة ومشاريع منتج مختارة.',
+    line: {
+      en: 'Let’s build something that has to last.',
+      ar: 'لنبنِ شيئاً مصمَّماً ليدوم.',
     },
     copy: { en: 'Copy', ar: 'نسخ' },
     copied: { en: 'Copied', ar: 'تم النسخ' },
-    downloadCv: { en: 'Download CV', ar: 'تحميل السيرة الذاتية' },
-    socialsLabel: { en: 'Elsewhere', ar: 'روابط أخرى' },
+    downloadCv: { en: 'Download CV', ar: 'تحميل السيرة' },
+    elsewhere: { en: 'Elsewhere', ar: 'روابط أخرى' },
   },
 
   chrome: {
@@ -159,17 +105,15 @@ export const ui = {
     menu: { en: 'Menu', ar: 'القائمة' },
     closeMenu: { en: 'Close menu', ar: 'إغلاق القائمة' },
     language: { en: 'Language', ar: 'اللغة' },
-    theme: { en: 'Theme', ar: 'المظهر' },
     themeDark: { en: 'Switch to light theme', ar: 'التبديل إلى المظهر الفاتح' },
     themeLight: { en: 'Switch to dark theme', ar: 'التبديل إلى المظهر الداكن' },
     accent: { en: 'Accent colour', ar: 'لون التمييز' },
-    sections: { en: 'Sections', ar: 'الأقسام' },
+    sections: { en: 'Scenes', ar: 'المشاهد' },
   },
 } satisfies Record<string, Record<string, unknown>>;
 
 export type UiStrings = typeof ui;
 
-/** Narrow helper for the few places that build a label dynamically. */
 export function pick(text: LocalizedText, language: 'en' | 'ar'): string {
   return text[language];
 }

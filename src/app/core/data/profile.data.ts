@@ -21,7 +21,6 @@ export const profile: Profile = {
   siteUrl: 'https://zahergaber.vercel.app',
   cvPath: 'newCv.pdf',
   ogImage: 'og-image.png',
-  avatar: 'Zaher.webp',
 
   contacts: [
     {
@@ -75,24 +74,6 @@ export const profile: Profile = {
     },
   ],
 
-  coreStack: [
-    { id: 'nx', label: 'Nx', role: { en: 'Monorepo', ar: 'مستودع موحّد' }, icon: 'icons/nx.svg' },
-    { id: 'angular', label: 'Angular', role: { en: 'Web', ar: 'الويب' }, icon: 'icons/angular.svg' },
-    { id: 'ionic', label: 'Ionic', role: { en: 'Mobile', ar: 'الموبايل' }, icon: 'icons/ionic.svg' },
-    { id: 'nestjs', label: 'NestJS', role: { en: 'API', ar: 'واجهة API' }, icon: 'icons/nestjs.svg' },
-    {
-      id: 'postgres',
-      label: 'PostgreSQL',
-      role: { en: 'Data', ar: 'قاعدة البيانات' },
-      icon: 'icons/postgresql.svg',
-    },
-    {
-      id: 'typescript',
-      label: 'TypeScript',
-      role: { en: 'Language', ar: 'اللغة' },
-      icon: 'icons/typescript.svg',
-    },
-  ],
 };
 
 /** Employment title, deliberately separate from the personal positioning. */
@@ -115,11 +96,11 @@ export const accentColors: AccentColor[] = [
  * Six primary destinations - readable by recruiters, not only engineers.
  * Lab work lives inside Work; recommendations live inside Experience.
  */
+/** Five scenes. Services, trust and mindset live inside them, not beside them. */
 export const navigation: NavItem[] = [
   { id: 'home', label: { en: 'Home', ar: 'البداية' }, icon: 'bi bi-house' },
   { id: 'work', label: { en: 'Work', ar: 'الأعمال' }, icon: 'bi bi-collection' },
-  { id: 'expertise', label: { en: 'Skills', ar: 'المهارات' }, icon: 'bi bi-diagram-3' },
-  { id: 'experience', label: { en: 'Experience', ar: 'المسار المهني' }, icon: 'bi bi-briefcase' },
-  { id: 'mindset', label: { en: 'About', ar: 'عني' }, icon: 'bi bi-lightbulb' },
+  { id: 'expertise', label: { en: 'Expertise', ar: 'الخبرات' }, icon: 'bi bi-diagram-3' },
+  { id: 'journey', label: { en: 'Journey', ar: 'المسار' }, icon: 'bi bi-briefcase' },
   { id: 'contact', label: { en: 'Contact', ar: 'التواصل' }, icon: 'bi bi-send' },
 ];
