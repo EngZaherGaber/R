@@ -333,6 +333,7 @@ export const projects: Project[] = [
 
   {
     id: 'tli',
+    logo: 'project-brands/tli-tower-transparent.png',
     group: 'primary',
     visual: 'transformation',
     headline: {
