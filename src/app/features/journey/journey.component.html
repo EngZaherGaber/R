@@ -66,19 +66,21 @@
               purely visual, so crawlers and screen readers get the whole text
               and the wording is never paraphrased.
             -->
-            <blockquote [class.is-clamped]="!isOpen(person.id)">
+            <blockquote [class.is-clamped]="person.message.en.length > 180 && !isOpen(person.id)">
               {{ workspace.t(person.message) }}
             </blockquote>
 
             <div class="recommender-foot">
-              <button
-                type="button"
-                class="link"
-                [attr.aria-expanded]="isOpen(person.id)"
-                (click)="toggle(person.id)"
-              >
-                {{ workspace.t(isOpen(person.id) ? ui.systems.close : ui.systems.readFull) }}
-              </button>
+              @if (person.message.en.length > 180) {
+                <button
+                  type="button"
+                  class="link"
+                  [attr.aria-expanded]="isOpen(person.id)"
+                  (click)="toggle(person.id)"
+                >
+                  {{ workspace.t(isOpen(person.id) ? ui.systems.close : ui.systems.readFull) }}
+                </button>
+              }
 
               <span class="related">
                 @for (name of proofNames(person.projectIds); track name) {

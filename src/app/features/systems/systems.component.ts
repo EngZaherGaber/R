@@ -33,6 +33,15 @@ export class SystemsComponent implements AfterViewInit {
   readonly projects = primaryProjects;
   readonly delivered = secondaryProjects;
   readonly archive = archivedProjects;
+  readonly showcaseScenes = [
+    { id: 'directory', label: { en: 'Find a doctor', ar: 'دليل الأطباء' }, desktop: 'directory-desktop', tablet: 'directory-tablet', mobile: 'directory-mobile' },
+    { id: 'booking', label: { en: 'Book a visit', ar: 'حجز الموعد' }, desktop: 'booking-desktop', tablet: 'directory-tablet', mobile: 'home-mobile' },
+    { id: 'workspace', label: { en: 'Clinic workspace', ar: 'مساحة العيادة' }, desktop: 'app-home-desktop', tablet: 'encounters-tablet', mobile: 'reports-mobile' },
+    { id: 'patients', label: { en: 'Patient care', ar: 'رعاية المرضى' }, desktop: 'patients-desktop', tablet: 'encounters-tablet', mobile: 'patients-mobile' },
+    { id: 'appointments', label: { en: 'Appointments', ar: 'المواعيد' }, desktop: 'appointments-desktop', tablet: 'encounters-tablet', mobile: 'patients-mobile' },
+    { id: 'reports', label: { en: 'Reports', ar: 'التقارير' }, desktop: 'reports-desktop', tablet: 'encounters-tablet', mobile: 'reports-mobile' },
+  ];
+  readonly showcaseScene = signal(this.showcaseScenes[0]);
 
   readonly selectedId = signal(primaryProjects[0].id);
   /** `null` is the default: the visitor scans before they read. */
@@ -137,8 +146,13 @@ export class SystemsComponent implements AfterViewInit {
     return String(index + 1).padStart(2, '0');
   }
 
-  screensFor(project: Project): ProjectScreenshot[] {
-    return [...(project.cover ? [project.cover] : []), ...(project.screenshots ?? [])];
+  screensFor(project: Project, collection?: ProjectScreenshot['collection']): ProjectScreenshot[] {
+    const screens = [...(project.cover ? [project.cover] : []), ...(project.screenshots ?? [])];
+    return collection ? screens.filter((shot) => shot.collection === collection) : screens;
+  }
+
+  showcaseShot(project: Project, name: string): ProjectScreenshot | undefined {
+    return this.screensFor(project).find((shot) => shot.src.endsWith(`/${name}.webp`));
   }
 
   referencesFor(project: Project) {

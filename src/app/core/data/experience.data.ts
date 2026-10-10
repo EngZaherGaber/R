@@ -8,10 +8,10 @@ export const experience: ExperienceEntry[] = [
   {
     id: 'ici',
     kind: 'work',
-    current: true,
+    current: false,
     title: { en: 'Senior Front-End Developer', ar: 'مطوّر واجهات أمامية أول' },
     organization: { en: 'IC&I', ar: 'IC&I' },
-    period: { en: 'June 15, 2023 — Present', ar: '15 حزيران 2023 — حتى الآن' },
+    period: { en: 'June 15, 2023 — October 2026', ar: '15 حزيران 2023 — تشرين الأول 2026' },
     summary: {
       en: 'Enterprise Angular systems: frontend architecture, modernization of inherited applications, and complex business workflows.',
       ar: 'أنظمة Angular مؤسسية: بنية الواجهات، وتحديث تطبيقات موروثة، ومسارات عمل معقّدة.',
@@ -126,7 +126,7 @@ export const experience: ExperienceEntry[] = [
       en: 'Damascus Training Center (UNRWA)',
       ar: 'مركز دمشق للتدريب (الأونروا)',
     },
-    period: { en: '2020 — 2022', ar: '2020 — 2022' },
+    period: { en: '2018 — 2020', ar: '2018 — 2020' },
     summary: {
       en: 'Programming fundamentals, web development and database management.',
       ar: 'أساسيات البرمجة وتطوير الويب وإدارة قواعد البيانات.',
@@ -147,6 +147,21 @@ export const experience: ExperienceEntry[] = [
  * labelled as such in the UI.
  */
 export const recommendations: Recommendation[] = [
+  {
+    id: 'hamza-mansour',
+    name: { en: 'Hamza Mansour', ar: 'حمزة منصور' },
+    position: { en: 'Co-founder (Mandoob)', ar: 'أحد مؤسسي مندوب' },
+    context: {
+      en: 'Collaboration on the Mandoob application',
+      ar: 'التعاون في تطوير تطبيق مندوب',
+    },
+    message: {
+      en: 'Working with Eng. Zaher on the Mandoub application was a smooth and professional experience. He combines technical excellence with outstanding communication and problem-solving skills.',
+      ar: 'كان العمل مع المهندس زاهر على تطبيق مندوب تجربة سلسة واحترافية. يجمع بين التميّز التقني ومهارات تواصل وحل مشكلات متميّزة.',
+    },
+    image: 'hamza-mansour.jpeg',
+    projectIds: ['mandoob'],
+  },
   {
     id: 'motaz-halabi',
     name: { en: 'Motaz Al-Halabi', ar: 'معتز الحلبي' },

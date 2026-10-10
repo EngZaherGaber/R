@@ -89,6 +89,8 @@ export interface ProjectScreenshot {
   caption?: LocalizedText;
   width: number;
   height: number;
+  device?: 'desktop' | 'tablet' | 'mobile';
+  collection?: 'public' | 'workspace';
 }
 
 export interface CaseStudySection {

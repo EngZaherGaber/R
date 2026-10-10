@@ -76,11 +76,11 @@ export const profile: Profile = {
 
 };
 
-/** Employment title, deliberately separate from the personal positioning. */
-export const currentEmployment = {
+/** Previous employment, deliberately separate from the personal positioning. */
+export const previousEmployment = {
   title: { en: 'Senior Front-End Developer', ar: 'مطوّر واجهات أمامية أول' },
-  company: { en: 'IC&I', ar: 'IC&I' },
-  since: { en: 'Since 15 June 2023', ar: 'منذ 15 حزيران 2023' },
+  company: { en: 'Previously at IC&I', ar: 'سابقًا لدى IC&I' },
+  period: { en: 'June 15, 2023 — October 2026', ar: '15 حزيران 2023 — تشرين الأول 2026' },
 };
 
 export const accentColors: AccentColor[] = [

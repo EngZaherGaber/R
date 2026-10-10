@@ -182,6 +182,23 @@
             </div>
           </div>
 
+          @if (project.id === 'nasaq' && project.cover; as cover) {
+            <button
+              type="button"
+              class="showcase-teaser"
+              [attr.aria-label]="workspace.t(ui.systems.openShowcase)"
+              [attr.aria-controls]="'drawer-' + project.id"
+              (click)="toggleMode('screens')"
+            >
+              <span class="showcase-teaser-copy">
+                <span class="mono-label">{{ workspace.t(ui.systems.nasaqShowcaseKicker) }}</span>
+                <strong>{{ workspace.t(ui.systems.nasaqShowcaseTitle) }}</strong>
+                <span>{{ workspace.t(ui.systems.openShowcase) }} <i class="bi bi-arrow-up-right" aria-hidden="true"></i></span>
+              </span>
+              <img [src]="cover.src" [width]="cover.width" [height]="cover.height" alt="" loading="lazy" decoding="async" />
+            </button>
+          }
+
           <!-- --------------------------------------------------- mode nodes -->
           <div class="stage-controls">
             <div class="mode-nodes" role="group" [attr.aria-label]="workspace.t(ui.systems.title)">
@@ -261,30 +278,65 @@
 
             <section class="drawer-panel" [hidden]="selectedId() === project.id && mode() !== 'screens'">
               @if (screensFor(project).length) {
-                <div class="screens">
-                  @for (shot of screensFor(project); track shot.src) {
-                    <figure>
-                      <button
-                        type="button"
-                        #shotButton
-                        [attr.aria-label]="workspace.t(ui.systems.openImage) + ': ' + workspace.t(shot.alt)"
-                        (click)="openLightbox(shot, shotButton)"
-                      >
-                        <img
-                          [src]="shot.src"
-                          [width]="shot.width"
-                          [height]="shot.height"
-                          [alt]="workspace.t(shot.alt)"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </button>
-                      @if (shot.caption) {
-                        <figcaption>{{ workspace.t(shot.caption) }}</figcaption>
+                @if (project.id === 'nasaq') {
+                  <div class="nasaq-showcase">
+                    <header class="showcase-heading">
+                      <p class="mono-label">NASAQ / RESPONSIVE EXPERIENCE</p>
+                      <h4>{{ workspace.t(showcaseScene().label) }}</h4>
+                      <p>{{ workspace.isArabic() ? 'تجربة نسق على سطح المكتب والتابلت والهاتف. اضغط على أي شاشة لاستكشاف تفاصيلها.' : 'Nasaq across desktop, tablet and phone. Select a screen to explore it in detail.' }}</p>
+                    </header>
+                    <div class="device-showcase">
+                      @if (showcaseShot(project, showcaseScene().desktop); as shot) {
+                        <div class="device device--desktop">
+                          <div class="device-chrome"><i></i><i></i><i></i><span>nasaq</span></div>
+                          <button type="button" #desktopShot [attr.aria-label]="workspace.t(ui.systems.openImage) + ': ' + workspace.t(shot.alt)" (click)="openLightbox(shot, desktopShot)">
+                            <img [src]="shot.src" [width]="shot.width" [height]="shot.height" [alt]="workspace.t(shot.alt)" loading="lazy" decoding="async" />
+                          </button>
+                        </div>
                       }
-                    </figure>
-                  }
-                </div>
+                      @if (showcaseShot(project, showcaseScene().tablet); as shot) {
+                        <div class="device device--tablet">
+                          <div class="device-camera"></div>
+                          <button type="button" #tabletShot [attr.aria-label]="workspace.t(ui.systems.openImage) + ': ' + workspace.t(shot.alt)" (click)="openLightbox(shot, tabletShot)">
+                            <img [src]="shot.src" [width]="shot.width" [height]="shot.height" [alt]="workspace.t(shot.alt)" loading="lazy" decoding="async" />
+                          </button>
+                        </div>
+                      }
+                      @if (showcaseShot(project, showcaseScene().mobile); as shot) {
+                        <div class="device device--mobile">
+                          <div class="device-camera"></div>
+                          <button type="button" #mobileShot [attr.aria-label]="workspace.t(ui.systems.openImage) + ': ' + workspace.t(shot.alt)" (click)="openLightbox(shot, mobileShot)">
+                            <img [src]="shot.src" [width]="shot.width" [height]="shot.height" [alt]="workspace.t(shot.alt)" loading="lazy" decoding="async" />
+                          </button>
+                        </div>
+                      }
+                    </div>
+                    <nav class="showcase-scenes" [attr.aria-label]="workspace.isArabic() ? 'واجهات نسق' : 'Nasaq views'">
+                      @for (scene of showcaseScenes; track scene.id) {
+                        <button type="button" [class.active]="showcaseScene().id === scene.id" [attr.aria-pressed]="showcaseScene().id === scene.id" (click)="showcaseScene.set(scene)">{{ workspace.t(scene.label) }}</button>
+                      }
+                    </nav>
+                  </div>
+                } @else {
+                  <div class="screens">
+                    @for (shot of screensFor(project); track shot.src) {
+                      <figure>
+                        <button
+                          type="button"
+                          #shotButton
+                          [attr.aria-label]="workspace.t(ui.systems.openImage) + ': ' + workspace.t(shot.alt)"
+                          (click)="openLightbox(shot, shotButton)"
+                        >
+                          <img [src]="shot.src" [width]="shot.width" [height]="shot.height"
+                            [alt]="workspace.t(shot.alt)" loading="lazy" decoding="async" />
+                        </button>
+                        @if (shot.caption) {
+                          <figcaption>{{ workspace.t(shot.caption) }}</figcaption>
+                        }
+                      </figure>
+                    }
+                  </div>
+                }
               } @else {
                 <p class="pending">{{ workspace.t(ui.systems.noScreens) }}</p>
               }
@@ -314,16 +366,21 @@
                   </p>
                   <p
                     class="reference-text"
-                    [class.is-clamped]="openRecommendation() !== project.id + reference.id"
+                    [class.is-clamped]="reference.message.en.length > 180 && openRecommendation() !== project.id + reference.id"
                   >
                     {{ workspace.t(reference.message) }}
                   </p>
                   <footer>
+                    @if (reference.image) {
+                      <img class="reference-avatar" [src]="reference.image" width="36" height="36" alt="" aria-hidden="true" loading="lazy" />
+                    }
                     <strong>{{ workspace.t(reference.name) }}</strong>
                     <span>{{ workspace.t(reference.position) }}</span>
-                    <button type="button" class="link" (click)="toggleRecommendation(project.id + reference.id)">
-                      {{ workspace.t(openRecommendation() === project.id + reference.id ? ui.systems.close : ui.systems.readFull) }}
-                    </button>
+                    @if (reference.message.en.length > 180) {
+                      <button type="button" class="link" (click)="toggleRecommendation(project.id + reference.id)">
+                        {{ workspace.t(openRecommendation() === project.id + reference.id ? ui.systems.close : ui.systems.readFull) }}
+                      </button>
+                    }
                   </footer>
                   @if (workspace.isArabic()) {
                     <p class="translated">{{ workspace.t(ui.journey.translated) }}</p>

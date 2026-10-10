@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, computed, inject, output } from '@angular/core';
 import { MotionService } from '../../core/services/motion.service';
 import { WorkspacePreferencesService } from '../../core/services/workspace-preferences.service';
-import { currentEmployment } from '../../core/data/profile.data';
+import { previousEmployment } from '../../core/data/profile.data';
 import { SectionId } from '../../core/models/portfolio.model';
 import { ZgLogoComponent } from '../../shared/brand/zg-logo/zg-logo.component';
 
@@ -29,8 +29,8 @@ export class IdentityComponent implements AfterViewInit {
   readonly signals = computed(() => [
     {
       id: 'employment',
-      label: this.workspace.t(currentEmployment.title),
-      value: this.workspace.t(currentEmployment.company),
+      label: this.workspace.t(previousEmployment.title),
+      value: this.workspace.t(previousEmployment.company),
     },
     {
       id: 'founder',

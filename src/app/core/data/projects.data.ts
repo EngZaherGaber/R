@@ -1,4 +1,4 @@
-import { Project, ProjectStatus } from '../models/portfolio.model';
+import { Project, ProjectScreenshot, ProjectStatus } from '../models/portfolio.model';
 
 /**
  * Status vocabulary. Every status carries its own words in both languages so a
@@ -41,6 +41,24 @@ const privateDeployment = {
   },
 } as const;
 
+const nasaqShot = (
+  file: string,
+  device: NonNullable<ProjectScreenshot['device']>,
+  collection: NonNullable<ProjectScreenshot['collection']>,
+  width: number,
+  height: number,
+  en: string,
+  ar: string,
+): ProjectScreenshot => ({
+  src: `Nasaq/${file}.webp`,
+  alt: { en, ar },
+  caption: { en, ar },
+  width,
+  height,
+  device,
+  collection,
+});
+
 export const projects: Project[] = [
   /* ------------------------------------------------------------- flagship */
   {
@@ -79,6 +97,38 @@ export const projects: Project[] = [
       url: 'https://nasaq-preview.onrender.com',
       label: { en: 'Live preview', ar: 'نسخة معاينة' },
     },
+    cover: nasaqShot('home-desktop', 'desktop', 'public', 1440, 900,
+      'Nasaq public home page on desktop', 'الصفحة الرئيسية العامة لنسق على سطح المكتب'),
+    screenshots: [
+      nasaqShot('home-mobile', 'mobile', 'public', 390, 844,
+        'Nasaq public home page on mobile', 'الصفحة الرئيسية العامة لنسق على الجوال'),
+      nasaqShot('directory-desktop', 'desktop', 'public', 1440, 900,
+        'Doctor directory with search filters and published results', 'دليل الأطباء مع مرشحات البحث والنتائج المنشورة'),
+      nasaqShot('directory-tablet', 'tablet', 'public', 768, 1024,
+        'Doctor directory adapted to a tablet screen', 'دليل الأطباء بتخطيط الجهاز اللوحي'),
+      nasaqShot('directory-mobile', 'mobile', 'public', 390, 844,
+        'Doctor directory search on mobile', 'البحث في دليل الأطباء على الجوال'),
+      nasaqShot('profile-desktop', 'desktop', 'public', 1440, 900,
+        'Published doctor profile and appointment entry point', 'الملف المنشور للطبيب ومدخل طلب الموعد'),
+      nasaqShot('booking-desktop', 'desktop', 'public', 1440, 900,
+        'Public appointment request with guided steps', 'طلب الموعد العام بخطوات واضحة'),
+      nasaqShot('app-home-desktop', 'desktop', 'workspace', 1440, 900,
+        'Clinic workspace with role-based access to care workflows', 'مساحة عمل العيادة مع الوصول إلى المسارات حسب الدور'),
+      nasaqShot('patients-desktop', 'desktop', 'workspace', 1440, 900,
+        'Patient registry with names and phone numbers replaced for privacy', 'سجل المرضى بعد استبدال الأسماء وأرقام الهواتف لحماية الخصوصية'),
+      nasaqShot('patients-mobile', 'mobile', 'workspace', 390, 844,
+        'Patient registry cards on mobile with identifying details replaced', 'بطاقات سجل المرضى على الجوال بعد استبدال بيانات التعريف'),
+      nasaqShot('appointments-desktop', 'desktop', 'workspace', 1440, 900,
+        'Appointment management with patient names replaced for privacy', 'إدارة المواعيد بعد استبدال أسماء المرضى لحماية الخصوصية'),
+      nasaqShot('encounters-desktop', 'desktop', 'workspace', 1440, 900,
+        'Clinical encounters with patient and diagnosis details replaced', 'المعاينات السريرية بعد استبدال بيانات المرضى والتشخيص'),
+      nasaqShot('encounters-tablet', 'tablet', 'workspace', 768, 1024,
+        'Clinical encounter cards on tablet with private details replaced', 'بطاقات المعاينات على الجهاز اللوحي بعد استبدال البيانات الخاصة'),
+      nasaqShot('reports-desktop', 'desktop', 'workspace', 1440, 900,
+        'Appointment report grouped by status in the clinic workspace', 'تقرير المواعيد مقسّم حسب الحالة داخل مساحة العيادة'),
+      nasaqShot('reports-mobile', 'mobile', 'workspace', 390, 844,
+        'Appointment report on mobile', 'تقرير المواعيد على الجوال'),
+    ],
     architecture: {
       workspaceLabel: { en: 'Nx workspace', ar: 'مساحة عمل Nx' },
       clients: [
@@ -329,6 +379,7 @@ export const projects: Project[] = [
         'التقييمات',
       ],
     },
+    testimonialIds: ['hamza-mansour'],
   },
 
   {

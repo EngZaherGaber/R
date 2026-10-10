@@ -127,13 +127,6 @@ export class WorkspacePreferencesService {
       return stored;
     }
 
-    if (
-      isPlatformBrowser(this.platformId) &&
-      window.matchMedia?.('(prefers-color-scheme: light)').matches
-    ) {
-      return 'light';
-    }
-
     return 'dark';
   }
 

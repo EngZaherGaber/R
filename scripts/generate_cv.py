@@ -129,7 +129,7 @@ story = [
     ),
     *section("Professional experience"),
     entry(
-        "Senior Front-End Developer", "IC&I · Damascus, Syria", "Jun 2023 - Present",
+        "Senior Front-End Developer", "IC&I · Damascus, Syria", "Jun 2023 - Oct 2026",
         [
             "Re-architected inherited Angular frontends and delivered Tower Load Inventory and Workflow Automation to production.",
             "Built enterprise HR and operations interfaces with complex forms, business rules and multilingual requirements.",
@@ -157,7 +157,7 @@ story = [
     ),
     *section("Education"),
     entry("Information Technology Engineering", "Syrian Virtual University", "2020 - Present", []),
-    entry("Information Technology", "Damascus Training Center (UNRWA)", "2020 - 2022", []),
+    entry("Information Technology", "Damascus Training Center (UNRWA)", "2018 - 2020", []),
     PageBreak(),
     p("SELECTED PROJECTS", "section"),
     HRFlowable(width="100%", thickness=0.7, color=RULE),

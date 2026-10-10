@@ -57,7 +57,7 @@
           var params = new URLSearchParams(location.search);
           var theme = params.get('theme') || localStorage.getItem('portfolio-theme');
           if (theme !== 'light' && theme !== 'dark') {
-            theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+            theme = 'dark';
           }
           document.body.className = theme;
           document.documentElement.setAttribute('data-theme', theme);

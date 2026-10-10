@@ -40,6 +40,14 @@ export const ui = {
     next: { en: 'Next project', ar: 'المشروع التالي' },
     previous: { en: 'Previous project', ar: 'المشروع السابق' },
     openImage: { en: 'Open image', ar: 'فتح الصورة' },
+    openShowcase: { en: 'Explore the screens', ar: 'استكشف الواجهات' },
+    nasaqShowcaseKicker: { en: 'Product walkthrough', ar: 'جولة في المنتج' },
+    nasaqShowcaseTitle: { en: 'Nasaq, from public discovery to clinic work', ar: 'نَسَق، من الدليل العام إلى عمل العيادة' },
+    devices: {
+      desktop: { en: 'Desktop', ar: 'سطح المكتب' },
+      tablet: { en: 'Tablet', ar: 'جهاز لوحي' },
+      mobile: { en: 'Mobile', ar: 'جوال' },
+    },
     closeImage: { en: 'Close image', ar: 'إغلاق الصورة' },
     noScreens: {
       en: 'Screens for this system are not published yet.',
